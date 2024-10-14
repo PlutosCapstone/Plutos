@@ -1,12 +1,9 @@
 # Software Requirements Specification (SRS)
 
-<The SRS is for a single product, not a family of products. A Commonality Analysis is
-more appropriate for a family of products.>
-
-<The template in this folder is suited to Scientific Computing (also known as 
-Research Software) projects>
-
 The folders and files for this folder are as follows:
 
-Describe ...
-
+- Makefile - used to compile the latex document
+- SRS.pdf - the compiled PDF
+- SRS.tex - the latex document
+- SystemContext.png - a diagram representing the system context, used in the SRS
+- traceability_matrix.xlsx - a traceability matrix for the project's requirements, used in the SRS
