@@ -139,13 +139,32 @@ documentation, and/or test cases.}
 
 \section{Safety and Security Requirements}
 
-\wss{Newly discovered requirements.  These should also be added to the SRS.  (A
-rationale design process how and why to fake it.)}
+\begin{enumerate}
+	\item \textbf{Receipt Image Protection:} Applying image sanitization techniques to ensure that malicious content cannot be injected into the app via uploaded images (e.g. XSS). Will also ensure that images of receipts are securely stored using access controls and encryption and should be deleted when they are no longer needed or upon user request.
+	\item \textbf{User Awareness and Education:} Providing users with information about security best practices and secure usage such as how to create strong passwords, recognize phishing attempts, and manage data privacy.
+	\item \textbf{Regular Security Updates:} Our app will be regularly updated to address newly discovered vulnerabilities, both in the app code along with any third-party libraries of frameworks. This will be done on an iterative basis with periodic patch releases (e.g. patch release every 3 weeks).
+	\item \textbf{Data Anonymization:} Before storing or processing any receipts that are uploaded, all sensitive information such as account numbers or personal details will be anonymized to protect user privacy. This is especially important when using data for AI training or analysis.
+	\item \textbf{Physical Device Security:} While the assumption is that users will be on a mobile device, we do require the app to be run on a secure device (e.g. detecting if the device is jailbroken or rooted), This can help against local data theft or tampering. Additionally, we will also provide users with the ability to remotely wipe sensitive financial data and receipts from their devices in the case of loss or theft.
+\end{enumerate}
 
 \section{Roadmap}
 
-\wss{Which safety requirements will be implemented as part of the capstone timeline?
-Which requirements will be implemented in the future?}
+Due to the time constraint of the capstone timeline, there will be only time to implement certain safety/security requirements. The rest of the safety requirements will be implemented in the future (likely following the capstone period). \\
+
+\noindent The requirements that will be implemented as part of the capstone time will be:
+
+\begin{enumerate}
+	\item User Awareness and Education
+	\item Physical Device Security
+\end{enumerate}
+
+\noindent The requirements that will be implemented in the future will be:
+
+\begin{enumerate}
+	\item Receipt Image Protection
+	\item Regular Security Updates
+	\item Data Anonymization
+\end{enumerate}
 
 \newpage{}
 
