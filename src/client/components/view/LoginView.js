@@ -65,7 +65,7 @@ const LoginView = ({ navigation }) => {
       <View style={styles.dividerContainer}>
         <View style={styles.dividerLine} />
         <View>
-          <Text paddingHorizontal="10%">or</Text>
+          <Text paddingHorizontal={30}>or</Text>
         </View>
         <View style={styles.dividerLine} />
       </View>
@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     width: "90%",
+    marginLeft: 50,
   },
   dividerContainer: {
     flexDirection: "row",

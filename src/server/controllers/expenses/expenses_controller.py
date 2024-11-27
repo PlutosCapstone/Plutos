@@ -1,4 +1,5 @@
 from server.daos.expenses.expenses_dao import ExpensesDao
+from flask import jsonify
 
 class ExpensesController:
     @staticmethod
@@ -7,12 +8,11 @@ class ExpensesController:
 
     @staticmethod
     def create_expense(data):
-        if 'image' in data:
-            # TODO: call model with image data
-            print("model called")
-            return
+        if data.files:
+            if 'receipt' not in data.files:
+                return jsonify({"error": "No receipt file provided"}), 400
+            
+            return ExpensesDao.process_receipt(data.files['receipt'])
         
-        return ExpensesDao.create_expense(data)
-        
-    def process_receipt(data):
-        return ExpensesDao.process_receipt(data)
+        return ExpensesDao.create_expense(data.json)
+    

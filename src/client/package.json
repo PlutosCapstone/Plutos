@@ -9,7 +9,7 @@
     "web": "expo start --web",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
-    "prepare": "cd ../.. & husky install src/client/.husky"
+    "prepare": ""
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": "prettier --write"
@@ -18,6 +18,7 @@
     "@expo/metro-runtime": "~3.2.3",
     "@react-native-community/datetimepicker": "^8.2.0",
     "@react-native-community/slider": "^4.5.5",
+    "@react-native-picker/picker": "^2.9.0",
     "@react-navigation/native": "^7.0.3",
     "@react-navigation/stack": "^7.0.5",
     "@tamagui/config": "^1.117.1",

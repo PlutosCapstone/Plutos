@@ -16,6 +16,7 @@ import StatsChartOutlineIcon from "../../assets/icons/StatsChartOutlineIcon";
 import AddExpenseModal from "./AddExpenseModal";
 import DisplayExpenseItems from "./DisplayExpenseItem";
 import * as ImagePicker from "expo-image-picker";
+import ExpensesService from "../../services/expensesService";
 
 const AddExpenseView = ({ navigation }) => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -80,14 +81,7 @@ const AddExpenseView = ({ navigation }) => {
         const formData = new FormData();
         formData.append("receipt", file);
 
-        const response = await fetch(
-          "http://127.0.0.1:5001/api/expenses/receipt",
-          {
-            method: "POST",
-            body: formData,
-          },
-        );
-        const responseData = await response.json();
+        const responseData = await ExpensesService.createExpense(formData);
 
         const receipt_items = responseData.items;
         for (let i = 0; i < receipt_items.length; i++) {
@@ -166,10 +160,12 @@ const AddExpenseView = ({ navigation }) => {
             <AddCircleIcon size={24} style={styles.icon} />
           </TouchableOpacity>
         </View>
-        <DisplayExpenseItems
-          items={items}
-          onExpenseDelete={handleExpenseDelete}
-        />
+        <View style={styles.scannedItemsContainer}>
+          <DisplayExpenseItems
+            items={items}
+            onExpenseDelete={handleExpenseDelete}
+          />
+        </View>
       </View>
 
       <View style={styles.bottomNav}>
@@ -256,6 +252,9 @@ const styles = StyleSheet.create({
   },
   itemsContainer: {
     marginBottom: 20,
+  },
+  scannedItemsContainer: {
+    height: 320,
   },
   addItemButton: {
     alignSelf: "flex-start",

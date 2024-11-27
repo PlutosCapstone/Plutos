@@ -3,11 +3,11 @@ import { StyleSheet } from "react-native";
 export const ICON_SIZE = 26;
 
 export const DEFAULT_COLOURS = {
-    secondary: "#A9A9A9",
-    primary: "#9E599A",
-    tertiary: "0F7173",
-    // TODO: change name of this
-    secondarySubmit: "#272932",
+  secondary: "#A9A9A9",
+  primary: "#9E599A",
+  tertiary: "0F7173",
+  // TODO: change name of this
+  secondarySubmit: "#272932",
 };
 
 export const commonStyles = StyleSheet.create({
@@ -15,7 +15,7 @@ export const commonStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    width: "100%"
+    width: "100%",
   },
   headerContainer: {
     paddingTop: 50,
@@ -43,12 +43,12 @@ export const commonStyles = StyleSheet.create({
     marginTop: 20,
   },
   secondaryButton: {
-      paddingVertical: 12,
-      paddingHorizontal: 30,
-      backgroundColor: "#EDEDED",
-      marginTop: 20,
-      borderRadius: 10,
-    },
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    backgroundColor: "#EDEDED",
+    marginTop: 20,
+    borderRadius: 10,
+  },
   submitText: {
     fontSize: 16,
     lineHeight: 21,
@@ -91,7 +91,7 @@ export const commonStyles = StyleSheet.create({
     letterSpacing: 0.25,
   },
   secondaryText: {
-      fontSize: 12,
-      color: "black",
-    },
+    fontSize: 12,
+    color: "black",
+  },
 });

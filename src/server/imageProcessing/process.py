@@ -2,14 +2,15 @@ from PIL import Image, ImageEnhance, ImageFilter
 import pandas as pd
 import pytesseract
 import numpy as np
+from dotenv import load_dotenv
+import os
 
 import server.imageProcessing.categorization as categorization
 import server.imageProcessing.utils as utils
 
+load_dotenv();
 
-pytesseract.pytesseract.tesseract_cmd = (
-    r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-)
+pytesseract.pytesseract.tesseract_cmd = os.getenv('TESSERACT_PATH')
 pd.set_option("display.max_rows", None)
 
 

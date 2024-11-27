@@ -1,13 +1,6 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  Picker,
-  Button,
-  StyleSheet,
-  Modal,
-} from "react-native";
+import { View, Text, TextInput, Button, StyleSheet, Modal } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import { v4 as uuidv4 } from "uuid";
 
 const AddExpenseModal = ({ visible, onClose, onSave }) => {

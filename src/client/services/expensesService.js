@@ -3,7 +3,11 @@ import api from "../api/api";
 const ExpensesService = {
   createExpense: async (expenseData) => {
     try {
-      const response = await api.post("/expenses", expenseData);
+      const response = await api.post("/expenses/", expenseData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       return response.data;
     } catch (error) {
       console.error("Error creating expense:", error.message);
