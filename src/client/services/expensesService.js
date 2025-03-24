@@ -48,6 +48,20 @@ const ExpensesService = {
     }
   },
 
+  getUserTransactions: async (userid) => {
+    try {
+      const response = await api.get(`/transactions/${userid}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching transactions:", error.message);
+      throw error;
+    }
+  },
+
   updateExpense: async (expenseId, updatedData) => {
     try {
       const response = await api.put(`/expenses/${expenseId}`, updatedData);

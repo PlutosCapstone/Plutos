@@ -21,6 +21,7 @@ interface MyExpensesProp {
 const MyExpenses = ({ navigation }: MyExpensesProp) => {
   const { user } = useUser();
   const [expenses, setExpenses] = useState([]);
+  const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const returnHandler = () => {
@@ -39,6 +40,20 @@ const MyExpenses = ({ navigation }: MyExpensesProp) => {
       }
     };
     getExpenses();
+  }, [user]);
+
+  useEffect(() => {
+    const getTransactions = async () => {
+      try {
+        const transactions = await ExpensesService.getUserTransactions(
+          user?.userid,
+        );
+        setTransactions(transactions);
+      } catch (error) {
+        throw error;
+      }
+    };
+    getTransactions();
   }, [user]);
 
   const addNewExpenseHandler = () => {
@@ -63,9 +78,8 @@ const MyExpenses = ({ navigation }: MyExpensesProp) => {
           <AddIcon size={35} />
         </Pressable>
       </View>
-
       {expenses.length > 0 ? (
-        <ExpensesList transactions={expenses} />
+        <ExpensesList expenses={expenses} transactions={transactions} />
       ) : (
         <Text>No Expenses</Text>
       )}
