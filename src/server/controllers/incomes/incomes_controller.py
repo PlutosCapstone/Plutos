@@ -1,5 +1,4 @@
 from server.daos.incomes.incomes_dao import IncomesDao
-from flask import jsonify
 
 
 class IncomesController:

@@ -1,5 +1,4 @@
 from server.daos.budget.budget_dao import BudgetDao
-from flask import jsonify
 
 
 class BudgetController:

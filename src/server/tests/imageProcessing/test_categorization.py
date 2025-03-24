@@ -1,11 +1,10 @@
-import pytest
 import sys
 import os
 import pandas as pd
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
-from server.imageProcessing.categorization import Categorizer
+from server.imageProcessing.categorization import Categorizer  # noqa: E402
 
 categorizer = Categorizer()
 base_path = os.path.dirname(os.path.abspath(__file__))

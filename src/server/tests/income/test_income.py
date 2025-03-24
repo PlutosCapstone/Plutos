@@ -4,7 +4,7 @@ import os
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
-from app import app
+from app import app  # noqa: E402
 
 
 @pytest.fixture
@@ -43,7 +43,7 @@ def test_get_incomes_valid_user(client):
 def test_get_incomes_invalid_user(client):
     test_email = "nonexistentuser@test.com"
 
-    response = client.get(f"/api/incomes/{test_email}")
+    client.get(f"/api/incomes/{test_email}")
     """ To be implemented """
     # assert response.status_code == 404
 
