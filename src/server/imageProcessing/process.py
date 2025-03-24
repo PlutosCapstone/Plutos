@@ -13,7 +13,7 @@ from server.models import Receipt, Expense
 
 load_dotenv()
 
-pytesseract.pytesseract.tesseract_cmd = os.getenv('TESSERACT_PATH')
+pytesseract.pytesseract.tesseract_cmd = os.getenv("TESSERACT_PATH")
 pd.set_option("display.max_rows", None)
 
 
@@ -31,7 +31,9 @@ class ImageProcessor:
     def _preprocess_image(self, image: np.array) -> np.array:
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         denoised = cv2.fastNlMeansDenoising(gray, None, 30, 7, 21)
-        threshold_img = cv2.adaptiveThreshold(denoised, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
+        threshold_img = cv2.adaptiveThreshold(
+            denoised, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2
+        )
         return threshold_img
 
     def _extract_text_from_image(self, image: np.array, verbose=False) -> list[str]:
@@ -39,7 +41,6 @@ class ImageProcessor:
         if verbose:
             print(text)
         return text.split("\n")
-
 
     def _process_items_list(self, text_arr: list) -> tuple:
         subtotal = 0
@@ -88,10 +89,9 @@ class ImageProcessor:
             date=date,
             calculated_total=round(calculated_total, 2),
             subtotal=subtotal,
-            items=[]
+            items=[],
         )
         return receipt, items
-
 
     def _jsonify_data(self, items: list, verbose=False) -> pd.DataFrame:
         items_cleaned = []
@@ -105,7 +105,9 @@ class ImageProcessor:
 
         return pd.DataFrame(items_cleaned, columns=["name", "price"])
 
-    def _format_item_results(self, receipt: Receipt, categorized_data: pd.DataFrame) -> None:
+    def _format_item_results(
+        self, receipt: Receipt, categorized_data: pd.DataFrame
+    ) -> None:
         for i, row in categorized_data.iterrows():
             expense = Expense(
                 name=row["name"],
@@ -116,7 +118,7 @@ class ImageProcessor:
                 email=None,
             )
             receipt.add_item(expense)
-    
+
     def _parse_image(self, filepath: str):
         image = cv2.imread(filepath)
         image = self._preprocess_image(image)

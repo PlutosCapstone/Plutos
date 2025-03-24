@@ -33,8 +33,6 @@
 \midrule
 03/10/2025 & 0.1 & Rev0\\
 \ldots & \ldots & \ldots\\
-03/10/2025 & 0.1 & Rev0\\
-\ldots & \ldots & \ldots\\
 \bottomrule
 \end{tabularx}
 
@@ -72,6 +70,8 @@ In addition, the following abbreviations are used in this document:\\
 \tableofcontents
 
 \listoftables %if appropriate
+
+\listoffigures %if appropriate
 
 \newpage
 
@@ -208,30 +208,30 @@ All front-end unit tests can be found in the \href{https://github.com/PlutosCaps
 Refer to Table \ref{tab:unit-testing} for unit test traceability table.
 
 \begin{table}[h!]
-  \caption{Unit Testing Table} \label{tab:unit-testing}
+  \caption{Test traceability Table} \label{tab:unit-testing}
   \centering
   \renewcommand{\arraystretch}{1.3}
   \begin{tabular}{| m{5cm} | m{8cm} |}
       \hline
       \textbf{Test} & \textbf{Testing plan} \\
       \hline
-      test-UAM-1: Account creation &  \\
+      test-UAM-1: Account creation & test\_users.py \\
       \hline
-      test-UAM-2: User login &  \\
+      test-UAM-2: User login & Manual testing \\
       \hline
-      test-UAM-3: User logout &  \\
+      test-UAM-3: User logout & Manual testing \\
       \hline
-      test-UAM-4: Account update &  \\
+      test-UAM-4: Account update & test\_users.py \\
       \hline
-      test-UAM-5: Authorization access &  \\
+      test-UAM-5: Authorization access & test\_users.py \\
       \hline
       test-UAM-6: Password reset & Manual testing \\
       \hline
       test-IP-1: Image upload & Manual testing \\
       \hline
-      test-IP-2: Image preview &  \\
+      test-IP-2: Image preview & Manual testing \\
       \hline
-      test-IP-3: Image upload file size limit &  \\
+      test-IP-3: Image upload file size limit & Manual testing \\
       \hline
       test-MIS-1: Manual input expense & AddExpenseView.test.tsx, AddExpenseModal.test.tsx \\
       \hline
@@ -248,10 +248,23 @@ Refer to Table \ref{tab:unit-testing} for unit test traceability table.
 
 \section{Changes Due to Testing}
 
-\wss{This section should highlight how feedback from the users and from 
-the supervisor (when one exists) shaped the final product.  In particular 
-the feedback from the Rev 0 demo to the supervisor (or to potential users) 
-should be highlighted.}
+In accordance to the feedback provided through the Rev 0 demo and other users, the application will undergo small modifications to address these responses. 
+A key component that was brought up during the Rev 0 demo was the importance for users to be able to modify the data entries within the app with relative ease.
+Following the initial development schedule, the categorization model is constantly being refined and has a possibility of misclassification. The system should 
+allow the users to make changes to these inputs manually to improve overall usability. A few other suggestions revolving around usability were small features such as
+autofilling item entries and providing adaptable user metrics.\\
+
+One small change was made to the requirements regarding accuracy. The accuracy of the categorization model, which was initially targeted to reach around 90\%, 
+will now only require an 80\% level of accuracy. This adjustment was made to enhance the model’s generalization, which in turn reduces ambiguity during data 
+classification. Allowing the model to be less rigid helps it handle real-world, diverse data more effectively. Additionally, the ability for users to modify 
+misclassified entries will further help address any discrepancies and improve the overall accuracy.\\
+
+At the moment, the core functional components of the application have been tested by a select group of users, providing feedback on its performance and usability. 
+However, we have yet to conduct larger-scale usability testing to assess the flow of the entire app. Once we finalize the implementation of the smaller 
+ features, such as autofill options and adaptable user metrics, we plan to conduct further tests to optimize usability. This will involve a broader range of users to ensure 
+ that every criteria set for the system at the beginning of the project was met. By focusing on the complete flow of the application, we aim
+to have testers evaluate all the smaller aspects of the app and how they work cohesively with the main functional components, ensuring that each part functions 
+seamlessly together for an optimal user experience.
 
 \section{Automated Testing}
 
@@ -306,11 +319,39 @@ graduate attribute of Reflection.
 \input{../Reflection.tex}
 
 \begin{enumerate}
-  \item What went well while writing this deliverable? 
-  \item What pain points did you experience during this deliverable, and how
-    did you resolve them?
+  \item What went well while writing this deliverable? \\
+  While writing the VnV report, it was noteworthy that the collaborative effort 
+  among team members was highly effective. As we assigned each member a different
+  area of testing, we ensured that the results brought into our meetings were insightful
+  and understood by all of the other group members. This collaboration not only enhanced 
+  the quality of the content but also ensured that all perspectives in response to the 
+  feedback were considered. Finally, the thorough testing conducted prior to writing 
+  the report provided a good foundation to plan out the future steps of development. 
+  This allowed us to present concrete evidence of our findings, validating the findings 
+  outlined in the report.
+  \item What pain points did you experience during this deliverable, and how did you resolve them?\\
+    One challenge we faced was managing all of the feedback received from Rev 0 as well 
+    as the feedback provided from the users. There were some differing opinions as to how 
+    we should address these responses moving forward. We held a meeting to discuss the 
+    feedback together, allowing us to prioritize the most important points and agree on 
+    how to approach them within our implementation. Another challenge was ensuring the 
+    technical details, especially in the testing and results sections, were accurate. 
+    Some team members had more knowledge of their assigned testing areas, which could 
+    create gaps. To mitigate these gaps we had several meetings where team members shared 
+    their expertise, helping improve our understanding and ensure the report was well written
+    and that all group members had a solid understanding of all testing aspects.
   \item Which parts of this document stemmed from speaking to your client(s) or
-  a proxy (e.g. your peers)? Which ones were not, and why?
+  a proxy (e.g. your peers)? Which ones were not, and why?\\
+  Several sections of the VnV report were shaped by feedback from clients and peers. 
+  For example, the "Changes Due to Testing" section was influenced by the input provided by 
+  the instructor and TA during the Rev 0 demo, which highlighted the need for better 
+  usability features. This led us to adjust our focus to user-centered features. Peer reviews 
+  also helped refine our assessment of functional and nonfunctional requirements.
+  On the contrary, some parts of the report, like the technical details of testing methods 
+  and code coverage metrics, were based on internal discussions and research. These sections 
+  relied on our team's expertise and the VnV Plan, as they required a deeper understanding 
+  of the system's technical aspects, while the feedback focused more on the project’s overall 
+  direction.
   \item In what ways was the Verification and Validation (VnV) Plan different
   from the activities that were actually conducted for VnV?  If there were
   differences, what changes required the modification in the plan?  Why did
@@ -318,7 +359,16 @@ graduate attribute of Reflection.
   projects?  If there weren't any differences, how was your team able to clearly
   predict a feasible amount of effort and the right tasks needed to build the
   evidence that demonstrates the required quality?  (It is expected that most
-  teams will have had to deviate from their original VnV Plan.)
+  teams will have had to deviate from their original VnV Plan.)\\
+  The content of the VnV report differed from the original plan due to continuous feedback, 
+  unforeseen technical challenges, and a greater emphasis on features revolving around usability. 
+  We had to modify our approach by expanding user-focused testing, introducing additional test 
+  cases, and addressing unexpected issues. These changes occurred as we gained new insights 
+  and encountered limitations in our initial assumptions. To improve future planning, we can 
+  allocate more buffer time, conduct early individual pilot tests for core functional features, and 
+  allow for more flexibility in our initial VnV plan. Despite these deviations, our team 
+  effectively adapted to ensure a thorough validation process with sufficient coverage to guide
+  further development.
 \end{enumerate}
 
 \end{document}

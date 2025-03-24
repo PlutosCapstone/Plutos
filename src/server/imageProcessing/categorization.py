@@ -12,12 +12,14 @@ load_dotenv()
 COHERE_API_KEY = os.environ.get("cohere_api_key")
 COHERE_MODEL_ID = os.environ.get("cohere_model_id")
 
+
 class Categorizer:
-    def __init__(self,
-                 model_path: str = "model/model.pkl",
-                 vectorizer_path: str = "model/vectorizer.pkl",
-                 label_encoder_path: str = "model/label_encoder.pkl"
-                 ):
+    def __init__(
+        self,
+        model_path: str = "model/model.pkl",
+        vectorizer_path: str = "model/vectorizer.pkl",
+        label_encoder_path: str = "model/label_encoder.pkl",
+    ):
         base_path = os.path.dirname(os.path.abspath(__file__))
 
         with open(os.path.join(base_path, model_path), "rb") as f:
@@ -32,9 +34,7 @@ class Categorizer:
         self.model_id = COHERE_MODEL_ID
 
     def categorize(self, items: pd.DataFrame) -> pd.DataFrame:
-        response = self.co.classify(
-            model=self.model_id,
-            inputs=items["name"].tolist())
+        response = self.co.classify(model=self.model_id, inputs=items["name"].tolist())
         predictions = response.classifications
         categories = [prediction.prediction for prediction in predictions]
         items["category"] = categories

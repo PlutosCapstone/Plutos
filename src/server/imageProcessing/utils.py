@@ -1,6 +1,5 @@
 import re
 import calendar
-import Levenshtein as lev
 
 
 def is_float(value):
@@ -30,10 +29,15 @@ def split_item(item: str, verbose=False):
     if match:
         # clean up item name
         item_name_raw = list(match.group(1))
-        item_name = "".join([ch for ch in item_name_raw if ch.isalnum() or ch in [" ", ".", "-"]])
+        item_name = "".join(
+            [ch for ch in item_name_raw if ch.isalnum() or ch in [" ", ".", "-"]]
+        )
         if not any(ch.isalpha() for ch in item_name):
             if verbose:
-                print("Item name does not contain any alphabetic characters, skipping", item)
+                print(
+                    "Item name does not contain any alphabetic characters, skipping",
+                    item,
+                )
             return None, 0
 
         # clean up price
@@ -53,7 +57,9 @@ def split_item(item: str, verbose=False):
             print("No match found.", item)
         return None, 0
 
+
 list_months = list(calendar.month_abbr)[1:]
+
 
 def parse_date(text: str):
     """
