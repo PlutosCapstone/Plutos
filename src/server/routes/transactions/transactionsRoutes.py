@@ -1,5 +1,7 @@
 from flask import Blueprint, jsonify, request
-from server.controllers.transactions.transactions_controller import TransactionsController
+from server.controllers.transactions.transactions_controller import (
+    TransactionsController,
+)
 from datetime import datetime, timedelta
 
 transactions = Blueprint("transactions", __name__)
@@ -16,3 +18,11 @@ def getTransactions(userId):
         end_date = (datetime.now()).strftime("%Y-%m-%d")
 
     return jsonify(TransactionsController.get(userId, start_date, end_date))
+
+
+@transactions.route("/", methods=["POST"])
+def createTransaction():
+    data = request.get_json()
+    new_transaction = TransactionsController.create(data)
+
+    return jsonify(new_transaction), 201

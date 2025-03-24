@@ -35,6 +35,13 @@ type Item = {
   transactionDate: string;
 };
 
+type Transaction = {
+  date: string;
+  store: string;
+  userId: number;
+  expenses: Item[];
+};
+
 const AddExpenseView = ({ navigation }: AddExpenseViewProps) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [items, setItems] = useState<Item[]>([]);
@@ -68,8 +75,13 @@ const AddExpenseView = ({ navigation }: AddExpenseViewProps) => {
   };
 
   const saveExpenseHandler = async () => {
-    // To-do
-    await ExpensesService.createExpense(items);
+    const transaction: Transaction = {
+      date: date || new Date().toISOString(),
+      store: storeName,
+      userId: user!.userid,
+      expenses: items,
+    };
+    await ExpensesService.createExpense(transaction);
     navigation.navigate("MyExpenses");
   };
 

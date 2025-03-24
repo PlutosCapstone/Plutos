@@ -5,3 +5,6 @@ class TransactionsController:
     @staticmethod
     def get(user_id, start_date, end_date):
         return TransactionsDao.get(user_id, start_date, end_date)
+
+    def create(data):
+        return TransactionsDao.create(data)

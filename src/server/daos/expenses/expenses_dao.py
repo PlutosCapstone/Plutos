@@ -61,7 +61,12 @@ class ExpensesDao:
 
     @staticmethod
     def get_by_transaction(transaction_id):
-        response = db.table("expenses").select("name, cost, category").eq("transaction_id", transaction_id).execute()
+        response = (
+            db.table("expenses")
+            .select("name, cost, category")
+            .eq("transaction_id", transaction_id)
+            .execute()
+        )
         return response.data
 
     @staticmethod

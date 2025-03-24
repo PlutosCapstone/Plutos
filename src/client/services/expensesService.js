@@ -1,11 +1,11 @@
 import api from "../api/api";
 
 const ExpensesService = {
-  createExpense: async (expenseData) => {
+  createExpense: async (transaction) => {
     try {
       const response = await api.post(
-        "/expenses/",
-        JSON.stringify(expenseData),
+        "/transactions/",
+        JSON.stringify(transaction),
         {
           headers: {
             "Content-Type": "application/json",

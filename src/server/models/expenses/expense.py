@@ -2,13 +2,23 @@ from datetime import datetime
 
 
 class Expense:
-    def __init__(self, raw_name, name, cost, category, transaction_date, email):
+    def __init__(
+        self,
+        raw_name,
+        name,
+        cost,
+        category,
+        transaction_date,
+        email,
+        transaction_id=None,
+    ):
         self.raw_name = raw_name
         self.name = name
         self.transaction_date = transaction_date
         self.cost = cost
         self.category = category
         self.email = email
+        self.transaction_id = transaction_id
 
     def to_dict(self):
         return {
@@ -18,6 +28,7 @@ class Expense:
             "category": self.category,
             "transaction_date": self.transaction_date,
             "email": self.email,
+            "transaction_id": str(self.transaction_id),
         }
 
     @staticmethod
@@ -30,4 +41,5 @@ class Expense:
             category=data.get("category") or "Other",
             transaction_date=data.get("transaction_date") or today,
             email=data.get("email"),
+            transaction_id=data.get("transaction_id"),
         )

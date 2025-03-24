@@ -1,7 +1,6 @@
 from server.models.transactions.transaction import Transaction
 from server.db import db
 from server.daos.expenses.expenses_dao import ExpensesDao
-import datetime
 
 
 class TransactionsDao:
@@ -22,3 +21,17 @@ class TransactionsDao:
             transaction["expenses"] = expenses
 
         return transactions
+
+    @staticmethod
+    def create(data):
+        transaction = Transaction.from_dict(data)
+        new_transaction = (
+            db.table("transactions").insert(transaction.to_dict()).execute()
+        )
+
+        expenses = data["expenses"]
+        for expense in expenses:
+            expense["transaction_id"] = transaction.id
+        expenses = ExpensesDao.bulk_create_expenses(expenses)
+
+        return new_transaction.data
