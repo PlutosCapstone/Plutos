@@ -5,7 +5,6 @@ on:
     paths:
       - 'src/server/**'
 
-
 jobs:
   build:
     name: Lint and test Plutos App
@@ -23,15 +22,15 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install setuptools==77.0.3
           pip install -r requirements.txt
         working-directory: src/server
 
-      # - name: Run lint
-      #   run: |
-      #     pip install flake8
-      #     flake8 .
-      #   working-directory: src/server
+      - name: Run lint
+        run: |
+          pip install flake8
+          flake8 .
+        working-directory: src/server
+
       - name: Write secrets to .env file
         run: |
           echo "supabaseUrl=${{ secrets.SUPABASEURL }}" >> .env
