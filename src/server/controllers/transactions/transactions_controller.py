@@ -1,0 +1,7 @@
+from server.daos.transactions.transactions_dao import TransactionsDao
+
+
+class TransactionsController:
+    @staticmethod
+    def get(user_id, start_date, end_date):
+        return TransactionsDao.get(user_id, start_date, end_date)

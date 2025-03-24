@@ -23,4 +23,7 @@ def create_app():
 
     app.register_blueprint(budget, url_prefix="/api/budget")
 
+    from server.routes.transactions.transactionsRoutes import transactions
+    app.register_blueprint(transactions, url_prefix="/api/transactions")
+
     return app
