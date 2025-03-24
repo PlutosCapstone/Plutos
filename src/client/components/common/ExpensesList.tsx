@@ -108,9 +108,36 @@ const transformDataForSectionList2 = (data: any[]) => {
 type ExpensesListProps = {
   expenses: never[] | null;
   transactions: never[] | null;
+  addNewExpenseHandler: () => void;
 };
 
-const DateGroupList = ({ data }: any) => {
+const TransactionCard = ({ transaction, addNewExpenseHandler }: any) => {
+  return (
+    <TouchableOpacity onPress={() => addNewExpenseHandler(transaction)}>
+      <View
+        style={{
+          backgroundColor: "#fff",
+          borderRadius: 8,
+          padding: 20, // Increased padding to make it taller
+          marginVertical: 5,
+          shadowColor: "#000",
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.1,
+          shadowRadius: 4,
+          elevation: 3,
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <Text style={styles.expenseName}>{transaction.store}</Text>
+        <Text style={styles.expenseAmount}>
+          -${transaction.total.toFixed(2)}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
+const DateGroupList = ({ data, addNewExpenseHandler }: any) => {
   const date = Object.keys(data)[0];
   const transactions = data[date]["data"];
 
@@ -121,27 +148,11 @@ const DateGroupList = ({ data }: any) => {
 
         {transactions.map((transaction: any) => {
           return (
-            <View
+            <TransactionCard
               key={transaction.id}
-              style={{
-                backgroundColor: "#fff",
-                borderRadius: 8,
-                padding: 20, // Increased padding to make it taller
-                marginVertical: 5,
-                shadowColor: "#000",
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.1,
-                shadowRadius: 4,
-                elevation: 3,
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              <Text style={styles.expenseName}>{transaction.store}</Text>
-              <Text style={styles.expenseAmount}>
-                -${transaction.total.toFixed(2)}
-              </Text>
-            </View>
+              transaction={transaction}
+              addNewExpenseHandler={addNewExpenseHandler}
+            />
           );
         })}
       </View>
@@ -174,7 +185,11 @@ const TabButtons = ({ selectedTab, setSelectedTab, index, text }) => {
   );
 };
 
-const ExpensesList = ({ expenses, transactions }: ExpensesListProps) => {
+const ExpensesList = ({
+  expenses,
+  transactions,
+  addNewExpenseHandler,
+}: ExpensesListProps) => {
   const groupedExpenses = groupExpenseData(expenses ?? []);
   const transFormedExpenses = transformDataForSectionList(groupedExpenses);
 
@@ -243,7 +258,11 @@ const ExpensesList = ({ expenses, transactions }: ExpensesListProps) => {
       {selectedTab === 1 && (
         <ScrollView>
           {groupedTransactions.map((group) => (
-            <DateGroupList key={Object.keys(group)[0]} data={group} />
+            <DateGroupList
+              key={Object.keys(group)[0]}
+              data={group}
+              addNewExpenseHandler={addNewExpenseHandler}
+            />
           ))}
         </ScrollView>
       )}

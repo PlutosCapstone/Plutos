@@ -23,6 +23,7 @@ import { useUser } from "../../contexts/UserContext";
 
 interface AddExpenseViewProps {
   navigation: NavigationProps;
+  route: any | null;
 }
 
 type Item = {
@@ -42,7 +43,10 @@ type Transaction = {
   expenses: Item[];
 };
 
-const AddExpenseView = ({ navigation }: AddExpenseViewProps) => {
+const AddExpenseView = ({ navigation, route }: AddExpenseViewProps) => {
+  const transactionData = route;
+  console.log("made it");
+
   const [isModalVisible, setModalVisible] = useState(false);
   const [items, setItems] = useState<Item[]>([]);
   const [date, setDate] = useState("");
@@ -54,6 +58,19 @@ const AddExpenseView = ({ navigation }: AddExpenseViewProps) => {
 
   const openModal = () => setModalVisible(true);
   const closeModal = () => setModalVisible(false);
+
+  React.useEffect(() => {
+    if (transactionData) {
+      setDate(transactionData.date);
+      setStoreName(transactionData.store);
+      setItems(
+        transactionData.expenses.map((item: Item) => ({
+          ...item,
+          email: user?.email || "",
+        })),
+      );
+    }
+  }, []);
 
   const handleSaveItem = (item: Item) => {
     setItems((prevItems) => [
@@ -151,7 +168,9 @@ const AddExpenseView = ({ navigation }: AddExpenseViewProps) => {
           <TouchableOpacity onPress={returnHandler}>
             <Text style={styles.headerButton}>Cancel</Text>
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Add Expense</Text>
+          <Text style={styles.headerTitle}>
+            {transactionData ? "Update Expense" : "Add Expense"}
+          </Text>
           <TouchableOpacity onPress={saveExpenseHandler} testID="save-button">
             <Text style={styles.headerButton}>Save</Text>
           </TouchableOpacity>

@@ -56,8 +56,8 @@ const MyExpenses = ({ navigation }: MyExpensesProp) => {
     getTransactions();
   }, [user]);
 
-  const addNewExpenseHandler = () => {
-    navigation.navigate("NewExpense");
+  const addNewExpenseHandler = (route?: any | null) => {
+    navigation.navigate("NewExpense", route);
   };
 
   if (loading)
@@ -74,12 +74,19 @@ const MyExpenses = ({ navigation }: MyExpensesProp) => {
           <BackArrow size={25} />
         </Pressable>
         <Text style={styles.title}>My Expenses</Text>
-        <Pressable style={styles.addIcon} onPress={addNewExpenseHandler}>
+        <Pressable
+          style={styles.addIcon}
+          onPress={() => addNewExpenseHandler()}
+        >
           <AddIcon size={35} />
         </Pressable>
       </View>
       {expenses.length > 0 ? (
-        <ExpensesList expenses={expenses} transactions={transactions} />
+        <ExpensesList
+          expenses={expenses}
+          transactions={transactions}
+          addNewExpenseHandler={addNewExpenseHandler}
+        />
       ) : (
         <Text>No Expenses</Text>
       )}

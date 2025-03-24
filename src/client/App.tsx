@@ -46,9 +46,12 @@ const ManageStack = () => {
         )}
       </Stack.Screen>
       <Stack.Screen name="NewExpense">
-        {({ navigation }) => (
+        {({ navigation, route }) => (
           <DefaultLayout>
-            <AddExpenseView navigation={navigation} />
+            <AddExpenseView
+              navigation={navigation}
+              route={route?.params || null}
+            />
           </DefaultLayout>
         )}
       </Stack.Screen>
