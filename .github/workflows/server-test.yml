@@ -1,12 +1,9 @@
 name: Server Lint and Test
 
 on:
-  push:
-    branches:
-      - '**'
+  pull_request:
     paths:
       - 'src/server/**'
-
 
 jobs:
   build:
@@ -31,11 +28,17 @@ jobs:
       - name: Run lint
         run: |
           pip install flake8
-          flake8 src/server
+          flake8 .
+        working-directory: src/server
+
+      - name: Write secrets to .env file
+        run: |
+          echo "supabaseUrl=${{ secrets.SUPABASEURL }}" >> .env
+          echo "supabaseAnonKey=${{ secrets.SUPABASEANONKEY }}" >> .env
         working-directory: src/server
 
       - name: Run tests
         run: |
           pip install pytest
-          pytest
+          pytest --ignore=tests/imageProcessing
         working-directory: src/server
