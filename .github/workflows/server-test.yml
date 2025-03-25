@@ -35,6 +35,7 @@ jobs:
         run: |
           echo "supabaseUrl=${{ secrets.SUPABASEURL }}" >> .env
           echo "supabaseAnonKey=${{ secrets.SUPABASEANONKEY }}" >> .env
+          echo "env=test" >> .env
         working-directory: src/server
 
       - name: Run tests

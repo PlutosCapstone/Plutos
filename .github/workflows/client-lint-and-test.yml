@@ -12,6 +12,8 @@ jobs:
   build:
     name: Lint and test Plutos App
     runs-on: ubuntu-latest
+    env: 
+      IP_ADDRESS: 127.0.0.1
 
     steps:
       - name: Checkout code
