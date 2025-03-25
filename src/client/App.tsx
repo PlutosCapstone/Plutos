@@ -50,7 +50,7 @@ const ManageStack = () => {
           <DefaultLayout>
             <AddExpenseView
               navigation={navigation}
-              route={route?.params || null}
+              params={route?.params || null}
             />
           </DefaultLayout>
         )}

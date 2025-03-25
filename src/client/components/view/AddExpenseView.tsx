@@ -23,7 +23,10 @@ import { useUser } from "../../contexts/UserContext";
 
 interface AddExpenseViewProps {
   navigation: NavigationProps;
-  route: any | null;
+  params?: {
+    transactionData?: any;
+    onChange?: () => void;
+  } | null;
 }
 
 type Item = {
@@ -43,8 +46,9 @@ type Transaction = {
   expenses: Item[];
 };
 
-const AddExpenseView = ({ navigation, route }: AddExpenseViewProps) => {
-  const transactionData = route;
+const AddExpenseView = ({ navigation, params }: AddExpenseViewProps) => {
+  const transactionData = params?.transactionData;
+  const onSaveHandler = params?.onChange;
 
   const [isModalVisible, setModalVisible] = useState(false);
   const [items, setItems] = useState<Item[]>([]);
@@ -124,6 +128,10 @@ const AddExpenseView = ({ navigation, route }: AddExpenseViewProps) => {
     } else {
       await ExpensesService.createExpense(transaction);
     }
+    if (onSaveHandler) {
+      console.log("SAVVEEE");
+    }
+    onSaveHandler && onSaveHandler();
     returnHandler();
   };
 

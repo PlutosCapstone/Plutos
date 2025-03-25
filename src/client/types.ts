@@ -33,7 +33,12 @@ type RootStackParamList = {
   Profile: undefined;
   Main: undefined;
   MyExpenses: undefined;
-  NewExpense: undefined;
+  NewExpense:
+    | {
+        transactionData?: any;
+        onChange?: () => void;
+      }
+    | undefined;
   MyBudget: undefined;
   NewBudget: undefined;
 };

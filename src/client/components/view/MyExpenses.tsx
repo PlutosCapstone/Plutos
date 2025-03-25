@@ -28,36 +28,46 @@ const MyExpenses = ({ navigation }: MyExpensesProp) => {
     navigation.goBack();
   };
 
-  useEffect(() => {
-    const getExpenses = async () => {
-      try {
-        setLoading(true);
-        const expenses = await ExpensesService.getUserExpenses(user?.userid);
-        setExpenses(expenses);
-        setLoading(false);
-      } catch (error) {
-        throw error;
-      }
-    };
+  const getExpenses = async () => {
+    try {
+      setLoading(true);
+      const expenses = await ExpensesService.getUserExpenses(user?.userid);
+      setExpenses(expenses);
+      setLoading(false);
+    } catch (error) {
+      throw error;
+    }
+  };
+  const getTransactions = async () => {
+    try {
+      const transactions = await ExpensesService.getUserTransactions(
+        user?.userid,
+      );
+      setTransactions(transactions);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const refreshExpensesTransactions = () => {
+    console.log("FUNCTIONNINGG2!");
+
     getExpenses();
-  }, [user]);
+    getTransactions();
+  };
 
   useEffect(() => {
-    const getTransactions = async () => {
-      try {
-        const transactions = await ExpensesService.getUserTransactions(
-          user?.userid,
-        );
-        setTransactions(transactions);
-      } catch (error) {
-        throw error;
-      }
-    };
+    getExpenses();
     getTransactions();
   }, [user]);
 
-  const addNewExpenseHandler = (route?: any | null) => {
-    navigation.navigate("NewExpense", route);
+  const addNewExpenseHandler = (transactionData?: any | null) => {
+    console.log(transactionData);
+
+    navigation.navigate("NewExpense", {
+      transactionData,
+      onChange: refreshExpensesTransactions,
+    });
   };
 
   if (loading)
