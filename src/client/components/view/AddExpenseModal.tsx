@@ -86,16 +86,22 @@ const AddExpenseModal = ({
               valueField="value"
               value={category}
               onChange={(item) => setCategory(item.value)}
-              style={{ minWidth: "35%", marginBottom: "5%" }}
+              style={{
+                minWidth: "35%",
+                marginBottom: "5%",
+                backgroundColor: "#f4f4f4",
+                padding: 10,
+                borderRadius: 10,
+              }}
             />
 
-            <Text style={styles.label}>Raw Name:</Text>
+            {/* <Text style={styles.label}>Raw Name:</Text>
             <TextInput
               accessibilityLabel="Raw Name:"
               style={styles.input}
               value={rawName}
               onChangeText={setRawName}
-            />
+            /> */}
 
             <Text style={styles.label}>Name:</Text>
             <TextInput
@@ -146,7 +152,8 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    marginBottom: 4,
+    marginBottom: 6,
+    marginTop: 4,
     fontWeight: 500,
   },
   input: {
