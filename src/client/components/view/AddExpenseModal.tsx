@@ -39,6 +39,7 @@ const AddExpenseModal = ({
       setCost(data.cost.toString());
     }
   }, [data]);
+
   const handleSave = () => {
     let id;
     if (data) {

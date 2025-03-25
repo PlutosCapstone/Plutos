@@ -124,7 +124,7 @@ const AddExpenseView = ({ navigation, route }: AddExpenseViewProps) => {
     } else {
       await ExpensesService.createExpense(transaction);
     }
-    navigation.navigate("MyExpenses");
+    returnHandler();
   };
 
   const returnHandler = () => {
