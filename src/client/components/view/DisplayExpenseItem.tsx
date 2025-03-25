@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
+import { capitalizeFirstLetter } from "../../utils/util";
 
 interface DisplayExpenseItemsProps {
   // Types TBD
@@ -37,7 +38,9 @@ const DisplayExpenseItems = ({
         <View style={styles.itemCard}>
           <View style={styles.content}>
             <Text style={styles.itemTitle}>{item.name}</Text>
-            <Text style={styles.itemText}>Category: {item.category}</Text>
+            <Text style={styles.itemText}>
+              Category: {capitalizeFirstLetter(item.category)}
+            </Text>
             <Text style={styles.itemText}>Cost: ${item.cost}</Text>
           </View>
           <View style={styles.buttons}>

@@ -26,7 +26,7 @@ const AddExpenseModal = ({
   onSave,
   data,
 }: AddExpenseModalProps) => {
-  const [category, setCategory] = useState("Groceries");
+  const [category, setCategory] = useState("groceries");
   const [rawName, setRawName] = useState("");
   const [name, setName] = useState("");
   const [cost, setCost] = useState("");
@@ -72,16 +72,16 @@ const AddExpenseModal = ({
             <Text style={styles.label}>Category:</Text>
             <Dropdown
               data={[
-                { label: "Rent", value: "Rent" },
-                { label: "Groceries", value: "Groceries" },
-                { label: "Entertainment", value: "Entertainment" },
-                { label: "Electronics", value: "Electronics" },
-                { label: "Miscellaneous", value: "Miscellaneous" },
-                { label: "Internet", value: "Internet" },
-                { label: "Other", value: "Other" },
+                { label: "Rent", value: "rent" },
+                { label: "Groceries", value: "groceries" },
+                { label: "Entertainment", value: "entertainment" },
+                { label: "Electronics", value: "electronics" },
+                { label: "Miscellaneous", value: "miscellaneous" },
+                { label: "Internet", value: "internet" },
+                { label: "Other", value: "other" },
               ]}
               search
-              searchPlaceholder={"Groceries"}
+              searchPlaceholder={"groceries"}
               labelField="label"
               valueField="value"
               value={category}
