@@ -44,18 +44,15 @@ const groupExpenseData = (expenses: any[]) => {
 
 const groupTransactionData = (transactions: any[]) => {
   const grouped = transactions.reduce(
-    (acc: Record<string, { total: number; data: any[] }>, transaction) => {
+    (acc: Record<string, { data: any[] }>, transaction) => {
       const { date, store, expenses } = transaction;
 
       if (!acc[date]) {
-        acc[date] = { total: 0, data: [] };
+        acc[date] = { data: [] };
       }
 
       // Add transaction to its category for the specific date
       acc[date].data.push(transaction);
-
-      // Add to total cost for that category on that date
-      acc[date].total += 0;
 
       return acc;
     },
@@ -83,6 +80,28 @@ const transformDataForSectionList = (data: any[]) => {
   });
 };
 
+const transformDataForSectionListTransactions = (data: any[]) => {
+  return data.map((entry) => {
+    const date = Object.keys(entry)[0]; // Extract the date
+    const transactions = entry[date]["data"]; // Get transaction data
+
+    transactions.forEach((transaction: any) => {
+      let total = 0;
+      transaction["expenses"].forEach((expense: any) => {
+        total += expense["cost"];
+      });
+      transaction["total"] = total;
+    });
+    return {
+      title: date,
+      data: Object.keys(transactions).map((transaction) => ({
+        transactions: transactions,
+        total: transactions[transaction]["total"],
+      })),
+    };
+  });
+};
+
 type ExpensesListProps = {
   expenses: never[] | null;
   transactions: never[] | null;
@@ -92,7 +111,21 @@ type ExpensesListProps = {
 const TransactionCard = ({ transaction, addNewExpenseHandler }: any) => {
   return (
     <TouchableOpacity onPress={() => addNewExpenseHandler(transaction)}>
-      <View style={styles.transactionCard}>
+      <View
+        style={{
+          backgroundColor: "#fff",
+          borderRadius: 8,
+          padding: 20, // Increased padding to make it taller
+          marginVertical: 5,
+          shadowColor: "#000",
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.1,
+          shadowRadius: 4,
+          elevation: 3,
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
         <Text style={styles.expenseName}>{transaction.store}</Text>
         <Text style={styles.expenseAmount}>
           -${transaction.total.toFixed(2)}
@@ -124,7 +157,19 @@ const DateGroupList = ({ data, addNewExpenseHandler }: any) => {
   );
 };
 
-const TabButtons = ({ selectedTab, setSelectedTab, index, text }) => {
+type TabButtonsProps = {
+  selectedTab: number;
+  setSelectedTab: (index: number) => void;
+  index: number;
+  text: string;
+};
+
+const TabButtons = ({
+  selectedTab,
+  setSelectedTab,
+  index,
+  text,
+}: TabButtonsProps) => {
   return (
     <TouchableOpacity
       onPress={() => setSelectedTab(index)}
@@ -158,6 +203,7 @@ const ExpensesList = ({
   const transFormedExpenses = transformDataForSectionList(groupedExpenses);
 
   const groupedTransactions = groupTransactionData(transactions ?? []);
+  transformDataForSectionListTransactions(groupedTransactions);
 
   const [selectedTab, setSelectedTab] = React.useState(0);
 

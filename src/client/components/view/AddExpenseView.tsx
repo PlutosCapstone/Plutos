@@ -110,7 +110,7 @@ const AddExpenseView = ({ navigation, params }: AddExpenseViewProps) => {
     openModal();
   };
 
-  const handleExpenseDelete = (itemId: string) => {
+  const handleExpenseDelete = (itemId: number) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
   };
 
@@ -128,9 +128,7 @@ const AddExpenseView = ({ navigation, params }: AddExpenseViewProps) => {
     } else {
       await ExpensesService.createExpense(transaction);
     }
-    if (onSaveHandler) {
-      console.log("SAVVEEE");
-    }
+
     onSaveHandler && onSaveHandler();
     returnHandler();
   };
