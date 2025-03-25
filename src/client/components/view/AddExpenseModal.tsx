@@ -17,20 +17,35 @@ interface AddExpenseModalProps {
   visible: boolean;
   onClose: VoidFunction;
   onSave: (...args: any[]) => void;
+  data?: any | null;
 }
 
 const AddExpenseModal = ({
   visible,
   onClose,
   onSave,
+  data,
 }: AddExpenseModalProps) => {
   const [category, setCategory] = useState("Groceries");
   const [rawName, setRawName] = useState("");
   const [name, setName] = useState("");
   const [cost, setCost] = useState("");
 
+  React.useEffect(() => {
+    if (data) {
+      setCategory(data.category);
+      setRawName(data.raw_name);
+      setName(data.name);
+      setCost(data.cost.toString());
+    }
+  }, [data]);
   const handleSave = () => {
-    const id = uuidv4();
+    let id;
+    if (data) {
+      id = data.id;
+    } else {
+      id = uuidv4();
+    }
     const newItem = {
       id: id,
       category,

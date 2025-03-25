@@ -27,7 +27,7 @@ interface AddExpenseViewProps {
 }
 
 type Item = {
-  id: string;
+  id: number;
   rawName: string;
   name: string;
   cost: number;
@@ -52,19 +52,23 @@ const AddExpenseView = ({ navigation, route }: AddExpenseViewProps) => {
   const [storeName, setStoreName] = useState("");
   const [image, setImage] = useState<string | undefined>();
   const [loading, setLoading] = useState(false);
+  const [currItem, setCurrItem] = useState<Item | null>(null);
 
   const { user } = useUser();
 
   const openModal = () => setModalVisible(true);
-  const closeModal = () => setModalVisible(false);
+  const closeModal = () => {
+    setModalVisible(false);
+  };
 
   React.useEffect(() => {
     if (transactionData) {
       setDate(new Date(transactionData.date + "T00:00:00"));
       setStoreName(transactionData.store);
       setItems(
-        transactionData.expenses.map((item: Item) => ({
+        transactionData.expenses.map((item: Item, index: number) => ({
           ...item,
+          id: index,
           email: user?.email || "",
         })),
       );
@@ -72,10 +76,21 @@ const AddExpenseView = ({ navigation, route }: AddExpenseViewProps) => {
   }, []);
 
   const handleSaveItem = (item: Item) => {
-    setItems((prevItems) => [
-      ...prevItems,
-      { ...item, transactionDate: date, email: user?.email || "" },
-    ]);
+    if (currItem) {
+      setItems((prevItems) =>
+        prevItems.map((prevItem) =>
+          prevItem.id === item.id
+            ? { ...item, email: user?.email || "" }
+            : prevItem,
+        ),
+      );
+    } else {
+      setItems((prevItems) => [
+        ...prevItems,
+        { ...item, transactionDate: date, email: user?.email || "" },
+      ]);
+    }
+    setCurrItem(null);
   };
 
   const handleDateChange = (newDate: Date) => {
@@ -84,6 +99,11 @@ const AddExpenseView = ({ navigation, route }: AddExpenseViewProps) => {
 
   const handleStoreNameChange = (text: string) => {
     setStoreName(text);
+  };
+
+  const handleExpenseUpdate = (item: any) => {
+    setCurrItem(item);
+    openModal();
   };
 
   const handleExpenseDelete = (itemId: string) => {
@@ -235,7 +255,10 @@ const AddExpenseView = ({ navigation, route }: AddExpenseViewProps) => {
             <Text style={styles.headerTitle}>Items</Text>
             <TouchableOpacity
               style={styles.addItemButton}
-              onPress={openModal}
+              onPress={() => {
+                openModal();
+                setCurrItem(null);
+              }}
               testID="add-item-button"
             >
               <AddCircleIcon size={24} />
@@ -244,6 +267,7 @@ const AddExpenseView = ({ navigation, route }: AddExpenseViewProps) => {
           <View style={styles.scannedItemsContainer}>
             <DisplayExpenseItems
               items={items}
+              onExpenseUpdate={handleExpenseUpdate}
               onExpenseDelete={handleExpenseDelete}
               loading={loading}
             />
@@ -254,6 +278,7 @@ const AddExpenseView = ({ navigation, route }: AddExpenseViewProps) => {
           visible={isModalVisible}
           onClose={closeModal}
           onSave={handleSaveItem}
+          data={currItem}
         />
       </View>
     </TouchableWithoutFeedback>

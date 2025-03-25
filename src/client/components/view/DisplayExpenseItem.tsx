@@ -12,11 +12,13 @@ interface DisplayExpenseItemsProps {
   // Types TBD
   items: any[];
   loading: boolean;
+  onExpenseUpdate: (...args: any[]) => void;
   onExpenseDelete: (...args: any[]) => void;
 }
 
 const DisplayExpenseItems = ({
   items,
+  onExpenseUpdate,
   onExpenseDelete,
   loading,
 }: DisplayExpenseItemsProps) => {
@@ -39,7 +41,10 @@ const DisplayExpenseItems = ({
             <Text style={styles.itemText}>Cost: ${item.cost}</Text>
           </View>
           <View style={styles.buttons}>
-            <TouchableOpacity style={styles.deleteButton} onPress={() => {}}>
+            <TouchableOpacity
+              style={styles.updateButton}
+              onPress={() => onExpenseUpdate(item)}
+            >
               <Text style={styles.deleteText}>Edit</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -91,6 +96,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 18,
     color: "#333",
+  },
+  updateButton: {
+    backgroundColor: "#007bff",
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 5,
   },
   deleteButton: {
     backgroundColor: "#ff4d4d",
