@@ -25,6 +25,8 @@ class TransactionsDao:
 
     @staticmethod
     def _add_expenses_to_transaction(transaction_id, expenses):
+        if not expenses:
+            return
         for expense in expenses:
             expense["transaction_id"] = transaction_id
         return ExpensesDao.bulk_create_expenses(expenses)

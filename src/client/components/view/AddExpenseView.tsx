@@ -33,7 +33,7 @@ type Item = {
   cost: number;
   category: string;
   email: string | "";
-  transactionDate: string;
+  transactionDate: Date;
 };
 
 type Transaction = {
@@ -45,11 +45,10 @@ type Transaction = {
 
 const AddExpenseView = ({ navigation, route }: AddExpenseViewProps) => {
   const transactionData = route;
-  console.log("made it");
 
   const [isModalVisible, setModalVisible] = useState(false);
   const [items, setItems] = useState<Item[]>([]);
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date());
   const [storeName, setStoreName] = useState("");
   const [image, setImage] = useState<string | undefined>();
   const [loading, setLoading] = useState(false);
@@ -61,7 +60,7 @@ const AddExpenseView = ({ navigation, route }: AddExpenseViewProps) => {
 
   React.useEffect(() => {
     if (transactionData) {
-      setDate(transactionData.date);
+      setDate(new Date(transactionData.date + "T00:00:00"));
       setStoreName(transactionData.store);
       setItems(
         transactionData.expenses.map((item: Item) => ({
@@ -79,8 +78,8 @@ const AddExpenseView = ({ navigation, route }: AddExpenseViewProps) => {
     ]);
   };
 
-  const handleDateChange = (text: string) => {
-    setDate(text);
+  const handleDateChange = (newDate: Date) => {
+    setDate(newDate);
   };
 
   const handleStoreNameChange = (text: string) => {
@@ -93,7 +92,7 @@ const AddExpenseView = ({ navigation, route }: AddExpenseViewProps) => {
 
   const saveExpenseHandler = async () => {
     const transaction: Transaction = {
-      date: date || new Date().toISOString(),
+      date: date.toISOString() || new Date().toISOString(),
       store: storeName,
       userId: user!.userid,
       expenses: items,
@@ -209,11 +208,13 @@ const AddExpenseView = ({ navigation, route }: AddExpenseViewProps) => {
         <View style={styles.inputContainer}>
           <View style={styles.inputRow}>
             <Text style={styles.inputLabel}>Date:</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter Date"
+            <DateTimePicker
               value={date}
-              onChangeText={handleDateChange}
+              mode="date"
+              display="default"
+              onChange={(e, selectedDate) =>
+                handleDateChange(selectedDate || date)
+              }
             />
           </View>
           <View style={styles.inputRow}>
