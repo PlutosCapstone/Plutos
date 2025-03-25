@@ -109,6 +109,11 @@ class ExpensesDao:
         return expense_id
 
     @staticmethod
+    def bulk_delete_from_transaction(transaction_id):
+        db.table("expenses").delete().eq("transaction_id", transaction_id).execute()
+        return transaction_id
+
+    @staticmethod
     def process_receipt(file):
         try:
             tmp_filepath = os.path.join(tmp_path, file.filename)

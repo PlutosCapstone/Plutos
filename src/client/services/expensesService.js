@@ -62,6 +62,19 @@ const ExpensesService = {
     }
   },
 
+  updateTransaction: async (transactionId, updatedData) => {
+    try {
+      const response = await api.put(
+        `/transactions/${transactionId}`,
+        updatedData,
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error updating transaction:", error.message);
+      throw error;
+    }
+  },
+
   updateExpense: async (expenseId, updatedData) => {
     try {
       const response = await api.put(`/expenses/${expenseId}`, updatedData);

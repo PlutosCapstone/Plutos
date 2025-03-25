@@ -98,7 +98,11 @@ const AddExpenseView = ({ navigation, route }: AddExpenseViewProps) => {
       userId: user!.userid,
       expenses: items,
     };
-    await ExpensesService.createExpense(transaction);
+    if (transactionData) {
+      await ExpensesService.updateTransaction(transactionData.id, transaction);
+    } else {
+      await ExpensesService.createExpense(transaction);
+    }
     navigation.navigate("MyExpenses");
   };
 

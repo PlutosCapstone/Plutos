@@ -26,3 +26,11 @@ def createTransaction():
     new_transaction = TransactionsController.create(data)
 
     return jsonify(new_transaction), 201
+
+
+@transactions.route("/<transactionId>", methods=["PUT"])
+def updateTransaction(transactionId):
+    data = request.get_json()
+    updated_transaction = TransactionsController.update(transactionId, data)
+
+    return jsonify(updated_transaction), 201

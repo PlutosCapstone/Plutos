@@ -8,3 +8,6 @@ class TransactionsController:
 
     def create(data):
         return TransactionsDao.create(data)
+
+    def update(transaction_id, data):
+        return TransactionsDao.update(transaction_id, data)
