@@ -12,6 +12,7 @@ class TransactionsDao:
             .eq("user_id", user_id)
             .gte("date", start_date)
             .lte("date", end_date)
+            .order("date", desc=True)
             .execute()
         )
         transactions = response.data
