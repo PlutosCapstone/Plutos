@@ -64,6 +64,7 @@ const DisplayExpenseItems = ({
 const styles = StyleSheet.create({
   container: {
     padding: 10,
+    paddingBottom: 60, // Adjusted padding to avoid overlapping with the nav bar
   },
   itemCard: {
     backgroundColor: "#f9f9f9",
