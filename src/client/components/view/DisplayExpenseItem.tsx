@@ -4,9 +4,9 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  FlatList,
   ActivityIndicator,
 } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
 
 interface DisplayExpenseItemsProps {
   // Types TBD
@@ -33,8 +33,15 @@ const DisplayExpenseItems = ({
       keyExtractor={(item, index) => index.toString()}
       renderItem={({ item }) => (
         <View style={styles.itemCard}>
-          <View style={styles.itemHeader}>
-            <Text style={styles.itemCategory}>{item.category}</Text>
+          <View style={styles.content}>
+            <Text style={styles.itemTitle}>{item.name}</Text>
+            <Text style={styles.itemText}>Category: {item.category}</Text>
+            <Text style={styles.itemText}>Cost: ${item.cost}</Text>
+          </View>
+          <View style={styles.buttons}>
+            <TouchableOpacity style={styles.deleteButton} onPress={() => {}}>
+              <Text style={styles.deleteText}>Edit</Text>
+            </TouchableOpacity>
             <TouchableOpacity
               style={styles.deleteButton}
               onPress={() => onExpenseDelete(item.id)}
@@ -42,8 +49,6 @@ const DisplayExpenseItems = ({
               <Text style={styles.deleteText}>Delete</Text>
             </TouchableOpacity>
           </View>
-          <Text style={styles.itemText}>Name: {item.name}</Text>
-          <Text style={styles.itemText}>Cost: ${item.cost}</Text>
         </View>
       )}
       contentContainerStyle={styles.container}
@@ -69,13 +74,20 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-  },
-  itemHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
   },
-  itemCategory: {
+  content: {
+    flexDirection: "column",
+    flex: 6,
+  },
+  buttons: {
+    flexDirection: "column",
+    flex: 2,
+    margin: 2,
+    gap: 10,
+  },
+  itemTitle: {
     fontWeight: "bold",
     fontSize: 18,
     color: "#333",

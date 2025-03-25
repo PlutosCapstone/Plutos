@@ -92,7 +92,9 @@ const AddExpenseView = ({ navigation, route }: AddExpenseViewProps) => {
 
   const saveExpenseHandler = async () => {
     const transaction: Transaction = {
-      date: date.toISOString() || new Date().toISOString(),
+      date: new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+        .toISOString()
+        .split("T")[0], // workaround timezone stuff
       store: storeName,
       userId: user!.userid,
       expenses: items,
