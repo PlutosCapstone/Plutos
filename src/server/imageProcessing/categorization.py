@@ -43,7 +43,7 @@ class Categorizer:
 
     def categorize(self, items: pd.DataFrame) -> pd.DataFrame:
         if ENV == TEST_ENV:
-            return self._test_categorize(items)
+            return self._local_categorize(items)
 
         response = self.co.classify(model=self.model_id, inputs=items["name"].tolist())
         predictions = response.classifications
@@ -51,7 +51,7 @@ class Categorizer:
         items["category"] = categories
         return items
 
-    def _test_categorize(self, items: pd.DataFrame) -> pd.DataFrame:
+    def _local_categorize(self, items: pd.DataFrame) -> pd.DataFrame:
         items_transformed = self.vectorizer.transform(items["name"])
         y_pred = self.model.predict(items_transformed)
         predicted_categories = self.label_encoder.inverse_transform(y_pred)
