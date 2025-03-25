@@ -50,8 +50,6 @@ const MyExpenses = ({ navigation }: MyExpensesProp) => {
   };
 
   const refreshExpensesTransactions = () => {
-    console.log("FUNCTIONNINGG2!");
-
     getExpenses();
     getTransactions();
   };
@@ -110,6 +108,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     padding: 24,
     rowGap: 20,
+    paddingBottom: 40,
   },
   headerBox: {
     display: "flex",

@@ -83,28 +83,6 @@ const transformDataForSectionList = (data: any[]) => {
   });
 };
 
-const transformDataForSectionList2 = (data: any[]) => {
-  return data.map((entry) => {
-    const date = Object.keys(entry)[0]; // Extract the date
-    const transactions = entry[date]["data"]; // Get category data
-
-    transactions.forEach((transaction) => {
-      let total = 0;
-      transaction["expenses"].forEach((expense) => {
-        total += expense["cost"];
-      });
-      transaction["total"] = total;
-    });
-    return {
-      title: date,
-      data: Object.keys(transactions).map((transaction) => ({
-        transactions: transactions,
-        total: transactions[transaction]["total"],
-      })),
-    };
-  });
-};
-
 type ExpensesListProps = {
   expenses: never[] | null;
   transactions: never[] | null;
@@ -114,21 +92,7 @@ type ExpensesListProps = {
 const TransactionCard = ({ transaction, addNewExpenseHandler }: any) => {
   return (
     <TouchableOpacity onPress={() => addNewExpenseHandler(transaction)}>
-      <View
-        style={{
-          backgroundColor: "#fff",
-          borderRadius: 8,
-          padding: 20, // Increased padding to make it taller
-          marginVertical: 5,
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.1,
-          shadowRadius: 4,
-          elevation: 3,
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
+      <View style={styles.transactionCard}>
         <Text style={styles.expenseName}>{transaction.store}</Text>
         <Text style={styles.expenseAmount}>
           -${transaction.total.toFixed(2)}
@@ -194,8 +158,6 @@ const ExpensesList = ({
   const transFormedExpenses = transformDataForSectionList(groupedExpenses);
 
   const groupedTransactions = groupTransactionData(transactions ?? []);
-  const transFormedTransactions =
-    transformDataForSectionList2(groupedTransactions);
 
   const [selectedTab, setSelectedTab] = React.useState(0);
 
@@ -232,10 +194,10 @@ const ExpensesList = ({
           sections={transFormedExpenses}
           keyExtractor={(item) => item.category}
           renderSectionHeader={({ section: { title } }) => (
-            <>
+            <View style={{ backgroundColor: "#fff" }}>
               <Text style={styles.header}>{formatDate(title)}</Text>
               <Divider style={{ marginVertical: 8 }} />
-            </>
+            </View>
           )}
           renderItem={({ item }) => (
             <View style={styles.categoryContainer}>
@@ -302,6 +264,19 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: "#ccc",
     marginVertical: 5,
+  },
+  transactionCard: {
+    backgroundColor: "#fff",
+    borderRadius: 8,
+    padding: 20,
+    marginVertical: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
 
