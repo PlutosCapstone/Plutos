@@ -28,7 +28,7 @@ class Expense:
             "category": self.category.lower(),
             "transaction_date": self.transaction_date,
             "email": self.email,
-            "transaction_id": str(self.transaction_id),
+            "transaction_id": str(self.transaction_id) if self.transaction_id else None,
         }
 
     @staticmethod
