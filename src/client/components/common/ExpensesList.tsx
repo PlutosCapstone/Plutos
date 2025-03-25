@@ -126,7 +126,14 @@ const TransactionCard = ({ transaction, addNewExpenseHandler }: any) => {
           justifyContent: "space-between",
         }}
       >
-        <Text style={styles.expenseName}>{transaction.store}</Text>
+        <Text
+          style={[
+            styles.expenseName,
+            !transaction.store && { fontStyle: "italic" },
+          ]}
+        >
+          {transaction.store ? transaction.store : "Untitled"}
+        </Text>
         <Text style={styles.expenseAmount}>
           -${transaction.total.toFixed(2)}
         </Text>
