@@ -12,6 +12,9 @@ load_dotenv()
 COHERE_API_KEY = os.environ.get("cohere_api_key")
 COHERE_MODEL_ID = os.environ.get("cohere_model_id")
 
+ENV = os.environ.get("env", "dev")
+TEST_ENV = "test"
+
 
 class Categorizer:
     def __init__(
@@ -30,19 +33,28 @@ class Categorizer:
 
         with open(os.path.join(base_path, label_encoder_path), "rb") as f:
             self.label_encoder = pickle.load(f)
-        self.co = cohere.Client(COHERE_API_KEY)
-        self.model_id = COHERE_MODEL_ID
+
+        if ENV == TEST_ENV:
+            self.co = None
+            self.model_id = None
+        else:
+            self.co = cohere.Client(COHERE_API_KEY)
+            self.model_id = COHERE_MODEL_ID
 
     def categorize(self, items: pd.DataFrame) -> pd.DataFrame:
+        if ENV == TEST_ENV:
+            return self._test_categorize(items)
+
         response = self.co.classify(model=self.model_id, inputs=items["name"].tolist())
         predictions = response.classifications
         categories = [prediction.prediction for prediction in predictions]
         items["category"] = categories
         return items
 
-        # items_transformed = self.vectorizer.transform(items["name"])
-        # y_pred = self.model.predict(items_transformed)
-        # predicted_categories = self.label_encoder.inverse_transform(y_pred)
+    def _test_categorize(self, items: pd.DataFrame) -> pd.DataFrame:
+        items_transformed = self.vectorizer.transform(items["name"])
+        y_pred = self.model.predict(items_transformed)
+        predicted_categories = self.label_encoder.inverse_transform(y_pred)
 
-        # items["category"] = predicted_categories
-        # return items
+        items["category"] = predicted_categories
+        return items
