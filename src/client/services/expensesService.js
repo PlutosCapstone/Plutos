@@ -1,11 +1,11 @@
 import api from "../api/api";
 
 const ExpensesService = {
-  createExpense: async (expenseData) => {
+  createExpense: async (transaction) => {
     try {
       const response = await api.post(
-        "/expenses/",
-        JSON.stringify(expenseData),
+        "/transactions/",
+        JSON.stringify(transaction),
         {
           headers: {
             "Content-Type": "application/json",
@@ -44,6 +44,33 @@ const ExpensesService = {
       return response.data;
     } catch (error) {
       console.error("Error fetching expenses:", error.message);
+      throw error;
+    }
+  },
+
+  getUserTransactions: async (userid) => {
+    try {
+      const response = await api.get(`/transactions/${userid}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching transactions:", error.message);
+      throw error;
+    }
+  },
+
+  updateTransaction: async (transactionId, updatedData) => {
+    try {
+      const response = await api.put(
+        `/transactions/${transactionId}`,
+        updatedData,
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error updating transaction:", error.message);
       throw error;
     }
   },

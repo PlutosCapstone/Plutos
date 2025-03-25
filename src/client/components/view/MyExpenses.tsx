@@ -21,28 +21,51 @@ interface MyExpensesProp {
 const MyExpenses = ({ navigation }: MyExpensesProp) => {
   const { user } = useUser();
   const [expenses, setExpenses] = useState([]);
+  const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const returnHandler = () => {
     navigation.goBack();
   };
 
-  useEffect(() => {
-    const getExpenses = async () => {
-      try {
-        setLoading(true);
-        const expenses = await ExpensesService.getUserExpenses(user?.userid);
-        setExpenses(expenses);
-        setLoading(false);
-      } catch (error) {
-        throw error;
-      }
-    };
+  const getExpenses = async () => {
+    try {
+      setLoading(true);
+      const expenses = await ExpensesService.getUserExpenses(user?.userid);
+      setExpenses(expenses);
+      setLoading(false);
+    } catch (error) {
+      throw error;
+    }
+  };
+  const getTransactions = async () => {
+    try {
+      const transactions = await ExpensesService.getUserTransactions(
+        user?.userid,
+      );
+      setTransactions(transactions);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const refreshExpensesTransactions = () => {
     getExpenses();
+    getTransactions();
+  };
+
+  useEffect(() => {
+    getExpenses();
+    getTransactions();
   }, [user]);
 
-  const addNewExpenseHandler = () => {
-    navigation.navigate("NewExpense");
+  const addNewExpenseHandler = (transactionData?: any | null) => {
+    console.log(transactionData);
+
+    navigation.navigate("NewExpense", {
+      transactionData,
+      onChange: refreshExpensesTransactions,
+    });
   };
 
   if (loading)
@@ -59,13 +82,19 @@ const MyExpenses = ({ navigation }: MyExpensesProp) => {
           <BackArrow size={25} />
         </Pressable>
         <Text style={styles.title}>My Expenses</Text>
-        <Pressable style={styles.addIcon} onPress={addNewExpenseHandler}>
+        <Pressable
+          style={styles.addIcon}
+          onPress={() => addNewExpenseHandler()}
+        >
           <AddIcon size={35} />
         </Pressable>
       </View>
-
       {expenses.length > 0 ? (
-        <ExpensesList transactions={expenses} />
+        <ExpensesList
+          expenses={expenses}
+          transactions={transactions}
+          addNewExpenseHandler={addNewExpenseHandler}
+        />
       ) : (
         <Text>No Expenses</Text>
       )}
@@ -79,6 +108,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     padding: 24,
     rowGap: 20,
+    paddingBottom: 40,
   },
   headerBox: {
     display: "flex",

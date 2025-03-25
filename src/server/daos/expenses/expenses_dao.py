@@ -60,6 +60,16 @@ class ExpensesDao:
         return expenses.data
 
     @staticmethod
+    def get_by_transaction(transaction_id):
+        response = (
+            db.table("expenses")
+            .select("name, cost, category")
+            .eq("transaction_id", transaction_id)
+            .execute()
+        )
+        return response.data
+
+    @staticmethod
     def create_expense(data):
         expense_data = Expense.from_dict(data)
         new_expense = db.table("expenses").insert(expense_data.to_dict()).execute()
@@ -97,6 +107,11 @@ class ExpensesDao:
     def delete_expense(expense_id):
         db.table("expenses").delete().eq("id", expense_id).execute()
         return expense_id
+
+    @staticmethod
+    def bulk_delete_from_transaction(transaction_id):
+        db.table("expenses").delete().eq("transaction_id", transaction_id).execute()
+        return transaction_id
 
     @staticmethod
     def process_receipt(file):

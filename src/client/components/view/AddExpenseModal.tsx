@@ -17,20 +17,36 @@ interface AddExpenseModalProps {
   visible: boolean;
   onClose: VoidFunction;
   onSave: (...args: any[]) => void;
+  data?: any | null;
 }
 
 const AddExpenseModal = ({
   visible,
   onClose,
   onSave,
+  data,
 }: AddExpenseModalProps) => {
-  const [category, setCategory] = useState("Groceries");
+  const [category, setCategory] = useState("groceries");
   const [rawName, setRawName] = useState("");
   const [name, setName] = useState("");
   const [cost, setCost] = useState("");
 
+  React.useEffect(() => {
+    if (data) {
+      setCategory(data.category);
+      setRawName(data.raw_name);
+      setName(data.name);
+      setCost(data.cost.toString());
+    }
+  }, [data]);
+
   const handleSave = () => {
-    const id = uuidv4();
+    let id;
+    if (data) {
+      id = data.id;
+    } else {
+      id = uuidv4();
+    }
     const newItem = {
       id: id,
       category,
@@ -56,30 +72,36 @@ const AddExpenseModal = ({
             <Text style={styles.label}>Category:</Text>
             <Dropdown
               data={[
-                { label: "Rent", value: "Rent" },
-                { label: "Groceries", value: "Groceries" },
-                { label: "Entertainment", value: "Entertainment" },
-                { label: "Electronics", value: "Electronics" },
-                { label: "Miscellaneous", value: "Miscellaneous" },
-                { label: "Internet", value: "Internet" },
-                { label: "Other", value: "Other" },
+                { label: "Rent", value: "rent" },
+                { label: "Groceries", value: "groceries" },
+                { label: "Entertainment", value: "entertainment" },
+                { label: "Electronics", value: "electronics" },
+                { label: "Miscellaneous", value: "miscellaneous" },
+                { label: "Internet", value: "internet" },
+                { label: "Other", value: "other" },
               ]}
               search
-              searchPlaceholder={"Groceries"}
+              searchPlaceholder={"groceries"}
               labelField="label"
               valueField="value"
               value={category}
               onChange={(item) => setCategory(item.value)}
-              style={{ minWidth: "35%", marginBottom: "5%" }}
+              style={{
+                minWidth: "35%",
+                marginBottom: "5%",
+                backgroundColor: "#f4f4f4",
+                padding: 10,
+                borderRadius: 10,
+              }}
             />
 
-            <Text style={styles.label}>Raw Name:</Text>
+            {/* <Text style={styles.label}>Raw Name:</Text>
             <TextInput
               accessibilityLabel="Raw Name:"
               style={styles.input}
               value={rawName}
               onChangeText={setRawName}
-            />
+            /> */}
 
             <Text style={styles.label}>Name:</Text>
             <TextInput
@@ -130,7 +152,8 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    marginBottom: 4,
+    marginBottom: 6,
+    marginTop: 4,
     fontWeight: 500,
   },
   input: {

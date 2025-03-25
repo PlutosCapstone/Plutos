@@ -4,19 +4,22 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  FlatList,
   ActivityIndicator,
 } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
+import { capitalizeFirstLetter } from "../../utils/util";
 
 interface DisplayExpenseItemsProps {
   // Types TBD
   items: any[];
   loading: boolean;
+  onExpenseUpdate: (...args: any[]) => void;
   onExpenseDelete: (...args: any[]) => void;
 }
 
 const DisplayExpenseItems = ({
   items,
+  onExpenseUpdate,
   onExpenseDelete,
   loading,
 }: DisplayExpenseItemsProps) => {
@@ -33,8 +36,20 @@ const DisplayExpenseItems = ({
       keyExtractor={(item, index) => index.toString()}
       renderItem={({ item }) => (
         <View style={styles.itemCard}>
-          <View style={styles.itemHeader}>
-            <Text style={styles.itemCategory}>{item.category}</Text>
+          <View style={styles.content}>
+            <Text style={styles.itemTitle}>{item.name}</Text>
+            <Text style={styles.itemText}>
+              Category: {capitalizeFirstLetter(item.category)}
+            </Text>
+            <Text style={styles.itemText}>Cost: ${item.cost}</Text>
+          </View>
+          <View style={styles.buttons}>
+            <TouchableOpacity
+              style={styles.updateButton}
+              onPress={() => onExpenseUpdate(item)}
+            >
+              <Text style={styles.deleteText}>Edit</Text>
+            </TouchableOpacity>
             <TouchableOpacity
               style={styles.deleteButton}
               onPress={() => onExpenseDelete(item.id)}
@@ -42,8 +57,6 @@ const DisplayExpenseItems = ({
               <Text style={styles.deleteText}>Delete</Text>
             </TouchableOpacity>
           </View>
-          <Text style={styles.itemText}>Name: {item.name}</Text>
-          <Text style={styles.itemText}>Cost: ${item.cost}</Text>
         </View>
       )}
       contentContainerStyle={styles.container}
@@ -54,6 +67,7 @@ const DisplayExpenseItems = ({
 const styles = StyleSheet.create({
   container: {
     padding: 10,
+    paddingBottom: 60, // Adjusted padding to avoid overlapping with the nav bar
   },
   itemCard: {
     backgroundColor: "#f9f9f9",
@@ -69,16 +83,29 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-  },
-  itemHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
   },
-  itemCategory: {
+  content: {
+    flexDirection: "column",
+    flex: 6,
+  },
+  buttons: {
+    flexDirection: "column",
+    flex: 2,
+    margin: 2,
+    gap: 10,
+  },
+  itemTitle: {
     fontWeight: "bold",
     fontSize: 18,
     color: "#333",
+  },
+  updateButton: {
+    backgroundColor: "#007bff",
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 5,
   },
   deleteButton: {
     backgroundColor: "#ff4d4d",

@@ -2,7 +2,11 @@ import React from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { BarChart } from "react-native-chart-kit";
 import { Expense } from "../../types";
-import { isWithinLastWeek, truncateString } from "../../utils/util";
+import {
+  capitalizeFirstLetter,
+  isWithinLastWeek,
+  truncateString,
+} from "../../utils/util";
 import { CATEGORY_COLOURS } from "../../constants";
 
 type ChartConfig = {
@@ -56,7 +60,9 @@ const SpendingDetails = ({ expenses }: SpendingDetailsProps) => {
   });
 
   const data = {
-    labels: chartData.map((item) => truncateString(item.category, 5)),
+    labels: chartData.map((item) =>
+      truncateString(capitalizeFirstLetter(item.category), 5),
+    ),
     datasets: [
       {
         data: chartData.map((item) => item.percentage),

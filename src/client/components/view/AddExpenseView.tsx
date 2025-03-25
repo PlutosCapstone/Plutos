@@ -23,54 +23,114 @@ import { useUser } from "../../contexts/UserContext";
 
 interface AddExpenseViewProps {
   navigation: NavigationProps;
+  params?: {
+    transactionData?: any;
+    onChange?: () => void;
+  } | null;
 }
 
 type Item = {
-  id: string;
+  id: number;
   rawName: string;
   name: string;
   cost: number;
   category: string;
   email: string | "";
-  transactionDate: string;
+  transactionDate: Date;
 };
 
-const AddExpenseView = ({ navigation }: AddExpenseViewProps) => {
+type Transaction = {
+  date: string;
+  store: string;
+  userId: number;
+  expenses: Item[];
+};
+
+const AddExpenseView = ({ navigation, params }: AddExpenseViewProps) => {
+  const transactionData = params?.transactionData;
+  const onSaveHandler = params?.onChange;
+
   const [isModalVisible, setModalVisible] = useState(false);
   const [items, setItems] = useState<Item[]>([]);
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date());
   const [storeName, setStoreName] = useState("");
   const [image, setImage] = useState<string | undefined>();
   const [loading, setLoading] = useState(false);
+  const [currItem, setCurrItem] = useState<Item | null>(null);
 
   const { user } = useUser();
 
   const openModal = () => setModalVisible(true);
-  const closeModal = () => setModalVisible(false);
-
-  const handleSaveItem = (item: Item) => {
-    setItems((prevItems) => [
-      ...prevItems,
-      { ...item, transactionDate: date, email: user?.email || "" },
-    ]);
+  const closeModal = () => {
+    setModalVisible(false);
   };
 
-  const handleDateChange = (text: string) => {
-    setDate(text);
+  React.useEffect(() => {
+    if (transactionData) {
+      setDate(new Date(transactionData.date + "T00:00:00"));
+      setStoreName(transactionData.store);
+      setItems(
+        transactionData.expenses.map((item: Item, index: number) => ({
+          ...item,
+          id: index,
+          email: user?.email || "",
+        })),
+      );
+    }
+  }, []);
+
+  const handleSaveItem = (item: Item) => {
+    if (currItem) {
+      setItems((prevItems) =>
+        prevItems.map((prevItem) =>
+          prevItem.id === item.id
+            ? { ...item, email: user?.email || "" }
+            : prevItem,
+        ),
+      );
+    } else {
+      setItems((prevItems) => [
+        ...prevItems,
+        { ...item, transactionDate: date, email: user?.email || "" },
+      ]);
+    }
+    setCurrItem(null);
+  };
+
+  const handleDateChange = (newDate: Date) => {
+    setDate(newDate);
   };
 
   const handleStoreNameChange = (text: string) => {
     setStoreName(text);
   };
 
-  const handleExpenseDelete = (itemId: string) => {
+  const handleExpenseUpdate = (item: any) => {
+    setCurrItem(item);
+    openModal();
+  };
+
+  const handleExpenseDelete = (itemId: number) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
   };
 
   const saveExpenseHandler = async () => {
-    // To-do
-    await ExpensesService.createExpense(items);
-    navigation.navigate("MyExpenses");
+    const transaction: Transaction = {
+      date: new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+        .toISOString()
+        .split("T")[0], // workaround timezone stuff
+      store: storeName,
+      userId: user!.userid,
+      expenses: items,
+    };
+    if (transactionData) {
+      await ExpensesService.updateTransaction(transactionData.id, transaction);
+    } else {
+      await ExpensesService.createExpense(transaction);
+    }
+
+    onSaveHandler && onSaveHandler();
+    returnHandler();
   };
 
   const returnHandler = () => {
@@ -139,7 +199,9 @@ const AddExpenseView = ({ navigation }: AddExpenseViewProps) => {
           <TouchableOpacity onPress={returnHandler}>
             <Text style={styles.headerButton}>Cancel</Text>
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Add Expense</Text>
+          <Text style={styles.headerTitle}>
+            {transactionData ? "Update Expense" : "Add Expense"}
+          </Text>
           <TouchableOpacity onPress={saveExpenseHandler} testID="save-button">
             <Text style={styles.headerButton}>Save</Text>
           </TouchableOpacity>
@@ -174,11 +236,13 @@ const AddExpenseView = ({ navigation }: AddExpenseViewProps) => {
         <View style={styles.inputContainer}>
           <View style={styles.inputRow}>
             <Text style={styles.inputLabel}>Date:</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter Date"
+            <DateTimePicker
               value={date}
-              onChangeText={handleDateChange}
+              mode="date"
+              display="default"
+              onChange={(e, selectedDate) =>
+                handleDateChange(selectedDate || date)
+              }
             />
           </View>
           <View style={styles.inputRow}>
@@ -197,7 +261,10 @@ const AddExpenseView = ({ navigation }: AddExpenseViewProps) => {
             <Text style={styles.headerTitle}>Items</Text>
             <TouchableOpacity
               style={styles.addItemButton}
-              onPress={openModal}
+              onPress={() => {
+                openModal();
+                setCurrItem(null);
+              }}
               testID="add-item-button"
             >
               <AddCircleIcon size={24} />
@@ -206,6 +273,7 @@ const AddExpenseView = ({ navigation }: AddExpenseViewProps) => {
           <View style={styles.scannedItemsContainer}>
             <DisplayExpenseItems
               items={items}
+              onExpenseUpdate={handleExpenseUpdate}
               onExpenseDelete={handleExpenseDelete}
               loading={loading}
             />
@@ -216,6 +284,7 @@ const AddExpenseView = ({ navigation }: AddExpenseViewProps) => {
           visible={isModalVisible}
           onClose={closeModal}
           onSave={handleSaveItem}
+          data={currItem}
         />
       </View>
     </TouchableWithoutFeedback>
