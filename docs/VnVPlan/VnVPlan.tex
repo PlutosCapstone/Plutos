@@ -190,8 +190,7 @@ The following documents are relevant to the V\&V of Plutos:
 	\href{https://github.com/PlutosCapstone/Plutos/blob/main/docs/SRS/SRS.pdf}{\textbf{Software
 	Requirements Specification (SRS) document}}: This document outlines the
 	functional and non-functional requirements of the Plutos application,
-	serving as the basis for all testing activities. Symbolic constants used
-	throughout the V\&V Plan can be found in Section 10 of the SRS.
+	serving as the basis for all testing activities.
 	\item
 	\href{https://github.com/PlutosCapstone/Plutos/blob/main/docs/HazardAnalysis/HazardAnalysis.pdf}{\textbf{Hazard
 	Analysis document}}: This document outlines potential hazards and risks
@@ -646,9 +645,7 @@ Below is a comprehensive list of recommended V\&V techniques and a corresponding
 	\begin{itemize}
 		\item \textbf{Purpose}: Verify that individual functions and components operate correctly in isolation.
 		\item \textbf{Key Functions to Test}: Data extraction from receipts, categorization logic, and budget calculations.
-		\item \textbf{Coverage Goal}: Achieve >\textit{MIN\_CODE\_COVERAGE} (see
-		Section 10 of
-		\href{https://github.com/PlutosCapstone/Plutos/blob/main/docs/SRS/SRS.pdf}{SRS})\%
+		\item \textbf{Coverage Goal}: Achieve >\textit{MIN\_CODE\_COVERAGE}\%
 		coverage on core functions.
 		\item \textbf{Goal}: Ensure reliability and accuracy at the component level.
 	\end{itemize}
@@ -1251,9 +1248,7 @@ CSV file with various receipt item names}
 					
 \textbf{Output/Result:} The model will output the categories of the given
 receipt items and compare it against the expected CSV file. The test passes if
-the model has a precision of at least \textit{CATEGORIZATION\_ACCURACY}\% (see
-Section 10 of
-\href{https://github.com/PlutosCapstone/Plutos/blob/main/docs/SRS/SRS.pdf}{SRS}).
+the model has a precision of at least \textit{CATEGORIZATION\_ACCURACY}\%.
 					
 \textbf{How test will be performed:} Testers will run the
 \href{https://github.com/PlutosCapstone/Plutos/tree/main/src/server/tests/imageProcessing/test_categorization.py}{code
