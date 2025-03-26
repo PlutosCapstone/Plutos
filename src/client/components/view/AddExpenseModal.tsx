@@ -17,6 +17,7 @@ import { Dropdown } from "react-native-element-dropdown";
 import { useUser } from "../../contexts/UserContext";
 import ExpensesService from "../../services/expensesService";
 import { Expense } from "../../types";
+import { DEFAULT_COLOURS } from "../../styles/commonStyles";
 
 interface AddExpenseModalProps {
   visible: boolean;
@@ -68,7 +69,11 @@ const AddExpenseModal = ({
 
       try {
         const expense = await ExpensesService.getUserExpenses(user.userid);
-        setExpenseData(expense.map((entry: Expense) => entry.name));
+        /* removing duplicates and auto complete applies all names as lower case */
+        const expenseData = [
+          ...new Set(expense.map((entry: Expense) => entry.name.toLowerCase())),
+        ] as string[];
+        setExpenseData(expenseData);
       } catch (e: any) {
         console.error("There was an error", e);
       }
@@ -150,9 +155,9 @@ const AddExpenseModal = ({
               }}
             />
 
-            {/* add some styling here */}
             {filteredWords.length > 0 && (
               <FlatList
+                style={styles.flatList}
                 data={filteredWords}
                 keyExtractor={(item) => item}
                 renderItem={({ item }) => (
@@ -162,7 +167,7 @@ const AddExpenseModal = ({
                       setFilteredWords([]);
                     }}
                   >
-                    <Text>{item}</Text>
+                    <Text style={styles.flatListItem}>{item}</Text>
                   </Pressable>
                 )}
               />
@@ -225,6 +230,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 20,
+  },
+  flatList: {
+    maxHeight: 200,
+    marginTop: -8,
+    borderRadius: 6,
+  },
+  flatListItem: {
+    height: 36,
+    borderColor: "gray",
+    borderWidth: 1,
+    padding: 8,
+    backgroundColor: "#e0d8d7",
   },
 });
 
