@@ -27,15 +27,28 @@ export const nameCase = (name: string) => {
     .join(" ");
 };
 
-export const isWithinLastWeek = (dateString: string) => {
+export const isWithinTimeRange = (dateString: string, range: string) => {
   const givenDate = new Date(dateString);
   const today = new Date();
 
-  const sevenDaysAgo = new Date();
-  sevenDaysAgo.setDate(today.getDate() - 7);
+  let rangeStart = new Date();
+
+  switch (range) {
+    case "last_week":
+      rangeStart.setDate(today.getDate() - 7);
+      break;
+    case "last_month":
+      rangeStart.setMonth(today.getMonth() - 1);
+      break;
+    case "last_3_months":
+      rangeStart.setMonth(today.getMonth() - 3);
+      break;
+    default:
+      return false;
+  }
 
   return (
-    givenDate.getTime() >= sevenDaysAgo.getTime() &&
+    givenDate.getTime() >= rangeStart.getTime() &&
     givenDate.getTime() <= today.getTime()
   );
 };

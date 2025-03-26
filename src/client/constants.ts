@@ -43,3 +43,9 @@ export const CATEGORY_COLOURS: Record<string, string> = {
   internet: "#f56788",
   home: "#716ded",
 };
+
+export const TIME_RANGES = [
+  { label: "Last week", value: "last_week" },
+  { label: "Last month", value: "last_month" },
+  { label: "Last 3 months", value: "last_3_months" },
+];

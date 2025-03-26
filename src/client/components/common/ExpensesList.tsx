@@ -8,7 +8,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Divider } from "react-native-paper";
-import { capitalizeFirstLetter, formatDate } from "../../utils/util";
+import {
+  capitalizeFirstLetter,
+  formatDate,
+  isWithinTimeRange,
+} from "../../utils/util";
+import TimeRangeDropdown from "./TimeRangeDropdown";
+import { Expense } from "../../types";
 
 const groupExpenseData = (expenses: any[]) => {
   const grouped = expenses.reduce(
@@ -82,28 +88,37 @@ const transformDataForSectionList = (data: any[]) => {
 
 const transformDataForSectionListTransactions = (data: any[]) => {
   return data.map((entry) => {
-    const date = Object.keys(entry)[0]; // Extract the date
-    const transactions = entry[date]["data"]; // Get transaction data
+    const date = Object.keys(entry)[0];
+    const transactions = entry[date]["data"];
 
-    transactions.forEach((transaction: any) => {
+    const updatedTransactions = transactions.map((transaction: any) => {
       let total = 0;
-      transaction["expenses"].forEach((expense: any) => {
-        total += expense["cost"];
+      transaction.expenses.forEach((expense: any) => {
+        total += expense.cost;
       });
-      transaction["total"] = total;
+
+      return {
+        ...transaction,
+        total,
+      };
     });
+
     return {
-      title: date,
-      data: Object.keys(transactions).map((transaction) => ({
-        transactions: transactions,
-        total: transactions[transaction]["total"],
-      })),
+      [date]: [
+        {
+          transactions: updatedTransactions,
+          total: updatedTransactions.reduce(
+            (sum: number, t: any) => sum + t.total,
+            0,
+          ),
+        },
+      ],
     };
   });
 };
 
 type ExpensesListProps = {
-  expenses: never[] | null;
+  expenses: Expense[] | null;
   transactions: never[] | null;
   addNewExpenseHandler: () => void;
 };
@@ -143,7 +158,7 @@ const TransactionCard = ({ transaction, addNewExpenseHandler }: any) => {
 };
 const DateGroupList = ({ data, addNewExpenseHandler }: any) => {
   const date = Object.keys(data)[0];
-  const transactions = data[date]["data"];
+  const transactions = data[date][0]["transactions"];
 
   return (
     data && (
@@ -206,13 +221,18 @@ const ExpensesList = ({
   transactions,
   addNewExpenseHandler,
 }: ExpensesListProps) => {
-  const groupedExpenses = groupExpenseData(expenses ?? []);
+  const [selectedTab, setSelectedTab] = React.useState(0);
+  const [timeRange, setTimeRange] = React.useState("last_month");
+
+  const filteredExpenses = expenses?.filter((expense) =>
+    isWithinTimeRange(expense.transaction_date, timeRange),
+  );
+  const groupedExpenses = groupExpenseData(filteredExpenses ?? []);
   const transFormedExpenses = transformDataForSectionList(groupedExpenses);
 
   const groupedTransactions = groupTransactionData(transactions ?? []);
-  transformDataForSectionListTransactions(groupedTransactions);
-
-  const [selectedTab, setSelectedTab] = React.useState(0);
+  const transformedData =
+    transformDataForSectionListTransactions(groupedTransactions);
 
   const handleTabChange = (tabIndex: number) => {
     setSelectedTab(tabIndex);
@@ -240,6 +260,8 @@ const ExpensesList = ({
           text="By transactions"
         />
       </View>
+
+      <TimeRangeDropdown timeRange={timeRange} setTimeRange={setTimeRange} />
 
       {selectedTab === 0 && (
         <SectionList
@@ -272,7 +294,7 @@ const ExpensesList = ({
       )}
       {selectedTab === 1 && (
         <ScrollView>
-          {groupedTransactions.map((group) => (
+          {transformedData.map((group) => (
             <DateGroupList
               key={Object.keys(group)[0]}
               data={group}
@@ -291,6 +313,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 20,
     marginBottom: 10,
+  },
+  dropdown: {
+    fontSize: 14,
+    color: "#666",
+    fontWeight: "500",
   },
   categoryContainer: {
     marginBottom: 10,

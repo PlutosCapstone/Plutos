@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { BarChart } from "react-native-chart-kit";
 import { Expense } from "../../types";
 import {
   capitalizeFirstLetter,
-  isWithinLastWeek,
+  isWithinTimeRange,
   truncateString,
 } from "../../utils/util";
-import { CATEGORY_COLOURS } from "../../constants";
+import { CATEGORY_COLOURS, TIME_RANGES } from "../../constants";
+import { Dropdown } from "react-native-element-dropdown";
+import TimeRangeDropdown from "./TimeRangeDropdown";
 
 type ChartConfig = {
   backgroundColor: string;
@@ -23,11 +25,13 @@ interface SpendingDetailsProps {
   expenses: Expense[];
 }
 
+const screenWidth = Dimensions.get("window").width;
+
 const SpendingDetails = ({ expenses }: SpendingDetailsProps) => {
-  const screenWidth = Dimensions.get("window").width;
+  const [timeRange, setTimeRange] = useState("last_month");
 
   const filteredExpenses = expenses.filter((expense) =>
-    isWithinLastWeek(expense.transaction_date),
+    isWithinTimeRange(expense.transaction_date, timeRange),
   );
 
   const expenseCategoryTotals: Record<string, number> = {};
@@ -85,7 +89,7 @@ const SpendingDetails = ({ expenses }: SpendingDetailsProps) => {
     <View>
       <View style={styles.header}>
         <Text style={styles.title}>Spending Details</Text>
-        <Text style={styles.dropdown}>Last week ▾</Text>
+        <TimeRangeDropdown timeRange={timeRange} setTimeRange={setTimeRange} />
       </View>
       <View style={styles.container}>
         <BarChart
@@ -133,11 +137,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: "#333",
-  },
-  dropdown: {
-    fontSize: 14,
-    color: "#666",
-    fontWeight: "500",
   },
   chart: {
     marginLeft: -10,
