@@ -546,8 +546,9 @@ Requierment`. The priority levels are high (H), medium (M), and low (L), and are
 used to indicate the importance of the requirement to the system.
 
 \subsection{Functional Requirements}
-\begin{enumerate}[label=FR\arabic*]
-  \item[] \textbf{User Account Management Requirements}
+
+\textbf{User Account Management Requirements}
+\begin{enumerate}[label=FR-UAM-\arabic*]
   \item (H) Users must be able to create an account using a name, email
   address, and password.
   \item (L) Users must be able to update their account information after account
@@ -556,8 +557,10 @@ used to indicate the importance of the requirement to the system.
   \item (H) Users must log in before accessing the application.
   \item (L) Users must be able to log out of their account.
   \item (L) Users must be able to reset their password if forgotten.
+\end{enumerate}
 
-  \item[] \textbf{Receipt Scanning Input Requirements}
+\textbf{Receipt Scanning Input Requirements}
+\begin{enumerate}[label=FR-IP-\arabic*]
   \item (H) Users must be able to take a picture using the application.
   \item (M) Users must be able to upload an image from their device to the
   application.
@@ -565,26 +568,34 @@ used to indicate the importance of the requirement to the system.
   \item (H) The system must display a preview of the uploaded image, allowing users
   to confirm or retake the image if necessary. 
   \item (H) The system shall upload the confirmed image to the server for processing.
-  
-  \item[] \textbf{Manual Receipt Input Requirements}
+\end{enumerate}
+
+\textbf{Manual Receipt Input Requirements}
+\begin{enumerate}[label=FR-MIS-\arabic*]
   \item (M) Users must be able to manually input receipt details. This includes
   items, their associated costs, and the date of purchase.
   \item (M) The system shall validate the input to ensure required fields are
   completed.
-  
-  \item[] \textbf{Database Management Requirements}
+  \end{enumerate}
+
+\textbf{Database Management Requirements}
+\begin{enumerate}[label=FR-DM-\arabic*]
   \item (H) The system shall store user account information, including usernames,
   email addresses, and passwords, in a secure database.
   \item (H) The system shall store receipt images and extracted data in a secure database.
+\end{enumerate}
 
-  \item[] \textbf{Item Recognition and Categorization Requirements}
+\textbf{Item Recognition and Categorization Requirements}
+\begin{enumerate}[label=FR-RS-\arabic*]
   \item (H) The system shall identify and display item names, quantities, and costs
   from the uploaded receipt image.
   \item (H) The system shall sort the entered products into predefined categories.
   \item (H) The user must be able to modify the name, quantity, price, and category
   of the identified items.   
+\end{enumerate}
 
-  \item[] \textbf{Financial Tracking Requirements}
+\textbf{Financial Tracking Requirements}
+\begin{enumerate}[label=FR-FT-\arabic*]
   \item (M) The system shall generate an overview of the user's spending history,
   including total spending by item category and trends over time.
   \item (M) Users shall be able to set up budgets for each spending category.
@@ -601,12 +612,9 @@ used to indicate the importance of the requirement to the system.
 
 
 \subsection{Nonfunctional Requirements}
-\begin{enumerate}[label=NFR\arabic*]
-  \item[] \textbf{Accuracy Requirements}
-  \item (H) The OCR must achieve at least
-  \hyperref[Table:AuxConstants]{\textit{OCR\_ACCURACY}}\% accuracy in correctly
-  identifying and extracting key information (i.e., item names, quantities,
-  prices, dates) from receipts.
+
+\textbf{Accuracy Requirements}
+\begin{enumerate}[label=NFR-ACC-\arabic*]
   \item (H) The machine learning model must categorize expenses into predefined
   categories (e.g., groceries, utilities, entertainment) with at least
   \hyperref[Table:AuxConstants]{\textit{CATEGORIZATION\_ACCURACY}}\% precision
@@ -626,8 +634,10 @@ used to indicate the importance of the requirement to the system.
   \item (M) The application should ensure
   \hyperref[Table:AuxConstants]{\textit{SYNC\_CONSISTENCY}}\% consistency of
   financial data upon syncing across multiple devices and sessions.
+\end{enumerate}
 
-  \item[]\textbf{Performance Requirements}
+\textbf{Performance Requirements}
+\begin{enumerate}[label=NFR-PERF-\arabic*]
   \item (M) The application must load user account information and financial
   metrics within \hyperref[Table:AuxConstants]{\textit{MAX\_DATA\_LOAD\_TIME}} seconds.
   \item (M) The application must respond to user actions, such as adding a new
@@ -637,8 +647,10 @@ used to indicate the importance of the requirement to the system.
   \item (L) The system must be able to handle a minimum of
   \hyperref[Table:AuxConstants]{\textit{MIN\_CONCURRENT\_USERS}} concurrent users
   without significant performance degradation.
+\end{enumerate}
 
-  \item[]\textbf{Usability Requirements}
+\textbf{Usability Requirements}
+\begin{enumerate}[label=NFR-USAB-\arabic*]
   \item (M) The application must have a clean, intuitive, and easy-to-navigate
   interface, allowing users to perform common tasks (e.g., adding expenses,
   viewing budgets) within
@@ -667,15 +679,18 @@ used to indicate the importance of the requirement to the system.
   \hyperref[Table:AuxConstants]{\textit{MAX\_ADVANCED\_OPTIONS\_CLICKS}} clicks or less.
   \item (M) User comprehension of the displayed information must exceed\\
   \hyperref[Table:AuxConstants]{\textit{MIN\_USER\_COMPREHENSION}}\%.
+\end{enumerate}
 
-  \item[] \textbf{Security Requirements}
+\textbf{Security Requirements}
+\begin{enumerate}[label=NFR-SEC-\arabic*]
   \item (H) The system must implement secure password storage and authentication
   mechanisms.
   \item (H) The system must ensure that all data transmitted between the client and
   server is encrypted.
-  
+\end{enumerate}
 
-  \item[] \textbf{Maintainability Requirements}
+\textbf{Maintainability Requirements}
+\begin{enumerate}[label=NFR-MTB-\arabic*]
   \item (M) New releases must maintain backward compatibility with previous
   versions, ensuring that users can seamlessly update the application without
   experiencing disruptions in their data or workflows.
@@ -686,8 +701,10 @@ used to indicate the importance of the requirement to the system.
   \hyperref[Table:AuxConstants]{\textit{MIN\_CODE\_COVERAGE}}\% of the codebase
   must be covered by automated unit tests to ensure maintainability and minimize
   the risk of introducing bugs when making changes.
+\end{enumerate}
 
-  \item[]  \textbf{Portability Requirements}
+\textbf{Portability Requirements}
+\begin{enumerate}[label=NFR-PORT-\arabic*]
   \item (H) The software shall be compatible with Android and iOS mobile devices
   running the latest software.
   \item (H) All data must be stored in platform-independent formats (e.g., JSON,
@@ -698,9 +715,10 @@ used to indicate the importance of the requirement to the system.
   access necessary services from any supported platform.
   \item (L) The system must be able to operate in a variety of network
   environments, including Wi-Fi, cellular networks, and offline mode.
+\end{enumerate}
 
-
-  \item[] \textbf{Reusability Requirements} 
+\textbf{Reusability Requirements} 
+\begin{enumerate}[label=NFR-REUS-\arabic*]
   \item (M) The application must be developed using reusable components (e.g.,
   UI components, API services) where applicable, to prevent code duplication and
   allow for better code maintainability.
@@ -714,8 +732,10 @@ used to indicate the importance of the requirement to the system.
   \item (L) Design elements (e.g., icons, typography, color schemes) shall be
   created as reusable assets, ensuring they can be reused consistently across
   multiple projects or platforms.
+\end{enumerate}
 
-  \item[] \textbf{Understandability Requirements} 
+\textbf{Understandability Requirements} 
+\begin{enumerate}[label=NFR-UND-\arabic*]
   \item (H) All source code must be thoroughly documented using inline comments
   and external documentation (e.g., README files, docstrings) to ensure that
   developers can easily understand the purpose and behavior of code components.
@@ -745,15 +765,19 @@ used to indicate the importance of the requirement to the system.
   \item (M) The language and terminology used throughout the application's UI
   must be aligned with the users' mental models and expectations, using
   non-technical and familiar terms to enhance understanding.
+\end{enumerate}
 
-  \item[] \textbf{Regulatory Requirements}
+\textbf{Regulatory Requirements}
+\begin{enumerate}[label=NFR-REG-\arabic*]
   \item (H) The system must comply with the Canada's Privacy Act to ensure the
   privacy and security of user data.
   \item (H) The system must comply with Canada's Financial Administration Act to
   ensure the secure handling of financial information.
+\end{enumerate}
 
-  \item[] \textbf{Data Retention and Deletion Requirements}
-  \item (H) The system must retain user financial data for a maximum of
+\textbf{Data Retention and Deletion Requirements}
+\begin{enumerate}[label=NFR-DAT-\arabic*]
+\item (H) The system must retain user financial data for a maximum of
   \hyperref[Table:AuxConstants]{\textit{MAX\_DATA\_RETENTION}} years, in
   compliance with regulatory requirements, and ensure all expired data is
   securely deleted within
@@ -771,8 +795,8 @@ used to indicate the importance of the requirement to the system.
   processed and completed within
   \hyperref[Table:AuxConstants]{\textit{TIME\_DELETE\_DATA\_REQUEST}} days, as
   confirmed by system logs.
-  
 \end{enumerate}
+
 
 
 \newpage
