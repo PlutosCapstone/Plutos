@@ -8,10 +8,15 @@ import {
   View,
   TouchableWithoutFeedback,
   Keyboard,
+  FlatList,
+  Pressable,
 } from "react-native";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import { Dropdown } from "react-native-element-dropdown";
+import { useUser } from "../../contexts/UserContext";
+import ExpensesService from "../../services/expensesService";
+import { Expense } from "../../types";
 
 interface AddExpenseModalProps {
   visible: boolean;
@@ -30,6 +35,23 @@ const AddExpenseModal = ({
   const [rawName, setRawName] = useState("");
   const [name, setName] = useState("");
   const [cost, setCost] = useState("");
+  /* For auto completions */
+  const [expenseData, setExpenseData] = useState<string[]>([]);
+  const [filteredWords, setFilteredWords] = useState<string[]>([]);
+
+  const { user } = useUser();
+
+  const handleInputChange = (text: string) => {
+    setName(text);
+    if (text.length > 0) {
+      const filtered = expenseData.filter((word) =>
+        word.toLowerCase().startsWith(text.toLowerCase()),
+      );
+      setFilteredWords(filtered);
+    } else {
+      setFilteredWords([]);
+    }
+  };
 
   React.useEffect(() => {
     if (data) {
@@ -39,6 +61,21 @@ const AddExpenseModal = ({
       setCost(data.cost.toString());
     }
   }, [data]);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      if (!user?.userid || !user?.email) return;
+
+      try {
+        const expense = await ExpensesService.getUserExpenses(user.userid);
+        setExpenseData(expense.map((entry: Expense) => entry.name));
+      } catch (e: any) {
+        console.error("There was an error", e);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleSave = () => {
     let id;
@@ -108,8 +145,28 @@ const AddExpenseModal = ({
               accessibilityLabel="Name:"
               style={styles.input}
               value={name}
-              onChangeText={setName}
+              onChangeText={(val) => {
+                handleInputChange(val);
+              }}
             />
+
+            {/* add some styling here */}
+            {filteredWords.length > 0 && (
+              <FlatList
+                data={filteredWords}
+                keyExtractor={(item) => item}
+                renderItem={({ item }) => (
+                  <Pressable
+                    onPress={() => {
+                      setName(item);
+                      setFilteredWords([]);
+                    }}
+                  >
+                    <Text>{item}</Text>
+                  </Pressable>
+                )}
+              />
+            )}
 
             <Text style={styles.label}>Cost:</Text>
             <TextInput
