@@ -326,8 +326,10 @@ with user expectations
     ensuring the cleanliness of the commits on the main branch.
     \item On push to an open PR, a GitHub Action should run which deploys the
     branch to a CI/CD pipeline in which all automated tests should run to ensure
-    at least 90\% line coverage. If this condition isn't met, the PR will not be
-    allowed to be merged.
+    at least \textit{MIN\_CODE\_COVERAGE} (see Section 10 of
+    \href{https://github.com/PlutosCapstone/Plutos/blob/main/docs/SRS/SRS.pdf}{SRS})
+    \% line coverage. If this condition isn't met, the PR will not be allowed to
+    be merged.
 \end{itemize}
 
 \subsection{GitHub Actions}
