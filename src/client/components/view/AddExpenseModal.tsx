@@ -17,6 +17,7 @@ import { Dropdown } from "react-native-element-dropdown";
 import { useUser } from "../../contexts/UserContext";
 import ExpensesService from "../../services/expensesService";
 import { Expense } from "../../types";
+import { CATEGORIES } from "../../constants";
 
 interface AddExpenseModalProps {
   visible: boolean;
@@ -112,15 +113,7 @@ const AddExpenseModal = ({
 
             <Text style={styles.label}>Category:</Text>
             <Dropdown
-              data={[
-                { label: "Rent", value: "rent" },
-                { label: "Groceries", value: "groceries" },
-                { label: "Entertainment", value: "entertainment" },
-                { label: "Electronics", value: "electronics" },
-                { label: "Miscellaneous", value: "miscellaneous" },
-                { label: "Internet", value: "internet" },
-                { label: "Other", value: "other" },
-              ]}
+              data={CATEGORIES}
               search
               searchPlaceholder={"groceries"}
               labelField="label"
@@ -135,14 +128,6 @@ const AddExpenseModal = ({
                 borderRadius: 10,
               }}
             />
-
-            {/* <Text style={styles.label}>Raw Name:</Text>
-            <TextInput
-              accessibilityLabel="Raw Name:"
-              style={styles.input}
-              value={rawName}
-              onChangeText={setRawName}
-            /> */}
 
             <Text style={styles.label}>Name:</Text>
             <TextInput

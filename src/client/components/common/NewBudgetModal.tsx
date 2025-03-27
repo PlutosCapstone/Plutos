@@ -15,16 +15,7 @@ import { useUser } from "../../contexts/UserContext";
 import CancelIcon from "../../assets/icons/CancelIcon";
 import BudgetService from "../../services/budgetService";
 import { Budget } from "../../types";
-
-const dropdownData = [
-  { label: "Groceries", value: "groceries" },
-  { label: "Rent", value: "rent" },
-  { label: "Internet", value: "internet" },
-  { label: "Home", value: "home" },
-  { label: "Electronics", value: "electronics" },
-  { label: "Miscellanious", value: "misc" },
-  { label: "Entertainment", value: "entertainment" },
-];
+import { CATEGORIES } from "../../constants";
 
 interface NewBudgetModalProps {
   visible: boolean;
@@ -53,7 +44,7 @@ const NewBudgetModal = ({
     if (currentBudget) {
       setAmount(currentBudget.amount.toString());
       setDropdownValue(
-        dropdownData.find(
+        CATEGORIES.find(
           (data) =>
             data.label.toLowerCase() == currentBudget?.category?.toLowerCase(),
         )?.value ?? "",
@@ -66,7 +57,7 @@ const NewBudgetModal = ({
   };
 
   const grabLabelFromDropdownValue = (val: string) => {
-    const entry = dropdownData.find((entry) => entry.value === val);
+    const entry = CATEGORIES.find((entry) => entry.value === val);
     return entry ? entry.label.toLowerCase() : null;
   };
 
@@ -129,7 +120,7 @@ const NewBudgetModal = ({
               <View style={styles.dropdownBox}>
                 <Text style={styles.dropdownText}>Category:</Text>
                 <Dropdown
-                  data={dropdownData}
+                  data={CATEGORIES}
                   labelField="label"
                   valueField="value"
                   style={styles.dropdown}
