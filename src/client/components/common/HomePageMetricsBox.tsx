@@ -40,7 +40,7 @@ const HomePageMetricsBox = ({
           <Text style={styles.title}>{`${currentMonth}'s Budget`}</Text>
           <Text
             style={styles.percentage}
-          >{`${progress === Infinity ? "No Budget Set" : Math.round(progress) * 100 + "%"}`}</Text>
+          >{`${progress === Infinity ? "No Budget Set" : Math.round(progress * 100) + "%"}`}</Text>
         </View>
 
         <ProgressBar.Bar
