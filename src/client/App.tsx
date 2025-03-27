@@ -22,6 +22,7 @@ import ProfilePage from "./components/view/ProfilePage";
 import BudgetBoxDetails from "./components/common/BudgetBoxDetails";
 import DefaultLayout from "./components/common/DefaultLayout";
 import { UserProvider } from "./contexts/UserContext";
+import Toast from "react-native-toast-message";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -123,6 +124,7 @@ const MainApp = () => {
   return (
     <UserProvider>
       <View style={styles.app}>
+        <Toast />
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           {/* Authentication Screens */}
           <Stack.Screen name="Login" component={LoginView} />
