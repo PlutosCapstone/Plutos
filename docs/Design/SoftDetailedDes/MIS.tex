@@ -66,11 +66,12 @@ urlcolor=cyan          % color of external links
 
 ~\newpage
 
-\section{Symbols, Abbreviations and Acronyms}
-Refer to Section 1.3 of the
-\href{https://github.com/PlutosCapstone/Plutos/blob/main/docs/SRS/SRS.pdf}{SRS
-Documentation} for general abbreviations and acronyms. Additional abbreviations
-and acronyms are listed below.
+Refer to the
+\href{https://github.com/PlutosCapstone/Plutos/blob/main/docs/SRS/SRS.pdf}{Software
+Requirements Specification (SRS)} document for the list of abbreviations and
+acronyms (Section 1.3) and the list of symbolic constants (Section 10).\\
+
+Additional abbreviations and acronyms are listed below.
 
 
 \renewcommand{\arraystretch}{1.2}
@@ -93,6 +94,8 @@ and acronyms are listed below.
 \newpage
 
 \tableofcontents
+
+\listoftables
 
 \newpage
 
@@ -314,7 +317,8 @@ classify items based on the input data.
   this model has been trained and does not need to be modified during runtime.
   \item model: The model will build off of Cohere's categorization classify
   feature, using a dataset of receipt items and categories to fine-tune the
-  model. The expected accuracy of the model is 80\%.
+  model. The expected accuracy of the model is
+  \textit{CATEGORIZATION\_ACCURACY}\%.
 \end{itemize}
 
 \newpage
