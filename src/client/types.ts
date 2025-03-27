@@ -72,5 +72,13 @@ export interface Expense {
   raw_name: string;
 }
 
+export interface Transaction {
+  id: string;
+  expenses: Expense[];
+  store: string;
+  user_id: string;
+  date: string;
+}
+
 export type NavigationProps = StackNavigationProp<RootStackParamList>;
 export type RouteProps = RouteProp<RootStackParamList>;

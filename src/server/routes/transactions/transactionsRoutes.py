@@ -39,3 +39,8 @@ def updateTransaction(transactionId):
 def getStores(userId):
     stores = TransactionsController.get_stores_by_userid(userId)
     return stores.json()
+
+@transactions.route("/<transactionId>", methods=["DELETE"])
+def deleteTransaction(transactionId):
+    deleted_transaction_id = TransactionsController.delete(transactionId)
+    return jsonify(deleted_transaction_id), 201

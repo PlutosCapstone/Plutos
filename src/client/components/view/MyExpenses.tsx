@@ -92,6 +92,7 @@ const MyExpenses = ({ navigation }: MyExpensesProp) => {
           expenses={expenses}
           transactions={transactions}
           addNewExpenseHandler={addNewExpenseHandler}
+          setTransactions={setTransactions}
         />
       ) : (
         <Text>No Expenses</Text>

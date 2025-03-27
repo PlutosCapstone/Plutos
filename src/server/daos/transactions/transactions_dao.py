@@ -68,3 +68,11 @@ class TransactionsDao:
         TransactionsDao._add_expenses_to_transaction(transaction_id, data["expenses"])
 
         return updated_transaction.data
+    
+    @staticmethod
+    def delete(transaction_id):
+        db.table("transactions").delete().eq("id", transaction_id).execute()
+        
+        ExpensesDao.bulk_delete_from_transaction(transaction_id)
+
+        return transaction_id

@@ -5,6 +5,7 @@ from server.models.expenses.expense import Expense
 from server.imageProcessing import ImageProcessor
 from server.db import db
 import datetime
+from dateutil.relativedelta import relativedelta
 
 
 base_path = os.path.dirname(os.path.abspath(__file__))
@@ -42,11 +43,18 @@ class ExpensesDao:
 
     @staticmethod
     def get_all_user_expenses(userId):
+        three_months_ago = (
+            datetime.datetime.utcnow()
+            .replace(hour=0, minute=0, second=0, microsecond=0)
+            - relativedelta(months=3)
+        )
+        start_date = three_months_ago.isoformat()
         try:
             expenses = (
                 db.from_("expenses")
                 .select("*, users!inner(email, userid)")
                 .eq("users.userid", userId)
+                .gte("transaction_date", start_date)
                 .order("transaction_date", desc=True)
                 .execute()
             )

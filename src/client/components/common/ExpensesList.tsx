@@ -6,9 +6,19 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Animated,
 } from "react-native";
 import { Divider } from "react-native-paper";
-import { capitalizeFirstLetter, formatDate } from "../../utils/util";
+import {
+  capitalizeFirstLetter,
+  formatDate,
+  isWithinTimeRange,
+} from "../../utils/util";
+import TimeRangeDropdown from "./TimeRangeDropdown";
+import { Expense, Transaction } from "../../types";
+import { Swipeable } from "react-native-gesture-handler";
+import ExpensesService from "../../services/expensesService";
+import Toast from "react-native-toast-message";
 
 const groupExpenseData = (expenses: any[]) => {
   const grouped = expenses.reduce(
@@ -82,68 +92,93 @@ const transformDataForSectionList = (data: any[]) => {
 
 const transformDataForSectionListTransactions = (data: any[]) => {
   return data.map((entry) => {
-    const date = Object.keys(entry)[0]; // Extract the date
-    const transactions = entry[date]["data"]; // Get transaction data
+    const date = Object.keys(entry)[0];
+    const transactions = entry[date]["data"];
 
-    transactions.forEach((transaction: any) => {
+    const updatedTransactions = transactions.map((transaction: any) => {
       let total = 0;
-      transaction["expenses"].forEach((expense: any) => {
-        total += expense["cost"];
+      transaction.expenses.forEach((expense: any) => {
+        total += expense.cost;
       });
-      transaction["total"] = total;
+
+      return {
+        ...transaction,
+        total,
+      };
     });
+
     return {
-      title: date,
-      data: Object.keys(transactions).map((transaction) => ({
-        transactions: transactions,
-        total: transactions[transaction]["total"],
-      })),
+      [date]: [
+        {
+          transactions: updatedTransactions,
+          total: updatedTransactions.reduce(
+            (sum: number, t: any) => sum + t.total,
+            0,
+          ),
+        },
+      ],
     };
   });
 };
 
 type ExpensesListProps = {
-  expenses: never[] | null;
-  transactions: never[] | null;
+  expenses: Expense[] | null;
+  transactions: Transaction[] | null;
   addNewExpenseHandler: () => void;
+  setTransactions: Function;
 };
 
-const TransactionCard = ({ transaction, addNewExpenseHandler }: any) => {
-  return (
-    <TouchableOpacity onPress={() => addNewExpenseHandler(transaction)}>
-      <View
-        style={{
-          backgroundColor: "#fff",
-          borderRadius: 8,
-          padding: 20, // Increased padding to make it taller
-          marginVertical: 5,
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.1,
-          shadowRadius: 4,
-          elevation: 3,
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
+const TransactionCard = ({
+  transaction,
+  addNewExpenseHandler,
+  handleDeleteTransaction,
+}: any) => {
+  const renderRightActions = (
+    progress: Animated.AnimatedInterpolation<number>,
+    dragX: Animated.AnimatedInterpolation<number>,
+    id: number,
+  ) => {
+    return (
+      <TouchableOpacity
+        style={styles.deleteButton}
+        onPress={() => handleDeleteTransaction(id.toString())}
       >
-        <Text
-          style={[
-            styles.expenseName,
-            !transaction.store && { fontStyle: "italic" },
-          ]}
-        >
-          {transaction.store ? transaction.store : "Untitled"}
-        </Text>
-        <Text style={styles.expenseAmount}>
-          -${transaction.total.toFixed(2)}
-        </Text>
-      </View>
-    </TouchableOpacity>
+        <Text style={styles.deleteText}>Delete</Text>
+      </TouchableOpacity>
+    );
+  };
+  return (
+    <Swipeable
+      key={transaction.id}
+      renderRightActions={(progress, dragX) =>
+        renderRightActions(progress, dragX, transaction.id)
+      }
+    >
+      <TouchableOpacity onPress={() => addNewExpenseHandler(transaction)}>
+        <View style={styles.transactionCardContainer}>
+          <Text
+            style={[
+              styles.expenseName,
+              !transaction.store && { fontStyle: "italic" },
+            ]}
+          >
+            {transaction.store ? transaction.store : "Untitled"}
+          </Text>
+          <Text style={styles.expenseAmount}>
+            -${transaction.total.toFixed(2)}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    </Swipeable>
   );
 };
-const DateGroupList = ({ data, addNewExpenseHandler }: any) => {
+const DateGroupList = ({
+  data,
+  addNewExpenseHandler,
+  handleDeleteTransaction,
+}: any) => {
   const date = Object.keys(data)[0];
-  const transactions = data[date]["data"];
+  const transactions = data[date][0]["transactions"];
 
   return (
     data && (
@@ -156,6 +191,7 @@ const DateGroupList = ({ data, addNewExpenseHandler }: any) => {
               key={transaction.id}
               transaction={transaction}
               addNewExpenseHandler={addNewExpenseHandler}
+              handleDeleteTransaction={handleDeleteTransaction}
             />
           );
         })}
@@ -205,17 +241,48 @@ const ExpensesList = ({
   expenses,
   transactions,
   addNewExpenseHandler,
+  setTransactions,
 }: ExpensesListProps) => {
-  const groupedExpenses = groupExpenseData(expenses ?? []);
+  const [selectedTab, setSelectedTab] = React.useState(0);
+  const [timeRange, setTimeRange] = React.useState("last_month");
+
+  const filteredExpenses = expenses?.filter((expense) =>
+    isWithinTimeRange(expense.transaction_date, timeRange),
+  );
+  const filteredTransactions = transactions?.filter((transaction) =>
+    isWithinTimeRange(transaction.date, timeRange),
+  );
+  const groupedExpenses = groupExpenseData(filteredExpenses ?? []);
   const transFormedExpenses = transformDataForSectionList(groupedExpenses);
 
-  const groupedTransactions = groupTransactionData(transactions ?? []);
-  transformDataForSectionListTransactions(groupedTransactions);
-
-  const [selectedTab, setSelectedTab] = React.useState(0);
+  const groupedTransactions = groupTransactionData(filteredTransactions ?? []);
+  const transformedData =
+    transformDataForSectionListTransactions(groupedTransactions);
 
   const handleTabChange = (tabIndex: number) => {
     setSelectedTab(tabIndex);
+  };
+
+  const handleDeleteTransaction = (transactionId: string) => {
+    transactions =
+      transactions?.filter((transaction) => transaction.id != transactionId) ??
+      [];
+    setTransactions(transactions);
+    try {
+      ExpensesService.deleteTransaction(transactionId);
+      Toast.show({
+        type: "success",
+        text1: "Transaction successfully deleted",
+        position: "bottom",
+      });
+    } catch (e) {
+      Toast.show({
+        type: "error",
+        text1: "Error deleting transaction",
+        text2: e instanceof Error ? e.message : "Something went wrong.",
+        position: "bottom",
+      });
+    }
   };
 
   return (
@@ -240,6 +307,8 @@ const ExpensesList = ({
           text="By transactions"
         />
       </View>
+
+      <TimeRangeDropdown timeRange={timeRange} setTimeRange={setTimeRange} />
 
       {selectedTab === 0 && (
         <SectionList
@@ -272,11 +341,12 @@ const ExpensesList = ({
       )}
       {selectedTab === 1 && (
         <ScrollView>
-          {groupedTransactions.map((group) => (
+          {transformedData.map((group) => (
             <DateGroupList
               key={Object.keys(group)[0]}
               data={group}
               addNewExpenseHandler={addNewExpenseHandler}
+              handleDeleteTransaction={handleDeleteTransaction}
             />
           ))}
         </ScrollView>
@@ -291,6 +361,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 20,
     marginBottom: 10,
+  },
+  dropdown: {
+    fontSize: 14,
+    color: "#666",
+    fontWeight: "500",
   },
   categoryContainer: {
     marginBottom: 10,
@@ -330,6 +405,33 @@ const styles = StyleSheet.create({
     elevation: 3,
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  transactionCardContainer: {
+    backgroundColor: "#fff",
+    borderRadius: 8,
+    padding: 20,
+    marginVertical: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  deleteButton: {
+    backgroundColor: "#FF3B30",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 80,
+    height: "100%",
+    borderRadius: 12,
+    marginLeft: 10,
+  },
+  deleteText: {
+    color: "#FFF",
+    fontSize: 14,
+    fontWeight: "bold",
   },
 });
 

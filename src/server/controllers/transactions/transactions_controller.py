@@ -14,4 +14,7 @@ class TransactionsController:
 
     @staticmethod
     def get_stores_by_userid(user_id):
-        return TransactionsDao.get_stores_by_userid(user_id)
+        return TransactionsDao.get_stores_by_userid(user_id)    
+    
+    def delete(transaction_id):
+        return TransactionsDao.delete(transaction_id)

@@ -3,7 +3,7 @@ import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import SpendingDetails from "../components/common/SpendingDetails";
 
 jest.mock("../utils/util", () => ({
-  isWithinLastWeek: jest.fn(),
+  isWithinTimeRange: jest.fn(),
 }));
 
 describe("SpendingDetails component", () => {
