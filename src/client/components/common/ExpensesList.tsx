@@ -155,21 +155,7 @@ const TransactionCard = ({
       }
     >
       <TouchableOpacity onPress={() => addNewExpenseHandler(transaction)}>
-        <View
-          style={{
-            backgroundColor: "#fff",
-            borderRadius: 8,
-            padding: 20, // Increased padding to make it taller
-            marginVertical: 5,
-            shadowColor: "#000",
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.1,
-            shadowRadius: 4,
-            elevation: 3,
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
+        <View style={styles.transactionCardContainer}>
           <Text
             style={[
               styles.expenseName,
@@ -408,6 +394,19 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   transactionCard: {
+    backgroundColor: "#fff",
+    borderRadius: 8,
+    padding: 20,
+    marginVertical: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  transactionCardContainer: {
     backgroundColor: "#fff",
     borderRadius: 8,
     padding: 20,
