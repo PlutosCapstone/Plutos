@@ -60,8 +60,6 @@ const MyExpenses = ({ navigation }: MyExpensesProp) => {
   }, [user]);
 
   const addNewExpenseHandler = (transactionData?: any | null) => {
-    console.log(transactionData);
-
     navigation.navigate("NewExpense", {
       transactionData,
       onChange: refreshExpensesTransactions,
