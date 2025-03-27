@@ -39,7 +39,6 @@ const LoginView = ({ navigation }: LoginViewProps) => {
         frequency: null,
         email: "ericchen@test.com",
       });
-      console.log(incomes);
     } catch (e) {
       throw e;
     }

@@ -11,3 +11,7 @@ class TransactionsController:
 
     def update(transaction_id, data):
         return TransactionsDao.update(transaction_id, data)
+
+    @staticmethod
+    def get_stores_by_userid(user_id):
+        return TransactionsDao.get_stores_by_userid(user_id)

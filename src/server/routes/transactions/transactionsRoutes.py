@@ -34,3 +34,8 @@ def updateTransaction(transactionId):
     updated_transaction = TransactionsController.update(transactionId, data)
 
     return jsonify(updated_transaction), 201
+
+@transactions.route("/stores/<userId>", methods=["GET"])
+def getStores(userId):
+    stores = TransactionsController.get_stores_by_userid(userId)
+    return stores.json()
