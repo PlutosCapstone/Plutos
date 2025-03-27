@@ -45,6 +45,8 @@ const HomePage = ({ navigation, route }: HomePageProps) => {
             ExpensesService.getUserExpenses(user.userid, true),
           ]);
 
+          console.log("expenses", expenses);
+
           setBudgets(budgets);
           setExpenses(expenses);
         } catch (error) {
