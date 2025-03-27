@@ -22,6 +22,17 @@ class TransactionsDao:
             transaction["expenses"] = expenses
 
         return transactions
+    
+    @staticmethod
+    def get_stores_by_userid(user_id):
+        response = (
+            db.table("transactions")
+            .select("store")
+            .eq("user_id", user_id)
+            .execute()
+        )
+         
+        return response
 
     @staticmethod
     def _add_expenses_to_transaction(transaction_id, expenses):

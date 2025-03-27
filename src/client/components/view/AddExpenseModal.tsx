@@ -8,10 +8,16 @@ import {
   View,
   TouchableWithoutFeedback,
   Keyboard,
+  FlatList,
+  Pressable,
 } from "react-native";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import { Dropdown } from "react-native-element-dropdown";
+import { useUser } from "../../contexts/UserContext";
+import ExpensesService from "../../services/expensesService";
+import { Expense } from "../../types";
+import { CATEGORIES } from "../../constants";
 
 interface AddExpenseModalProps {
   visible: boolean;
@@ -30,6 +36,23 @@ const AddExpenseModal = ({
   const [rawName, setRawName] = useState("");
   const [name, setName] = useState("");
   const [cost, setCost] = useState("");
+  /* For auto completions */
+  const [expenseData, setExpenseData] = useState<string[]>([]);
+  const [filteredWords, setFilteredWords] = useState<string[]>([]);
+
+  const { user } = useUser();
+
+  const handleInputChange = (text: string) => {
+    setName(text);
+    if (text.length > 0) {
+      const filtered = expenseData.filter((word) =>
+        word.toLowerCase().startsWith(text.toLowerCase()),
+      );
+      setFilteredWords(filtered);
+    } else {
+      setFilteredWords([]);
+    }
+  };
 
   React.useEffect(() => {
     if (data) {
@@ -39,6 +62,25 @@ const AddExpenseModal = ({
       setCost(data.cost.toString());
     }
   }, [data]);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      if (!user?.userid || !user?.email) return;
+
+      try {
+        const expense = await ExpensesService.getUserExpenses(user.userid);
+        /* removing duplicates and auto complete applies all names as lower case */
+        const expenseData = [
+          ...new Set(expense.map((entry: Expense) => entry.name.toLowerCase())),
+        ] as string[];
+        setExpenseData(expenseData);
+      } catch (e: any) {
+        console.error("There was an error", e);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleSave = () => {
     let id;
@@ -71,15 +113,7 @@ const AddExpenseModal = ({
 
             <Text style={styles.label}>Category:</Text>
             <Dropdown
-              data={[
-                { label: "Rent", value: "rent" },
-                { label: "Groceries", value: "groceries" },
-                { label: "Entertainment", value: "entertainment" },
-                { label: "Electronics", value: "electronics" },
-                { label: "Miscellaneous", value: "miscellaneous" },
-                { label: "Internet", value: "internet" },
-                { label: "Other", value: "other" },
-              ]}
+              data={CATEGORIES}
               search
               searchPlaceholder={"groceries"}
               labelField="label"
@@ -95,21 +129,33 @@ const AddExpenseModal = ({
               }}
             />
 
-            {/* <Text style={styles.label}>Raw Name:</Text>
-            <TextInput
-              accessibilityLabel="Raw Name:"
-              style={styles.input}
-              value={rawName}
-              onChangeText={setRawName}
-            /> */}
-
             <Text style={styles.label}>Name:</Text>
             <TextInput
               accessibilityLabel="Name:"
               style={styles.input}
               value={name}
-              onChangeText={setName}
+              onChangeText={(val) => {
+                handleInputChange(val);
+              }}
             />
+
+            {filteredWords.length > 0 && (
+              <FlatList
+                style={styles.flatList}
+                data={filteredWords}
+                keyExtractor={(item) => item}
+                renderItem={({ item }) => (
+                  <Pressable
+                    onPress={() => {
+                      setName(item);
+                      setFilteredWords([]);
+                    }}
+                  >
+                    <Text style={styles.flatListItem}>{item}</Text>
+                  </Pressable>
+                )}
+              />
+            )}
 
             <Text style={styles.label}>Cost:</Text>
             <TextInput
@@ -168,6 +214,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 20,
+  },
+  flatList: {
+    maxHeight: 200,
+    marginTop: -8,
+    borderRadius: 6,
+  },
+  flatListItem: {
+    height: 36,
+    borderColor: "gray",
+    borderWidth: 1,
+    padding: 8,
+    backgroundColor: "#e0d8d7",
   },
 });
 

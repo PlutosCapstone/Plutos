@@ -8,6 +8,8 @@ import {
   Image,
   TouchableWithoutFeedback,
   Keyboard,
+  FlatList,
+  Pressable,
 } from "react-native";
 import CameraIcon from "../../assets/icons/CameraIcon";
 import PhotoLibraryIcon from "../../assets/icons/PhotoLibraryIcon";
@@ -58,6 +60,9 @@ const AddExpenseView = ({ navigation, params }: AddExpenseViewProps) => {
   const [loading, setLoading] = useState(false);
   const [currItem, setCurrItem] = useState<Item | null>(null);
 
+  const [stores, setStores] = useState<string[]>([]);
+  const [filteredWords, setFilteredWords] = useState<string[]>([]);
+
   const { user } = useUser();
 
   const openModal = () => setModalVisible(true);
@@ -78,6 +83,41 @@ const AddExpenseView = ({ navigation, params }: AddExpenseViewProps) => {
       );
     }
   }, []);
+
+  React.useEffect(() => {
+    if (!user?.userid || !user.email) return;
+
+    type Store = {
+      store: string;
+    };
+
+    const fetchStores = async () => {
+      const response = await ExpensesService.getStores(user?.userid);
+      const stores = response.data as Store[];
+      const filteredStores = [
+        ...new Set(
+          stores
+            .map((item: Store) => item.store.toLowerCase())
+            .filter((val) => val != ""),
+        ),
+      ];
+      setStores(filteredStores);
+    };
+
+    fetchStores();
+  }, []);
+
+  const handleInputChange = (text: string) => {
+    setStoreName(text);
+    if (text.length > 0) {
+      const filtered = stores.filter((word) =>
+        word.startsWith(text.toLowerCase()),
+      );
+      setFilteredWords(filtered);
+    } else {
+      setFilteredWords([]);
+    }
+  };
 
   const handleSaveItem = (item: Item) => {
     if (currItem) {
@@ -183,8 +223,6 @@ const AddExpenseView = ({ navigation, params }: AddExpenseViewProps) => {
           };
           setItems((prevItems) => [...prevItems, item]);
         }
-        // console.log("responseData:", responseData);
-        // console.log("items:", items);
       } catch (error) {
         console.error("Error converting image to file:", error);
       }
@@ -251,9 +289,29 @@ const AddExpenseView = ({ navigation, params }: AddExpenseViewProps) => {
               style={styles.input}
               placeholder="Enter Store Name"
               value={storeName}
-              onChangeText={handleStoreNameChange}
+              onChangeText={(val) => {
+                handleInputChange(val);
+              }}
             />
           </View>
+
+          {filteredWords.length > 0 && (
+            <FlatList
+              style={styles.flatList}
+              data={filteredWords}
+              keyExtractor={(item) => item}
+              renderItem={({ item }) => (
+                <Pressable
+                  onPress={() => {
+                    handleStoreNameChange(item);
+                    setFilteredWords([]);
+                  }}
+                >
+                  <Text style={styles.flatListItem}>{item}</Text>
+                </Pressable>
+              )}
+            />
+          )}
         </View>
 
         <View style={styles.itemsContainer}>
@@ -365,6 +423,18 @@ const styles = StyleSheet.create({
   },
   addItemButton: {
     alignSelf: "flex-start",
+  },
+  flatList: {
+    maxHeight: 200,
+    marginTop: -8,
+    borderRadius: 6,
+  },
+  flatListItem: {
+    height: 36,
+    borderColor: "gray",
+    borderWidth: 1,
+    padding: 8,
+    backgroundColor: "#e0d8d7",
   },
 });
 

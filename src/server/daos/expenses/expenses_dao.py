@@ -26,13 +26,13 @@ class ExpensesDao:
         try:
             expenses = (
                 db.from_("expenses")
-                .select("*, users(*)")
+                .select("*, users!inner(email, userid)")
                 .order("transaction_date", desc=True)
                 .eq("users.userid", userId)
                 .gte("transaction_date", current_month_start)
                 .execute()
             )
-
+ 
             if "error" in expenses and expenses["error"]:
                 raise Exception(f"Supabase Query Error: {expenses['error']}")
 
