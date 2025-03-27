@@ -41,10 +41,10 @@
 \section{Symbols, Abbreviations and Acronyms}
 
 
-Refer to Section 1.3 of the
+Refer to the
 \href{https://github.com/PlutosCapstone/Plutos/blob/main/docs/SRS/SRS.pdf}{Software
-Requirements Specification (SRS)} document for the list of symbols,
-abbreviations, and acronyms.
+Requirements Specification (SRS)} document for the list of abbreviations and
+acronyms (Section 1.3) and the list of symbolic constants (Section 10).
 
 
 In addition, the following abbreviations are used in this document:\\
@@ -138,8 +138,8 @@ described in the plan.}
     \midrule
     test-ACC-1 & Pass &
     \href{https://github.com/PlutosCapstone/Plutos/tree/main/src/server/tests/imageProcessing/data/categorization/receipt_items_output.csv}{Actual
-    output}; accuracy is 47/57 = 82.46\%, which meets the threshold of 80\%.
-    Test can be found
+    output}; accuracy is 47/57 = 82.46\%, which meets the threshold of
+    \textit{CATEGORIZATION\_ACCURACY}\%. Test can be found
     \href{https://github.com/PlutosCapstone/Plutos/blob/main/src/server/tests/imageProcessing/test_categorization.py}{here}.
     \\
     test-ACC-2 & Pass & By manually comparing the input
@@ -147,7 +147,7 @@ described in the plan.}
     (set of receipt images)} with the
     \href{https://github.com/PlutosCapstone/Plutos/tree/main/src/server/tests/imageProcessing/data/parsing/input}{resulting
     output}, and calculating the accuracy as descripted in the V\&V Plan,
-    current accuracy is ~80\%, which meets the threshold of 80\%.
+    current accuracy is ~80\%, which meets the threshold of \textit{OCR\_ACCURACY}\%.
     \begin{itemize}
       \item \textit{foodbasics\_1.jpg}: 13.5/15 = 90\%
       \item \textit{foodbasics\_2.jpg}: 7/9 = 77.78\%

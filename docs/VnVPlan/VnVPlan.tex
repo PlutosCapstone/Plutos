@@ -44,14 +44,16 @@
 
 \tableofcontents
 
+\listoftables
+
 \newpage
 
 \section{Symbols, Abbreviations, and Acronyms}
 
-Refer to Section 1.3 of the
+Refer to the
 \href{https://github.com/PlutosCapstone/Plutos/blob/main/docs/SRS/SRS.pdf}{Software
-Requirements Specification (SRS)} document for the list of symbols,
-abbreviations, and acronyms.
+Requirements Specification (SRS)} document for the list of abbreviations and
+acronyms (Section 1.3) and the list of symbolic constants (Section 10).
 
 In addition, the following abbreviations are used in this document:\\
 
@@ -645,7 +647,8 @@ Below is a comprehensive list of recommended V\&V techniques and a corresponding
 	\begin{itemize}
 		\item \textbf{Purpose}: Verify that individual functions and components operate correctly in isolation.
 		\item \textbf{Key Functions to Test}: Data extraction from receipts, categorization logic, and budget calculations.
-		\item \textbf{Coverage Goal}: Achieve >80\% coverage on core functions.
+		\item \textbf{Coverage Goal}: Achieve >\textit{MIN\_CODE\_COVERAGE}\%
+		coverage on core functions.
 		\item \textbf{Goal}: Ensure reliability and accuracy at the component level.
 	\end{itemize}
 	\item \textbf{Integration Testing}:
@@ -756,8 +759,9 @@ Below is a comprehensive list of recommended V\&V techniques and a corresponding
 				\item \textbf{Error Analysis}: Review misclassifications and parsing errors to refine the model.
 			\end{itemize}
 			\item \textbf{Criteria}: Model meets or exceeds the required
-			performance metrics (e.g., 80\%+ accuracy in parsing and
-			categorization).
+			performance metrics (e.g., \textit{CATEGORIZATION\_ACCURACY}\%
+			accuracy in categorization and \textit{OCR\_ACCURACY}\% accuracy in
+			text extraction).
 		\end{itemize}
 		\item \textbf{Usability Testing}
 		\begin{itemize}
@@ -767,7 +771,9 @@ Below is a comprehensive list of recommended V\&V techniques and a corresponding
 				\item \textbf{User Surveys and Feedback Sessions}: Gather direct user feedback on the app's ease of use and intuitiveness.
 				\item \textbf{Task-Based Testing}: Have users complete key tasks (e.g., uploading a receipt, viewing categorized expenses).
 			\end{itemize}
-			\item \textbf{Criteria}: Positive user feedback, with 80\%+ of participants finding the app intuitive and easy to use.
+			\item \textbf{Criteria}: Positive user feedback, with
+			\textit{MIN\_USER\_COMPREHENSION}\%+ of participants finding the app
+			intuitive and easy to use.
 		\end{itemize}
 		\item \textbf{Security and Privacy Testing}
 		\begin{itemize}
@@ -1244,7 +1250,7 @@ CSV file with various receipt item names}
 					
 \textbf{Output/Result:} The model will output the categories of the given
 receipt items and compare it against the expected CSV file. The test passes if
-the model has a precision of at least 80\%.
+the model has a precision of at least \textit{CATEGORIZATION\_ACCURACY}\%.
 					
 \textbf{How test will be performed:} Testers will run the
 \href{https://github.com/PlutosCapstone/Plutos/tree/main/src/server/tests/imageProcessing/test_categorization.py}{code
@@ -1266,7 +1272,8 @@ from images of receipts.
 set of receipt images}
 					
 \textbf{Output/Result:} The OCR model's accuracy in recognizing text is
-calculated. The test passes if the accuracy is at least 90\%.
+calculated. The test passes if the accuracy is at least
+\textit{OCR\_ACCURACY}\%.
 					
 \textbf{How the Test Will Be Performed:} Testers will run the
 \href{https://github.com/PlutosCapstone/Plutos/tree/main/src/server/tests/imageProcessing/test_parsing.py}{code
@@ -1315,7 +1322,8 @@ categories.
 					
 \textbf{How the Test Will Be Performed:} The system will input the transaction
 data and verify that the calculated totals are accurate, ensuring the
-application meets the 99\% accuracy requirement in summation.
+application meets the \textit{CALCULATION\_PRECISION}\% accuracy requirement in
+summation.
 
 \item{test-ACC-5\\}
 
@@ -1332,7 +1340,7 @@ consistent.
 					
 \textbf{How the Test Will Be Performed:} The tester will input financial data on
 one device, sync, and verify that all other devices show the same data to ensure
-100\% consistency.
+\textit{SYNC\_CONSISTENCY}\% consistency.
 
 \end{enumerate}
 
@@ -1361,7 +1369,7 @@ taken to load user account data.
 \item{test-PERF-2\\}
 
 \textbf{Description:} The application must respond to user actions (e.g., adding
-an entry, generating a report) within two seconds.
+an entry, generating a report) within \textit{MAX\_INTERACTION\_LOAD\_TIME} seconds.
 
 \textbf{Type:} Manual
 					
@@ -1378,8 +1386,9 @@ response time for various user actions.
 
 \item{test-PERF-3\\}
 
-\textbf{Description:} The system must be able to handle a minimum of 10
-concurrent users without significant performance degradation.
+\textbf{Description:} The system must be able to handle a minimum of
+\textit{MIN\_CONCURRENT\_USERS} concurrent users without significant performance
+degradation.
 
 \textbf{Type:} Manual
 					
@@ -1391,9 +1400,10 @@ perform typical tasks.
 \textbf{Output/Result:} The application should maintain performance levels
 without significant degradation.
 					
-\textbf{How the Test Will Be Performed:} The tester will simulate 10 concurrent
-users accessing the application and monitor performance metrics (e.g., load
-times, response times) to ensure the application performs adequately under load.
+\textbf{How the Test Will Be Performed:} The tester will simulate
+\textit{MIN\_CONCURRENT\_USERS} concurrent users accessing the application and
+monitor performance metrics (e.g., load times, response times) to ensure the
+application performs adequately under load.
 
 \end{enumerate}
 
@@ -1437,8 +1447,8 @@ duration taken.
 \item{test-USAB-2\\}
 
 \textbf{Description:} New users should be able to complete account setup and
-understand core application features within five minutes, supported by an
-introductory tutorial and tooltips.
+understand core application features within \textit{MAX\_ACCOUNT\_ONBOARD\_TIME}
+minutes, supported by an introductory tutorial and tooltips.
 
 \textbf{Type:} Manual, Usability Testing
 					
