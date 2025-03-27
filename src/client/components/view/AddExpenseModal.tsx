@@ -17,7 +17,6 @@ import { Dropdown } from "react-native-element-dropdown";
 import { useUser } from "../../contexts/UserContext";
 import ExpensesService from "../../services/expensesService";
 import { Expense } from "../../types";
-import { DEFAULT_COLOURS } from "../../styles/commonStyles";
 
 interface AddExpenseModalProps {
   visible: boolean;
