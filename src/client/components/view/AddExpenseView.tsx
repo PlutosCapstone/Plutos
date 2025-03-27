@@ -183,8 +183,8 @@ const AddExpenseView = ({ navigation, params }: AddExpenseViewProps) => {
           };
           setItems((prevItems) => [...prevItems, item]);
         }
-        console.log("responseData:", responseData);
-        console.log("items:", items);
+        // console.log("responseData:", responseData);
+        // console.log("items:", items);
       } catch (error) {
         console.error("Error converting image to file:", error);
       }

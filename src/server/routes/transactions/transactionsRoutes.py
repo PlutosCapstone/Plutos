@@ -34,3 +34,8 @@ def updateTransaction(transactionId):
     updated_transaction = TransactionsController.update(transactionId, data)
 
     return jsonify(updated_transaction), 201
+
+@transactions.route("/<transactionId>", methods=["DELETE"])
+def deleteTransaction(transactionId):
+    deleted_transaction_id = TransactionsController.delete(transactionId)
+    return jsonify(deleted_transaction_id), 201

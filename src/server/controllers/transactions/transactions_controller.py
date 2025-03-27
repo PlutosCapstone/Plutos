@@ -11,3 +11,6 @@ class TransactionsController:
 
     def update(transaction_id, data):
         return TransactionsDao.update(transaction_id, data)
+    
+    def delete(transaction_id):
+        return TransactionsDao.delete(transaction_id)

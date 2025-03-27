@@ -60,8 +60,6 @@ const MyExpenses = ({ navigation }: MyExpensesProp) => {
   }, [user]);
 
   const addNewExpenseHandler = (transactionData?: any | null) => {
-    console.log(transactionData);
-
     navigation.navigate("NewExpense", {
       transactionData,
       onChange: refreshExpensesTransactions,
@@ -94,6 +92,7 @@ const MyExpenses = ({ navigation }: MyExpensesProp) => {
           expenses={expenses}
           transactions={transactions}
           addNewExpenseHandler={addNewExpenseHandler}
+          setTransactions={setTransactions}
         />
       ) : (
         <Text>No Expenses</Text>

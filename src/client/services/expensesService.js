@@ -94,6 +94,16 @@ const ExpensesService = {
       throw error;
     }
   },
+
+  deleteTransaction: async (transactionId) => {
+    try {
+      const response = await api.delete(`/transactions/${transactionId}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error deleting transaction:", error.message);
+      throw error;
+    }
+  },
 };
 
 export default ExpensesService;
