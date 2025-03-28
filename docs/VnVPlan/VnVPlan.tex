@@ -443,7 +443,7 @@ as it should. \\
 \caption{SRS Quality Checklist}
 \begin{tabular}{|>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{9cm}|>{\raggedright\arraybackslash}p{2cm}|}
 	\hline
-	\textbf{Checklist Item} & \textbf{Description} & \textbf{Pass/Fail} \\
+	\textbf{Checklist Item} & \textbf{Description} & \textbf{Rating (1-5)} \\
 	\hline
 	Requirements Clarity & All requirements are clear, unambiguous, and written in active voice. & \\
 	\hline
@@ -500,7 +500,7 @@ as it should. \\
 	\caption{Functional Verification Checklist}
 \noindent \begin{tabular}{|>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{3cm}|p{1cm}|p{2.25cm}|}
 	\hline
-	\textbf{Checklist Items} & \textbf{Description} & \textbf{Verification Method} & \textbf{Pass /Fail} & \textbf{Comments} \\ 
+	\textbf{Checklist Items} & \textbf{Description} & \textbf{Verification Method} & \textbf{Rating (1-5)} & \textbf{Comments} \\ 
 	\hline
 	Receipt Scanning Capability	& Verify that receipt scanning feature works as expected with various image qualities. & Functional Testing	& & \\
 	\hline
@@ -523,7 +523,7 @@ as it should. \\
 \caption{Performance Validation Checklist}
 \noindent \begin{tabular}{|>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{3cm}|p{1cm}|p{2.25cm}|}
 	\hline
-	\textbf{Checklist Items} & \textbf{Description} & \textbf{Verification Method} & \textbf{Pass /Fail} & \textbf{Comments} \\ 
+	\textbf{Checklist Items} & \textbf{Description} & \textbf{Verification Method} & \textbf{Rating (1-5)} & \textbf{Comments} \\ 
 	\hline
 	System Performance Under Load & Test app performance with simultaneous receipt scans to assess system stability and responsiveness.	& Load Testing & & \\
 	\hline
@@ -546,7 +546,7 @@ as it should. \\
 \caption{Document Validation Checklist}
 \noindent \begin{tabular}{|>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{3cm}|p{1cm}|p{2.25cm}|}
 	\hline
-	\textbf{Checklist Items} & \textbf{Description} & \textbf{Verification Method} & \textbf{Pass /Fail} & \textbf{Comments} \\ 
+	\textbf{Checklist Items} & \textbf{Description} & \textbf{Verification Method} & \textbf{Rating (1-5)} & \textbf{Comments} \\ 
 	\hline
 	User Documentation Completeness	& Verify that user manuals, installation guides, and support documentation are complete and accurate. & Documentation Review & & \\
 	\hline
@@ -743,11 +743,9 @@ Below is a comprehensive list of recommended V\&V techniques and a corresponding
 			\item \textbf{Purpose}: Validate that the app functions correctly and meets the intended use cases.
 			\item \textbf{Techniques}:
 			\begin{itemize}
-				\item \textbf{Unit Testing}: Test each component in isolation (e.g., receipt image processing, data extraction modules).
-				\item \textbf{Integration Testing}: Ensure smooth interaction between AI models and application components.
 				\item \textbf{System Testing}: Test the app end-to-end, covering all functional requirements.
 			\end{itemize}
-			\item \textbf{Criteria}: All functional test cases pass, with particular attention to accuracy in parsing receipts and categorizing expenses.
+			\item \textbf{Criteria}: The app functionality covers all functional requirements outlined in the Software Requirements Specification (SRS).
 		\end{itemize}
 		\item \textbf{Model Validation and AI Performance Testing}
 		\begin{itemize}
