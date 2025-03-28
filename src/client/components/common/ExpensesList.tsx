@@ -126,6 +126,7 @@ type ExpensesListProps = {
   transactions: Transaction[] | null;
   addNewExpenseHandler: () => void;
   setTransactions: Function;
+  setExpenses: Function;
 };
 
 const TransactionCard = ({
@@ -242,6 +243,7 @@ const ExpensesList = ({
   transactions,
   addNewExpenseHandler,
   setTransactions,
+  setExpenses,
 }: ExpensesListProps) => {
   const [selectedTab, setSelectedTab] = React.useState(0);
   const [timeRange, setTimeRange] = React.useState("last_month");
@@ -264,6 +266,15 @@ const ExpensesList = ({
   };
 
   const handleDeleteTransaction = (transactionId: string) => {
+    const transaction = transactions?.find(
+      (transaction) => transaction.id == transactionId,
+    );
+    const expensesToDelete =
+      transaction?.expenses.map((expense: Expense) => expense.id) ?? [];
+    expenses =
+      expenses?.filter((expense) => !expensesToDelete.includes(expense.id)) ??
+      [];
+    setExpenses(expenses);
     transactions =
       transactions?.filter((transaction) => transaction.id != transactionId) ??
       [];

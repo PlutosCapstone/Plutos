@@ -71,7 +71,7 @@ class ExpensesDao:
     def get_by_transaction(transaction_id):
         response = (
             db.table("expenses")
-            .select("name, cost, category")
+            .select("name, cost, category, id")
             .eq("transaction_id", transaction_id)
             .execute()
         )

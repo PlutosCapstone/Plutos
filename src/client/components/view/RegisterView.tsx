@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, View, TextInput, Pressable } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  Pressable,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
 import { commonStyles, DEFAULT_COLOURS } from "../../styles/commonStyles";
 import { Button, Text } from "tamagui";
 import { auth } from "../../firebase";
@@ -122,122 +129,124 @@ const RegisterView = ({ navigation, route }: RegisterViewProps) => {
   };
 
   return (
-    <View style={commonStyles.container}>
-      <Text style={commonStyles.header}>{"Sign Up for Plutos"}</Text>
-      <View style={styles.registerContainer}>
-        <TextInput
-          placeholder="Email"
-          style={commonStyles.input}
-          value={email}
-          onChangeText={setEmail}
-          autoCapitalize="none"
-          placeholderTextColor={DEFAULT_COLOURS.secondary}
-        />
-        <TextInput
-          placeholder="Enter Password"
-          style={commonStyles.input}
-          value={password}
-          onChangeText={(text) => {
-            setPassword(text);
-            validatePasswordCriteria(text);
-          }}
-          secureTextEntry={!showPassword}
-          placeholderTextColor={DEFAULT_COLOURS.secondary}
-        />
-        <TextInput
-          placeholder="Confirm Password"
-          style={commonStyles.input}
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          autoCapitalize="none"
-          secureTextEntry={!showPassword}
-          placeholderTextColor={DEFAULT_COLOURS.secondary}
-        />
-        {/* Note: Checked the length instead of just using the 'registerErrorMessage' boolean condition since when the component
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={commonStyles.container}>
+        <Text style={commonStyles.header}>{"Sign Up for Plutos"}</Text>
+        <View style={styles.registerContainer}>
+          <TextInput
+            placeholder="Email"
+            style={commonStyles.input}
+            value={email}
+            onChangeText={setEmail}
+            autoCapitalize="none"
+            placeholderTextColor={DEFAULT_COLOURS.secondary}
+          />
+          <TextInput
+            placeholder="Enter Password"
+            style={commonStyles.input}
+            value={password}
+            onChangeText={(text) => {
+              setPassword(text);
+              validatePasswordCriteria(text);
+            }}
+            secureTextEntry={!showPassword}
+            placeholderTextColor={DEFAULT_COLOURS.secondary}
+          />
+          <TextInput
+            placeholder="Confirm Password"
+            style={commonStyles.input}
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            autoCapitalize="none"
+            secureTextEntry={!showPassword}
+            placeholderTextColor={DEFAULT_COLOURS.secondary}
+          />
+          {/* Note: Checked the length instead of just using the 'registerErrorMessage' boolean condition since when the component
 		compiles, it will be treated as plain text and React Native complains if you put plain text in a View node without a Text
 		Node. Doing registerErrorMessage.length && <Text>some text lol</Text> will cause errors
 		*/}
-        {registerErrorMessage.length !== 0 && (
-          <Text style={{ color: "red" }}>{registerErrorMessage}</Text>
-        )}
+          {registerErrorMessage.length !== 0 && (
+            <Text style={{ color: "red" }}>{registerErrorMessage}</Text>
+          )}
 
-        {/* We can change this up later with a checkbox or like an eye icon */}
+          {/* We can change this up later with a checkbox or like an eye icon */}
+          <Pressable
+            style={styles.showPassword}
+            onPress={() => setShowPassword(!showPassword)}
+          >
+            <Text style={{ display: "flex", alignItems: "center" }}>
+              {showPassword ? "Hide" : "Show"} Password
+            </Text>
+          </Pressable>
+        </View>
+
+        {/* conditionally render this block if user's password doesn't meet firebase password criteria or smth */}
+        <View>
+          <Text style={styles.passwordCriteriaText}>Password Criteria</Text>
+          <View>
+            <Text
+              style={{
+                ...styles.passwordCriteria,
+                color: passwordCriteriaStatus.minLength ? "green" : "red",
+              }}
+            >
+              Minimum 8 characters
+            </Text>
+            <Text
+              style={{
+                ...styles.passwordCriteria,
+                color: passwordCriteriaStatus.lowercase ? "green" : "red",
+              }}
+            >
+              One lowercase character
+            </Text>
+            <Text
+              style={{
+                ...styles.passwordCriteria,
+                color: passwordCriteriaStatus.uppercase ? "green" : "red",
+              }}
+            >
+              One uppercase character
+            </Text>
+            <Text
+              style={{
+                ...styles.passwordCriteria,
+                color: passwordCriteriaStatus.specialChar ? "green" : "red",
+              }}
+            >
+              One special character [!,@,#,$,%,..]
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.createPasswordBox}>
+          <Button
+            backgroundColor={DEFAULT_COLOURS.primary}
+            marginTop={20}
+            paddingHorizontal="20%"
+            onPress={createAccountHandler}
+          >
+            <Text fontWeight="500" color="white">
+              Continue
+            </Text>
+          </Button>
+        </View>
+
+        <View style={styles.dividerContainer}>
+          <View style={styles.dividerLine} />
+        </View>
         <Pressable
-          style={styles.showPassword}
-          onPress={() => setShowPassword(!showPassword)}
+          style={{ margin: 16 }}
+          onPress={() => {
+            navigation.goBack();
+          }}
         >
-          <Text style={{ display: "flex", alignItems: "center" }}>
-            {showPassword ? "Hide" : "Show"} Password
+          <Text style={{ textDecorationLine: "underline", color: "green" }}>
+            {"Already have an account? Log in!"}
           </Text>
         </Pressable>
       </View>
-
-      {/* conditionally render this block if user's password doesn't meet firebase password criteria or smth */}
-      <View>
-        <Text style={styles.passwordCriteriaText}>Password Criteria</Text>
-        <View>
-          <Text
-            style={{
-              ...styles.passwordCriteria,
-              color: passwordCriteriaStatus.minLength ? "green" : "red",
-            }}
-          >
-            Minimum 8 characters
-          </Text>
-          <Text
-            style={{
-              ...styles.passwordCriteria,
-              color: passwordCriteriaStatus.lowercase ? "green" : "red",
-            }}
-          >
-            One lowercase character
-          </Text>
-          <Text
-            style={{
-              ...styles.passwordCriteria,
-              color: passwordCriteriaStatus.uppercase ? "green" : "red",
-            }}
-          >
-            One uppercase character
-          </Text>
-          <Text
-            style={{
-              ...styles.passwordCriteria,
-              color: passwordCriteriaStatus.specialChar ? "green" : "red",
-            }}
-          >
-            One special character [!,@,#,$,%,..]
-          </Text>
-        </View>
-      </View>
-
-      <View style={styles.createPasswordBox}>
-        <Button
-          backgroundColor={DEFAULT_COLOURS.primary}
-          marginTop={20}
-          paddingHorizontal="20%"
-          onPress={createAccountHandler}
-        >
-          <Text fontWeight="500" color="white">
-            Continue
-          </Text>
-        </Button>
-      </View>
-
-      <View style={styles.dividerContainer}>
-        <View style={styles.dividerLine} />
-      </View>
-      <Pressable
-        style={{ margin: 16 }}
-        onPress={() => {
-          navigation.goBack();
-        }}
-      >
-        <Text style={{ textDecorationLine: "underline", color: "green" }}>
-          {"Already have an account? Log in!"}
-        </Text>
-      </Pressable>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -249,7 +258,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     width: "90%",
-    marginLeft: 50,
   },
   dividerContainer: {
     flexDirection: "row",
