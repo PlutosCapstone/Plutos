@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import {
   ActivityIndicator,
+  Keyboard,
   Pressable,
   StyleSheet,
   TextInput,
+  TouchableWithoutFeedback,
   View,
 } from "react-native";
 import { commonStyles, DEFAULT_COLOURS } from "../../styles/commonStyles";
@@ -106,100 +108,105 @@ const LoginView = ({ navigation }: LoginViewProps) => {
   //   }
 
   return (
-    <View style={commonStyles.container}>
-      <Text style={commonStyles.header}>{"Login to Plutos"}</Text>
-      <View style={styles.loginContainer}>
-        <TextInput
-          placeholder="Email/Phone Number"
-          style={commonStyles.input}
-          value={username}
-          onChangeText={setUsername}
-          autoCapitalize="none"
-          placeholderTextColor={DEFAULT_COLOURS.secondary}
-        />
-        <TextInput
-          placeholder="Password"
-          style={commonStyles.input}
-          value={password}
-          onChangeText={setPassword}
-          autoCapitalize="none"
-          secureTextEntry={true}
-          placeholderTextColor={DEFAULT_COLOURS.secondary}
-        />
-      </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={commonStyles.container}>
+        <Text style={commonStyles.header}>{"Login to Plutos"}</Text>
+        <View style={styles.loginContainer}>
+          <TextInput
+            placeholder="Email/Phone Number"
+            style={commonStyles.input}
+            value={username}
+            onChangeText={setUsername}
+            autoCapitalize="none"
+            placeholderTextColor={DEFAULT_COLOURS.secondary}
+          />
+          <TextInput
+            placeholder="Password"
+            style={commonStyles.input}
+            value={password}
+            onChangeText={setPassword}
+            autoCapitalize="none"
+            secureTextEntry={true}
+            placeholderTextColor={DEFAULT_COLOURS.secondary}
+          />
+        </View>
 
-      <Button
-        backgroundColor={DEFAULT_COLOURS.primary}
-        paddingHorizontal="20%"
-        onPress={loginWithEmailPassword}
-      >
-        {loading ? (
-          <ActivityIndicator color={"white"} />
-        ) : (
-          <Text fontWeight="500" color="white">
-            Continue
-          </Text>
+        <Button
+          backgroundColor={DEFAULT_COLOURS.primary}
+          paddingHorizontal="20%"
+          onPress={loginWithEmailPassword}
+        >
+          {loading ? (
+            <ActivityIndicator color={"white"} />
+          ) : (
+            <Text fontWeight="500" color="white">
+              Continue
+            </Text>
+          )}
+        </Button>
+
+        {credentialError.length !== 0 && (
+          <Text style={commonStyles.errorText}>{credentialError}</Text>
         )}
-      </Button>
 
-      {credentialError.length !== 0 && (
-        <Text style={commonStyles.errorText}>{credentialError}</Text>
-      )}
+        <Pressable
+          style={{ marginTop: 15 }}
+          onPress={() => {
+            navigation.navigate("ResetPassword");
+          }}
+        >
+          <Text style={styles.forgotPasswordText}>Forgot your password?</Text>
+        </Pressable>
 
-      <Pressable
-        style={{ marginTop: 15 }}
-        onPress={() => {
-          navigation.navigate("ResetPassword");
-        }}
-      >
-        <Text style={styles.forgotPasswordText}>Forgot your password?</Text>
-      </Pressable>
-
-      <View style={styles.dividerContainer}>
-        <View style={styles.dividerLine} />
-        <View>
-          <Text paddingHorizontal={30}>or</Text>
+        <View style={styles.dividerContainer}>
+          <View style={styles.dividerLine} />
+          <View>
+            <Text paddingHorizontal={30}>or</Text>
+          </View>
+          <View style={styles.dividerLine} />
         </View>
-        <View style={styles.dividerLine} />
+
+        <View style={styles.loginContainer}>
+          <View style={styles.alternateSignInContainer}>
+            <GoogleIcon size={30} style={{ marginTop: 15, marginRight: 15 }} />
+            <Button flex={1} marginTop={15} onPress={testClick}>
+              <Text fontWeight="bold">Continue with Google</Text>
+            </Button>
+          </View>
+
+          <View style={styles.alternateSignInContainer}>
+            <MicrosoftIcon
+              size={33}
+              style={{ marginTop: 15, marginRight: 12 }}
+            />
+            <Button flex={1} marginTop={15}>
+              <Text fontWeight="bold">Continue with Microsoft</Text>
+            </Button>
+          </View>
+
+          <View style={styles.alternateSignInContainer}>
+            <AppleIcon size={36} style={{ marginTop: 15, marginRight: 10 }} />
+            <Button flex={1} marginTop={15}>
+              <Text fontWeight="bold">Continue with Apple</Text>
+            </Button>
+          </View>
+        </View>
+
+        <View style={styles.dividerContainer}>
+          <View style={styles.dividerLine} />
+        </View>
+        <Pressable
+          style={{ margin: 16 }}
+          onPress={() => {
+            navigation.navigate("Register");
+          }}
+        >
+          <Text style={styles.signUpText}>
+            {"Don't have an account? Sign up!"}
+          </Text>
+        </Pressable>
       </View>
-
-      <View style={styles.loginContainer}>
-        <View style={styles.alternateSignInContainer}>
-          <GoogleIcon size={30} style={{ marginTop: 15, marginRight: 15 }} />
-          <Button flex={1} marginTop={15} onPress={testClick}>
-            <Text fontWeight="bold">Continue with Google</Text>
-          </Button>
-        </View>
-
-        <View style={styles.alternateSignInContainer}>
-          <MicrosoftIcon size={33} style={{ marginTop: 15, marginRight: 12 }} />
-          <Button flex={1} marginTop={15}>
-            <Text fontWeight="bold">Continue with Microsoft</Text>
-          </Button>
-        </View>
-
-        <View style={styles.alternateSignInContainer}>
-          <AppleIcon size={36} style={{ marginTop: 15, marginRight: 10 }} />
-          <Button flex={1} marginTop={15}>
-            <Text fontWeight="bold">Continue with Apple</Text>
-          </Button>
-        </View>
-      </View>
-
-      <View style={styles.dividerContainer}>
-        <View style={styles.dividerLine} />
-      </View>
-      <Pressable
-        style={{ margin: 16 }}
-        onPress={() => {
-          navigation.navigate("Register");
-        }}
-      >
-        <Text style={styles.signUpText}>
-          {"Don't have an account? Sign up!"}
-        </Text>
-      </Pressable>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 

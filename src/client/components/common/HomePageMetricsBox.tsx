@@ -23,7 +23,8 @@ const HomePageMetricsBox = ({
     0,
   );
 
-  const progress = totalExpenses / totalBudget;
+  const progress =
+    totalExpenses != 0 && totalBudget != 0 ? totalExpenses / totalBudget : 0;
   const currentMonth = MONTHS[new Date().getMonth()];
 
   const navigateToBudgetDetails = () => {

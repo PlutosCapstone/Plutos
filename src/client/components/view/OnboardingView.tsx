@@ -1,4 +1,12 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  ActivityIndicator,
+  Keyboard,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import { DEFAULT_COLOURS } from "../../styles/commonStyles";
 import HorizontalRule from "../common/HorizontalRule";
 import { Button, Checkbox, Label } from "tamagui";
@@ -27,6 +35,7 @@ const OnboardingView = ({ navigation, route }: OnboardingViewProps) => {
   const [occupation, setOccupation] = useState("");
   const [keepLogin, setKeepLogin] = useState(false);
   const [fieldsValid, setFieldsValid] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const { setUser } = useUser();
 
@@ -43,8 +52,10 @@ const OnboardingView = ({ navigation, route }: OnboardingViewProps) => {
   };
 
   const createAccountHandler = async () => {
+    setLoading(true);
     if (!validateSelections()) {
       setFieldsValid(false);
+      setLoading(false);
       return;
     }
 
@@ -62,6 +73,7 @@ const OnboardingView = ({ navigation, route }: OnboardingViewProps) => {
       });
 
       setUser(result[0]);
+      setLoading(false);
 
       navigation.reset({
         index: 0,
@@ -74,137 +86,144 @@ const OnboardingView = ({ navigation, route }: OnboardingViewProps) => {
       });
     } catch (e: any) {
       console.error(e.message);
+      setLoading(false);
     }
   };
 
   return (
-    <View style={styles.onboardingBox}>
-      <View style={styles.headerBox}>
-        <Text style={styles.headerText}>Please Enter Your Information</Text>
-      </View>
-      <View style={styles.nameBox}>
-        <View style={styles.nameInnerBox}>
-          <Text style={styles.fieldText}>
-            First name <Text style={styles.required}>*</Text>
-          </Text>
-          <TextInput
-            placeholder="First Name"
-            style={styles.textInput}
-            placeholderTextColor={DEFAULT_COLOURS.secondary}
-            value={firstName}
-            onChangeText={setFirstName}
-          />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.onboardingBox}>
+        <View style={styles.headerBox}>
+          <Text style={styles.headerText}>Please Enter Your Information</Text>
         </View>
-        <View style={styles.nameInnerBox}>
-          <Text style={styles.fieldText}>Middle name </Text>
-          <TextInput
-            placeholder="Middle Name"
-            style={styles.textInput}
-            placeholderTextColor={DEFAULT_COLOURS.secondary}
-            value={middleName}
-            onChangeText={setMiddleName}
-          />
+        <View style={styles.nameBox}>
+          <View style={styles.nameInnerBox}>
+            <Text style={styles.fieldText}>
+              First name <Text style={styles.required}>*</Text>
+            </Text>
+            <TextInput
+              placeholder="First Name"
+              style={styles.textInput}
+              placeholderTextColor={DEFAULT_COLOURS.secondary}
+              value={firstName}
+              onChangeText={setFirstName}
+            />
+          </View>
+          <View style={styles.nameInnerBox}>
+            <Text style={styles.fieldText}>Middle name </Text>
+            <TextInput
+              placeholder="Middle Name"
+              style={styles.textInput}
+              placeholderTextColor={DEFAULT_COLOURS.secondary}
+              value={middleName}
+              onChangeText={setMiddleName}
+            />
+          </View>
+          <View style={styles.nameInnerBox}>
+            <Text style={styles.fieldText}>
+              Last name <Text style={styles.required}>*</Text>
+            </Text>
+            <TextInput
+              placeholder="Last Name"
+              style={styles.textInput}
+              placeholderTextColor={DEFAULT_COLOURS.secondary}
+              value={lastName}
+              onChangeText={setLastName}
+            />
+          </View>
         </View>
-        <View style={styles.nameInnerBox}>
-          <Text style={styles.fieldText}>
-            Last name <Text style={styles.required}>*</Text>
-          </Text>
-          <TextInput
-            placeholder="Last Name"
-            style={styles.textInput}
-            placeholderTextColor={DEFAULT_COLOURS.secondary}
-            value={lastName}
-            onChangeText={setLastName}
-          />
-        </View>
-      </View>
 
-      <HorizontalRule />
+        <HorizontalRule />
 
-      {/* Replace these with the corresponding dropdowns later */}
-      <View style={styles.demographicDataBox}>
-        <View style={styles.nameInnerBox}>
-          <Text style={styles.fieldText}>
-            Sex/gender <Text style={styles.required}>*</Text>
-          </Text>
-          <Dropdown
-            style={styles.textInput}
-            data={sexData}
-            labelField="sex"
-            valueField="sex"
-            placeholder="Sex/Gender"
-            placeholderStyle={{ fontSize: 14 }}
-            selectedTextStyle={{ fontSize: 14 }}
-            onChange={({ sex }) => setSex(sex)}
-            itemTextStyle={{ fontSize: 14 }}
-            iconColor="black"
-          />
+        {/* Replace these with the corresponding dropdowns later */}
+        <View style={styles.demographicDataBox}>
+          <View style={styles.nameInnerBox}>
+            <Text style={styles.fieldText}>
+              Sex/gender <Text style={styles.required}>*</Text>
+            </Text>
+            <Dropdown
+              style={styles.textInput}
+              data={sexData}
+              labelField="sex"
+              valueField="sex"
+              placeholder="Sex/Gender"
+              placeholderStyle={{ fontSize: 14 }}
+              selectedTextStyle={{ fontSize: 14 }}
+              onChange={({ sex }) => setSex(sex)}
+              itemTextStyle={{ fontSize: 14 }}
+              iconColor="black"
+            />
+          </View>
+          <View style={styles.nameInnerBox}>
+            <Text style={styles.fieldText}>
+              Date of Birth <Text style={styles.required}>*</Text>
+            </Text>
+            <DateTimePicker
+              style={styles.datePicker}
+              value={dob}
+              mode="date"
+              display="default"
+              onChange={(e, date) => setDob(date || dob)}
+            />
+          </View>
+          <View style={styles.nameInnerBox}>
+            <Text style={styles.fieldText}>
+              Occupation <Text style={styles.required}>*</Text>
+            </Text>
+            <Dropdown
+              style={styles.textInput}
+              data={occupationData}
+              labelField="occupation"
+              valueField="occupation"
+              placeholder="Occupation/Industry"
+              placeholderStyle={{ fontSize: 14 }}
+              selectedTextStyle={{ fontSize: 14 }}
+              onChange={({ occupation }) => setOccupation(occupation)}
+              itemTextStyle={{ fontSize: 14 }}
+              iconColor="black"
+              search
+            />
+          </View>
         </View>
-        <View style={styles.nameInnerBox}>
-          <Text style={styles.fieldText}>
-            Date of Birth <Text style={styles.required}>*</Text>
-          </Text>
-          <DateTimePicker
-            style={styles.datePicker}
-            value={dob}
-            mode="date"
-            display="default"
-            onChange={(e, date) => setDob(date || dob)}
-          />
-        </View>
-        <View style={styles.nameInnerBox}>
-          <Text style={styles.fieldText}>
-            Occupation <Text style={styles.required}>*</Text>
-          </Text>
-          <Dropdown
-            style={styles.textInput}
-            data={occupationData}
-            labelField="occupation"
-            valueField="occupation"
-            placeholder="Occupation/Industry"
-            placeholderStyle={{ fontSize: 14 }}
-            selectedTextStyle={{ fontSize: 14 }}
-            onChange={({ occupation }) => setOccupation(occupation)}
-            itemTextStyle={{ fontSize: 14 }}
-            iconColor="black"
-            search
-          />
-        </View>
-      </View>
 
-      <View style={styles.checkBox}>
-        <Checkbox
-          marginRight={12}
-          id="check"
-          checked={keepLogin}
-          onCheckedChange={() => setKeepLogin(!keepLogin)}
+        <View style={styles.checkBox}>
+          <Checkbox
+            marginRight={12}
+            id="check"
+            checked={keepLogin}
+            onCheckedChange={() => setKeepLogin(!keepLogin)}
+          >
+            <Checkbox.Indicator>
+              <CheckMark size={20} />
+            </Checkbox.Indicator>
+          </Checkbox>
+          <Label size={10} htmlFor="check">
+            Stay signed in on this device
+          </Label>
+        </View>
+        {!fieldsValid && (
+          <View style={styles.requiredFields}>
+            <Text style={{ color: "red" }}>
+              Make sure all required fields are filled.
+            </Text>
+          </View>
+        )}
+
+        <Button
+          backgroundColor={DEFAULT_COLOURS.primary}
+          width={"60%"}
+          marginTop={20}
+          marginHorizontal={"auto"}
+          onPress={createAccountHandler}
         >
-          <Checkbox.Indicator>
-            <CheckMark size={20} />
-          </Checkbox.Indicator>
-        </Checkbox>
-        <Label size={10} htmlFor="check">
-          Stay signed in on this device
-        </Label>
+          {!loading ? (
+            <Text style={{ color: "white" }}>Create Account</Text>
+          ) : (
+            <ActivityIndicator color={"#fff"} />
+          )}
+        </Button>
       </View>
-      {!fieldsValid && (
-        <View style={styles.requiredFields}>
-          <Text style={{ color: "red" }}>
-            Make sure all required fields are filled.
-          </Text>
-        </View>
-      )}
-
-      <Button
-        backgroundColor={DEFAULT_COLOURS.primary}
-        width={"60%"}
-        marginTop={20}
-        marginHorizontal={"auto"}
-        onPress={createAccountHandler}
-      >
-        <Text style={{ color: "white" }}>Create Account</Text>
-      </Button>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 

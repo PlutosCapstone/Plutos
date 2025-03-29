@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Pressable,
@@ -13,6 +13,7 @@ import ExpensesService from "../../services/expensesService";
 import { NavigationProps } from "../../types";
 import { useUser } from "../../contexts/UserContext";
 import ExpensesList from "../common/ExpensesList";
+import { useFocusEffect } from "@react-navigation/native";
 
 interface MyExpensesProp {
   navigation: NavigationProps;
@@ -93,6 +94,7 @@ const MyExpenses = ({ navigation }: MyExpensesProp) => {
           transactions={transactions}
           addNewExpenseHandler={addNewExpenseHandler}
           setTransactions={setTransactions}
+          setExpenses={setExpenses}
         />
       ) : (
         <Text>No Expenses</Text>

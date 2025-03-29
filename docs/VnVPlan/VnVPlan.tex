@@ -443,7 +443,7 @@ as it should. \\
 \caption{SRS Quality Checklist}
 \begin{tabular}{|>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{9cm}|>{\raggedright\arraybackslash}p{2cm}|}
 	\hline
-	\textbf{Checklist Item} & \textbf{Description} & \textbf{Pass/Fail} \\
+	\textbf{Checklist Item} & \textbf{Description} & \textbf{Rating (1-5)} \\
 	\hline
 	Requirements Clarity & All requirements are clear, unambiguous, and written in active voice. & \\
 	\hline
@@ -479,7 +479,7 @@ as it should. \\
 \caption{Specification Verification Checklist}
 \noindent \begin{tabular}{|>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{3cm}|p{1cm}|p{2.25cm}|}
 	\hline
-	\textbf{Checklist Items} & \textbf{Description} & \textbf{Verification Method} & \textbf{Pass /Fail} & \textbf{Comments} \\ 
+	\textbf{Checklist Items} & \textbf{Description} & \textbf{Verification Method} & \textbf{Rating (1-5)} & \textbf{Comments} \\ 
 	\hline
 	Requirements Completeness & Ensure all system and user requirements are addressed in the design. & Requirements Traceability Matrix & & \\
 	\hline
@@ -500,7 +500,7 @@ as it should. \\
 	\caption{Functional Verification Checklist}
 \noindent \begin{tabular}{|>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{3cm}|p{1cm}|p{2.25cm}|}
 	\hline
-	\textbf{Checklist Items} & \textbf{Description} & \textbf{Verification Method} & \textbf{Pass /Fail} & \textbf{Comments} \\ 
+	\textbf{Checklist Items} & \textbf{Description} & \textbf{Verification Method} & \textbf{Rating (1-5)} & \textbf{Comments} \\ 
 	\hline
 	Receipt Scanning Capability	& Verify that receipt scanning feature works as expected with various image qualities. & Functional Testing	& & \\
 	\hline
@@ -523,7 +523,7 @@ as it should. \\
 \caption{Performance Validation Checklist}
 \noindent \begin{tabular}{|>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{3cm}|p{1cm}|p{2.25cm}|}
 	\hline
-	\textbf{Checklist Items} & \textbf{Description} & \textbf{Verification Method} & \textbf{Pass /Fail} & \textbf{Comments} \\ 
+	\textbf{Checklist Items} & \textbf{Description} & \textbf{Verification Method} & \textbf{Rating (1-5)} & \textbf{Comments} \\ 
 	\hline
 	System Performance Under Load & Test app performance with simultaneous receipt scans to assess system stability and responsiveness.	& Load Testing & & \\
 	\hline
@@ -546,7 +546,7 @@ as it should. \\
 \caption{Document Validation Checklist}
 \noindent \begin{tabular}{|>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{3cm}|p{1cm}|p{2.25cm}|}
 	\hline
-	\textbf{Checklist Items} & \textbf{Description} & \textbf{Verification Method} & \textbf{Pass /Fail} & \textbf{Comments} \\ 
+	\textbf{Checklist Items} & \textbf{Description} & \textbf{Verification Method} & \textbf{Rating (1-5)} & \textbf{Comments} \\ 
 	\hline
 	User Documentation Completeness	& Verify that user manuals, installation guides, and support documentation are complete and accurate. & Documentation Review & & \\
 	\hline
@@ -743,11 +743,9 @@ Below is a comprehensive list of recommended V\&V techniques and a corresponding
 			\item \textbf{Purpose}: Validate that the app functions correctly and meets the intended use cases.
 			\item \textbf{Techniques}:
 			\begin{itemize}
-				\item \textbf{Unit Testing}: Test each component in isolation (e.g., receipt image processing, data extraction modules).
-				\item \textbf{Integration Testing}: Ensure smooth interaction between AI models and application components.
 				\item \textbf{System Testing}: Test the app end-to-end, covering all functional requirements.
 			\end{itemize}
-			\item \textbf{Criteria}: All functional test cases pass, with particular attention to accuracy in parsing receipts and categorizing expenses.
+			\item \textbf{Criteria}: The app functionality covers all functional requirements outlined in the Software Requirements Specification (SRS).
 		\end{itemize}
 		\item \textbf{Model Validation and AI Performance Testing}
 		\begin{itemize}
@@ -1106,7 +1104,7 @@ This subsection covers tests required to verify functionality for item recogniti
 \textbf{Description:} Uploaded receipts should be processed and return a list of
 items with their corresponding name, category, and price.
 
-\textbf{Control:} Functional
+\textbf{Control:} Manual/Dynamic
 
 \textbf{Initial State:} User confirms uploaded receipt is ready to be processed
 
@@ -1125,7 +1123,7 @@ recognized details against the original receipt
 
 \textbf{Description:} Uploaded receipts should categorize items on them under common expense categories (i.e. groceries, entertainment, etc..)
 
-\textbf{Control:} Functional
+\textbf{Control:} Manual/Dynamic
 
 \textbf{Initial State:} Receipt has been scanned and items are recognized from the receipt
 
@@ -1142,7 +1140,7 @@ recognized details against the original receipt
 
 \textbf{Description:} Verify that users can modify receipt data.
 
-\textbf{Control:} Functional
+\textbf{Control:} Automatic/Dynamic
 
 \textbf{Initial State:} Receipt has been scanned and items are recognized and
 categorized from the receipt
@@ -1172,7 +1170,7 @@ This subsection verifies the functionality of financial tracking features such h
 
 \textbf{Description:} Users should be able view their spending history by category and trends
 
-\textbf{Control:} Functional
+\textbf{Control:} Automatic/Dynamic
 
 \textbf{Initial State:} Application has recorded user's past expenses and user is on the expense tracking view
 
@@ -1188,7 +1186,7 @@ This subsection verifies the functionality of financial tracking features such h
 
 \textbf{Description:} Users should be able to set and track their budgets
 
-\textbf{Control:} Functional
+\textbf{Control:} Automatic/Dynamic
 
 \textbf{Initial State:} User is on the budgeting window and no current budget is set for the specified category
 
@@ -1205,7 +1203,7 @@ This subsection verifies the functionality of financial tracking features such h
 \textbf{Description:} Verify that users get notified when they are close to
 exceeding their budget or when a goal has been reached.
 
-\textbf{Control:} Functional
+\textbf{Control:} Manual
 
 \textbf{Initial State:} User has set a budget for a specific category and is
 close to exceeding it. OR User is also close to reaching a budgeting goal.

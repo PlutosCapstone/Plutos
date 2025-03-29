@@ -35,11 +35,12 @@ class TransactionsDao:
         return response
 
     @staticmethod
-    def _add_expenses_to_transaction(transaction_id, expenses):
+    def _add_expenses_to_transaction(transaction_id, transaction_date, expenses):
         if not expenses:
             return
         for expense in expenses:
             expense["transaction_id"] = transaction_id
+            expense["transaction_date"] = transaction_date
         return ExpensesDao.bulk_create_expenses(expenses)
 
     @staticmethod
@@ -49,7 +50,7 @@ class TransactionsDao:
             db.table("transactions").insert(transaction.to_dict()).execute()
         )
 
-        TransactionsDao._add_expenses_to_transaction(transaction.id, data["expenses"])
+        TransactionsDao._add_expenses_to_transaction(transaction.id, transaction.date, data["expenses"])
 
         return new_transaction.data
 
@@ -65,7 +66,7 @@ class TransactionsDao:
         )
         ExpensesDao.bulk_delete_from_transaction(transaction_id)
 
-        TransactionsDao._add_expenses_to_transaction(transaction_id, data["expenses"])
+        TransactionsDao._add_expenses_to_transaction(transaction_id, transaction.date, data["expenses"])
 
         return updated_transaction.data
     

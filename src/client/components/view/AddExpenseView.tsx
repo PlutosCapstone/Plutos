@@ -178,6 +178,67 @@ const AddExpenseView = ({ navigation, params }: AddExpenseViewProps) => {
     navigation.goBack();
   };
 
+  const captureImage = async () => {
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("Camera access is required to take photos.");
+      return;
+    }
+
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+      base64: true,
+    });
+
+    if (!result.canceled) {
+      const imageResult = result.assets[0];
+      const fileUri = imageResult.uri;
+      const fileType = imageResult.type || "image/jpeg";
+      const fileName = fileUri.split("/").pop() || "captured_image.jpg";
+      setImage(fileUri);
+      setLoading(true);
+
+      try {
+        const res = await fetch(fileUri);
+        const blob = await res.blob();
+        const file = new File([blob], fileName, {
+          type: fileType,
+        });
+
+        const formData = new FormData();
+        formData.append("receipt", {
+          uri: fileUri,
+          name: fileName,
+          type: fileType,
+        });
+
+        const responseData = await ExpensesService.parseExpense(formData);
+
+        const receipt_items = responseData.items;
+        for (let i = 0; i < receipt_items.length; i++) {
+          const item = {
+            id: Math.random().toString(),
+            rawName: receipt_items[i].name,
+            name: receipt_items[i].name,
+            cost: receipt_items[i].cost,
+            category: receipt_items[i].category,
+            email: user?.email || "",
+            transactionDate: receipt_items[i].transaction_date,
+          };
+          setItems((prevItems) => [...prevItems, item]);
+        }
+      } catch (error) {
+        console.error("Error processing captured image:", error);
+      }
+
+      setLoading(false);
+    }
+  };
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ["images"],
@@ -257,7 +318,10 @@ const AddExpenseView = ({ navigation, params }: AddExpenseViewProps) => {
             )}
           </View>
           <View style={styles.imageOptions}>
-            <TouchableOpacity style={styles.imageOptionButton}>
+            <TouchableOpacity
+              style={styles.imageOptionButton}
+              onPress={captureImage}
+            >
               <CameraIcon size={24} />
               <Text style={styles.imageOptionText}>Capture Photo</Text>
             </TouchableOpacity>
