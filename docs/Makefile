@@ -2,7 +2,7 @@
 # TODO: Missing artifacts should be added to this file
 .PHONY:	SRS
 
-all:	SRS MG MIS PS VnVP VnVR DevP HazA UGde
+all:	SRS MG MIS PS VnVP VnVR DevP HazA
 
 SRS:
 	cd SRS && make && cd ..
@@ -28,7 +28,7 @@ DevP:
 HazA:
 	cd HazardAnalysis && make && cd ../..
 
-clean:	cleanSRS cleanMG cleanMIS cleanSystDes cleanPS cleanVnVP cleanVnVR cleanDevP cleanHazA cleanRefl cleanUGde
+clean:	cleanSRS cleanMG cleanMIS cleanSystDes cleanPS cleanVnVP cleanVnVR cleanDevP cleanHazA cleanRefl
 
 cleanPS:
 	cd ProblemStatementAndGoals && make clean && cd ..
