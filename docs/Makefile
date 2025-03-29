@@ -27,9 +27,6 @@ DevP:
 	
 HazA:
 	cd HazardAnalysis && make && cd ../..
-	
-UGde:
-	cd UserGuide && make && cd ../..
 
 clean:	cleanSRS cleanMG cleanMIS cleanSystDes cleanPS cleanVnVP cleanVnVR cleanDevP cleanHazA cleanRefl cleanUGde
 
@@ -62,6 +59,3 @@ cleanHazA:
 	
 cleanRefl:
 	cd Reflection && make clean && cd ..
-	
-cleanUGde:
-	cd UserGuide && make clean && cd ..
