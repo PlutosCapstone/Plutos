@@ -8,7 +8,6 @@
 
 The folders and files for this project are as follows:
 
-- docs - Documentation for the project
-- refs - Reference material used for the project, including papers
-- src - Source code
-- test - Test cases
+- [docs](https://github.com/PlutosCapstone/Plutos/tree/main/docs) - Documentation for the project
+- [refs](https://github.com/PlutosCapstone/Plutos/tree/main/refs) - Reference material used for the project, including papers
+- [src](https://github.com/PlutosCapstone/Plutos/tree/main/src) - Source code
