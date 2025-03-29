@@ -1,5 +1,6 @@
 # Hazard Analysis
 
 The folders and files for this folder are as follows:
-
-Describe ...
+- HazardAnalysis.pdf - the compiled PDF
+- HazardAnalysis.tex - the latex document
+- Makefile - used to compile the latex document

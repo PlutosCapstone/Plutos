@@ -32,7 +32,7 @@ class ExpensesDao:
                 .gte("transaction_date", current_month_start)
                 .execute()
             )
- 
+
             if "error" in expenses and expenses["error"]:
                 raise Exception(f"Supabase Query Error: {expenses['error']}")
 
@@ -43,11 +43,9 @@ class ExpensesDao:
 
     @staticmethod
     def get_all_user_expenses(userId):
-        three_months_ago = (
-            datetime.datetime.utcnow()
-            .replace(hour=0, minute=0, second=0, microsecond=0)
-            - relativedelta(months=3)
-        )
+        three_months_ago = datetime.datetime.utcnow().replace(
+            hour=0, minute=0, second=0, microsecond=0
+        ) - relativedelta(months=3)
         start_date = three_months_ago.isoformat()
         try:
             expenses = (
