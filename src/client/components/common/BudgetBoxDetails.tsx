@@ -34,6 +34,7 @@ const BudgetBoxDetails = ({ navigation }: BudgetBoxDetailsProps) => {
 
   const [openBudgetInfo, setOpenBudgetInfo] = useState(false);
   const [currentBudget, setCurrentBudget] = useState<Budget>();
+  const [totalRemainingBudget, setTotalRemainingBudget] = useState(0);
 
   const calculateRemaining = (budget: Budget) => {
     const totalExpensesForCategory = expenses.reduce((sum, expense) => {
@@ -47,6 +48,8 @@ const BudgetBoxDetails = ({ navigation }: BudgetBoxDetailsProps) => {
 
   const handleOpenBudgetInfo = (budget: Budget) => {
     setCurrentBudget(budget);
+    const remaining = budget.amount - calculateRemaining(budget);
+    setTotalRemainingBudget(remaining);
     setOpenBudgetInfo(true);
   };
 
@@ -174,7 +177,7 @@ const BudgetBoxDetails = ({ navigation }: BudgetBoxDetailsProps) => {
                   marginTop: 10,
                 }}
               >
-                Expenses
+                {`Total Expenses: $${totalRemainingBudget.toFixed(2)}`}
               </Text>
               <FlatList
                 data={expenses}
