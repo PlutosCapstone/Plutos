@@ -1,3 +1,7 @@
+# Server Code
+
+This directory contains the server/backend source code. 
+
 ## Setup
 
 For windows:

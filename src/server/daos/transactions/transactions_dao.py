@@ -22,16 +22,13 @@ class TransactionsDao:
             transaction["expenses"] = expenses
 
         return transactions
-    
+
     @staticmethod
     def get_stores_by_userid(user_id):
         response = (
-            db.table("transactions")
-            .select("store")
-            .eq("user_id", user_id)
-            .execute()
+            db.table("transactions").select("store").eq("user_id", user_id).execute()
         )
-         
+
         return response
 
     @staticmethod
@@ -50,7 +47,9 @@ class TransactionsDao:
             db.table("transactions").insert(transaction.to_dict()).execute()
         )
 
-        TransactionsDao._add_expenses_to_transaction(transaction.id, transaction.date, data["expenses"])
+        TransactionsDao._add_expenses_to_transaction(
+            transaction.id, transaction.date, data["expenses"]
+        )
 
         return new_transaction.data
 
@@ -66,14 +65,16 @@ class TransactionsDao:
         )
         ExpensesDao.bulk_delete_from_transaction(transaction_id)
 
-        TransactionsDao._add_expenses_to_transaction(transaction_id, transaction.date, data["expenses"])
+        TransactionsDao._add_expenses_to_transaction(
+            transaction_id, transaction.date, data["expenses"]
+        )
 
         return updated_transaction.data
-    
+
     @staticmethod
     def delete(transaction_id):
         db.table("transactions").delete().eq("id", transaction_id).execute()
-        
+
         ExpensesDao.bulk_delete_from_transaction(transaction_id)
 
         return transaction_id

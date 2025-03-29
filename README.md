@@ -8,7 +8,10 @@
 
 The folders and files for this project are as follows:
 
-- docs - Documentation for the project
-- refs - Reference material used for the project, including papers
-- src - Source code
-- test - Test cases
+- [docs](https://github.com/PlutosCapstone/Plutos/tree/main/docs) - Documentation for the project
+- [refs](https://github.com/PlutosCapstone/Plutos/tree/main/refs) - Reference material used for the project, including papers
+- [src](https://github.com/PlutosCapstone/Plutos/tree/main/src) - Source code
+- [CodeOfConduct.md](https://github.com/PlutosCapstone/Plutos/blob/main/CodeOfConduct.md) - Code of Conduct
+- [CONTRIBUTING.md](https://github.com/PlutosCapstone/Plutos/blob/main/CONTRIBUTING.md) - Contribution guidelines
+- [LICENSE](https://github.com/PlutosCapstone/Plutos/blob/main/LICENSE) - License
+- [INSTALL.md](https://github.com/PlutosCapstone/Plutos/blob/main/INSTALL.md) - Installation instructions
