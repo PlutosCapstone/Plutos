@@ -1,5 +1,6 @@
 from flask import jsonify
 import os
+from typing import BinaryIO
 
 from server.models.expenses.expense import Expense
 from server.imageProcessing import ImageProcessor
@@ -8,8 +9,7 @@ import datetime
 from dateutil.relativedelta import relativedelta
 
 
-base_path = os.path.dirname(os.path.abspath(__file__))
-tmp_path = os.path.join(base_path, "tmp")
+TMP_PATH = os.path.dirname(os.path.abspath(__file__))
 
 image_processor = ImageProcessor()
 
@@ -120,16 +120,25 @@ class ExpensesDao:
         return transaction_id
 
     @staticmethod
-    def process_receipt(file):
+    def process_receipt(file: BinaryIO, cleanup: bool = True):
+        """
+        Temporarily save the image file to disk, process it, and return the data.
+        """
         try:
-            tmp_filepath = os.path.join(tmp_path, file.filename)
+            # temporarily save the image file so that it can be processed
+            tmp_filepath = os.path.join(TMP_PATH, file.filename)
             file.save(tmp_filepath)
 
+            # process the image file
             print(f"Temporary file saved at: {tmp_filepath}")
             data = image_processor.process_image(tmp_filepath)
-            # TODO(ang): remove the temp file (keep it for now for debugging)
+
+            if cleanup:
+                # remove the file
+                os.remove(tmp_filepath)
+
+            return data.to_dict()
 
         except Exception as e:
             print(e)
             return {"error": "Error processing receipt"}
-        return data.to_dict()
