@@ -2,6 +2,8 @@
 
 \usepackage{tabularx}
 \usepackage{booktabs}
+\usepackage{float}
+\usepackage{amssymb}
 
 \title{Reflection and Traceability Report on \progname}
 
@@ -66,6 +68,25 @@ low.}
 \subsection{Design and Design Documentation}
 
 \subsection{VnV Plan and Report}
+
+\begin{table}[H]
+    \caption{VnV Plan Issues}
+    \noindent 
+    \begin{tabular}{c p{3.5cm} c c p{4cm}} 
+    \toprule 
+        \textbf{Issue Number} & \textbf{Issue Title} & \textbf{Addressed?} & \textbf{PR} & \textbf{Reason} \\ 
+        \midrule
+        \href{https://github.com/PlutosCapstone/Plutos/issues/74}{74} & Peer Review - Automated Testing and Verification Tools & $\times$ & \href{https://github.com/PlutosCapstone/Plutos/pull/298}{298} &  Daily sanity checks aren't necessary as we are running the tests and linter pipelines on every PR. This will ensure that the app/features work seamlessely after every change. \\ 
+        \hline
+        \href{https://github.com/PlutosCapstone/Plutos/issues/75}{75} & Peer Review - Load Testing for Concurrent Users & $\times$ & \href{https://github.com/PlutosCapstone/Plutos/pull/298}{298} &  Already addressed in initial version of VnVPlan `Performance tests can be conducted to measure the app's speed and reliability, especially when processing large receipts or handling multiple users'. \\ 
+        \hline
+        \href{https://github.com/PlutosCapstone/Plutos/issues/120}{120} & TA - docs(vnv): system tests for FRs & $\checkmark$ & \href{https://github.com/PlutosCapstone/Plutos/pull/290}{290} &  Adjust control of system tests. \\ 
+        \hline
+        \href{https://github.com/PlutosCapstone/Plutos/issues/119}{119} & TA - docs(vnv): add to testing plan & $\checkmark$ & \href{https://github.com/PlutosCapstone/Plutos/pull/290}{290} &  Adjust functional testing criteria. \\
+    \bottomrule
+    \end{tabular} 
+\end{table}
+
 
 \section{Challenge Level and Extras}
 
