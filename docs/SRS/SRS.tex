@@ -837,6 +837,11 @@ within development constraints. The application focuses on personal budgeting
 features, including receipt scanning, expense categorization, budget tracking,
 and financial analysis. \\
 
+\noindent\textbf{Related requirements}: \hyperref[FR-IP]{Receipt Scanning
+Input}, \hyperref[FR-MIS]{Manual Receipt Input}, \hyperref[FR-RS]{Item
+Recognition and Categorization}, and \hyperref[FR-FT]{Financial Tracking}
+requirements.\\
+
 \noindent\textbf{Rationale:}
 \begin{itemize}
     \item \textbf{User-Centered Design}: The scope focuses on features that
@@ -852,7 +857,13 @@ and financial analysis. \\
 \end{itemize}
 
 \subsubsection{Modeling Decisions}
-The application's architecture follows a modular, service-oriented design, with key components (i.e., receipt scanning, expense categorization, and budgeting reports) being developed as independent, reusable modules.\\
+The application's architecture follows a modular, service-oriented design, with
+key components (i.e., receipt scanning, expense categorization, and budgeting
+reports) being developed as independent, reusable modules.\\
+
+\noindent\textbf{Related requirements}: \hyperref[NFR-MTB]{Maintainability},
+\hyperref[NFR-REUS]{Reusability}, and \hyperref[NFR-UND]{Understandability}
+requirements.\\
 
 \noindent\textbf{Rationale:}
 \begin{itemize}
@@ -863,7 +874,14 @@ The application's architecture follows a modular, service-oriented design, with 
 \end{itemize}
 
 \subsubsection{Assumptions}
-Several assumptions were made during the development and design process. These assumptions include the expectation that users will regularly scan receipts, that mobile users are the primary audience, and that financial data privacy is of utmost importance.\\
+Several assumptions were made during the development and design process. These
+assumptions include the expectation that users will regularly scan receipts,
+that mobile users are the primary audience, and that financial data privacy is
+of utmost importance.\\
+
+\noindent\textbf{Related requirements}: \hyperref[FR-IP]{Receipt Scanning
+Input}, \hyperref[FR-MIS]{Manual Receipt Input}, \hyperref[NFR-SEC]{Security},
+and \hyperref[NFR-USAB]{Usability} requirements.\\
 
 \noindent\textbf{Rationale:}
 \begin{itemize}
@@ -894,7 +912,16 @@ Several assumptions were made during the development and design process. These a
 \end{itemize}
 
 \subsubsection{Typical Values}
-For certain features, typical values have been used to inform design and development, such as default budget categories, receipt parsing accuracy thresholds, and system performance benchmarks.\\
+For certain features, typical values have been used to inform design and
+development, such as default budget categories, receipt parsing accuracy
+thresholds, and system performance benchmarks.\\
+
+\noindent\textbf{Related requirements}: \hyperref[FR-IP]{Receipt Scanning
+Input}, \hyperref[FR-MIS]{Manual Receipt Input}, \hyperref[FR-RS]{Item
+Recognition and Categorization}, \hyperref[FR-FT]{Financial Tracking},
+\hyperref[NFR-ACC]{Accuracy}, \hyperref[NFR-PERF]{Performance}, and
+\hyperref[NFR-USAB]{Usability} requirements.\\
+requirements.\\
 
 \noindent\textbf{Rationale:}
 \begin{itemize}
