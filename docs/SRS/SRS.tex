@@ -500,9 +500,6 @@ Statement and Goals} document.
 
 
 \subsection{Solution Characteristics Specification}
-This section is not applicable to the SRS; the solution characteristics are
-defined through the functional and nonfunctional requirements in Section 5 of
-this document.
 
 \subsubsection{Types}
 Not applicable.
@@ -517,15 +514,42 @@ Not applicable.
 
 \subsubsection{General Definitions}\label{sec_gendef} Not applicable.
 
-\subsubsection{Data Definitions}\label{sec_datadef} Not applicable.
+\subsubsection{Data Definitions}\label{sec_datadef}
+
+\textbf{Receipt Image Tensor:} \\
+The input to the OCR model is a 3D tensor $I \in \mathbb{R}^{H \times W \times C}$ where $H$ is height, $W$ is width, and $C=3$ for RGB channels.\\
+\textbf{Detected Item (in receipt): }\\
+Each detected item $d_i$ from a receipt is represented as a tuple:
+\[
+d_i = (n_i, c_i, p_i) \quad \text{where:}
+\]
+\begin{itemize}
+    \item $n_i$ is the item name (string)
+    \item $c_i$ is the category (e.g., groceries)
+    \item $p_i$ is the price $\in \mathbb{R}^{\geq 0}$
+\end{itemize}
+
 
 \subsubsection{Data Types}\label{sec_datatypes} Not applicable.
 
 \subsubsection{Instance Models} \label{sec_instance}    
-Not applicable.
+Let $\alpha$ be the input image. The OCR model extracts a set of detected characters $T = \{t_1, t_2, \dots, t_n\}$ with corresponding confidence scores $P = \{p_1, p_2, \dots, p_n\}$.\\
+Each text element $t_i$ is predicted using a convolutional neural network (CNN) with a softmax layer:
+\[
+P(t_i \mid \alpha) = \text{softmax}(W f(\alpha) + b)
+\]
+where $f(\alpha)$ is the image feature vector, $W$ and $b$ are learnable weights and biases.\\
+\textbf{Budget Performance Calculation}\\
+$BudgetProgress = \frac{TotalSpent}{BudgetLimit} \times 100\%$\\
+where $TotalSpent$ is the total amount spent in a category and $BudgetLimit$ is the maximum budget set by the user for the current month.
 
 \subsubsection{Input Data Constraints} \label{sec_DataConstraints}    
-Not applicable.
+
+Input data constraints are as follows:
+\begin{itemize}
+  \item Receipt image: $I \in [0, 255]^{H \times W \times 3}$, where $H \leq 2000$, $W \leq 2000$
+  \item Max image file size: $S \leq$ \hyperref[Table:AuxConstants]{\textit{MAX\_RECEIPT\_FILE\_SIZE}}
+\end{itemize}
 
 \subsubsection{Properties of a Correct Solution} \label{sec_CorrectSolution} Not
 applicable.
@@ -566,7 +590,7 @@ used to indicate the importance of the requirement to the system.
   \item (H) Users must be able to take a picture using the application.
   \item (M) Users must be able to upload an image from their device to the
   application.
-  \item (L) The system shall allow a limit of 5 MB per receipt.
+  \item (L) The system shall allow a limit of \hyperref[Table:AuxConstants]{\textit{MAX\_RECEIPT\_FILE\_SIZE}} per receipt.
   \item (H) The system must display a preview of the uploaded image, allowing users
   to confirm or retake the image if necessary. 
   \item (H) The system shall upload the confirmed image to the server for processing.
@@ -888,7 +912,7 @@ For certain features, typical values have been used to inform design and develop
     performance, such as load times of under two seconds for key operations
     (e.g., viewing reports), are set based on user experience research, ensuring
     that the application feels responsive and efficient.
-    \item \textbf{Maximum Receipt Upload Size}: A limit of 5 MB per receipt
+    \item \textbf{Maximum Receipt Upload Size}: A limit of \hyperref[Table:AuxConstants]{\textit{MAX\_RECEIPT\_FILE\_SIZE}} per receipt
     ensures a balance between allowing high-resolution images for accurate OCR
     processing while keeping server storage and bandwidth requirements
     manageable. 
@@ -1048,6 +1072,7 @@ parameters that are used throughout the documents in this project.
     \textit{TIME\_DELETE\_USER\_FINANCIAL\_DATA} & 24 & hours \\
     \textit{TIME\_NOTIFY\_USER\_DELETION} & 30 & days \\
     \textit{TIME\_USER\_INACTIVITY\_DELETION} & 12 & months \\
+    \textit{MAX\_RECEIPT\_FILE\_SIZE} & 5 & MB \\
 
     \hline
   \end{tabular}
