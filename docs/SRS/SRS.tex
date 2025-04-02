@@ -571,7 +571,7 @@ The format of each requirement is as follows: `Requirement-ID (Priority Level)
 Requierment`. The priority levels are high (H), medium (M), and low (L), and are
 used to indicate the importance of the requirement to the system.
 
-\subsection{Functional Requirements}
+\subsection{Functional Requirements}\label{sec_funcReq}
 
 \textbf{User Account Management Requirements}
 \begin{enumerate}[label=FR-UAM-\arabic*]
@@ -640,7 +640,7 @@ used to indicate the importance of the requirement to the system.
 
 \subsection{Nonfunctional Requirements}
 
-\textbf{Accuracy Requirements}
+\textbf{Accuracy Requirements}\label{NFR-ACC}
 \begin{enumerate}[label=NFR-ACC-\arabic*]
   \item (H) The machine learning model must categorize expenses into predefined
   categories (e.g., groceries, utilities, entertainment) with at least
@@ -663,7 +663,7 @@ used to indicate the importance of the requirement to the system.
   financial data upon syncing across multiple devices and sessions.
 \end{enumerate}
 
-\textbf{Performance Requirements}
+\textbf{Performance Requirements}\label{NFR-PERF}
 \begin{enumerate}[label=NFR-PERF-\arabic*]
   \item (M) The application must load user account information and financial
   metrics within \hyperref[Table:AuxConstants]{\textit{MAX\_DATA\_LOAD\_TIME}} seconds.
@@ -676,7 +676,7 @@ used to indicate the importance of the requirement to the system.
   without significant performance degradation.
 \end{enumerate}
 
-\textbf{Usability Requirements}
+\textbf{Usability Requirements}\label{NFR-USAB}
 \begin{enumerate}[label=NFR-USAB-\arabic*]
   \item (M) The application must have a clean, intuitive, and easy-to-navigate
   interface, allowing users to perform common tasks (e.g., adding expenses,
@@ -709,14 +709,14 @@ used to indicate the importance of the requirement to the system.
 \end{enumerate}
 
 \textbf{Security Requirements}
-\begin{enumerate}[label=NFR-SEC-\arabic*]
+\begin{enumerate}[label=NFR-SEC-\arabic*]\label{NFR-SEC}
   \item (H) The system must implement secure password storage and authentication
   mechanisms.
   \item (H) The system must ensure that all data transmitted between the client and
   server is encrypted.
 \end{enumerate}
 
-\textbf{Maintainability Requirements}
+\textbf{Maintainability Requirements}\label{NFR-MTB}
 \begin{enumerate}[label=NFR-MTB-\arabic*]
   \item (M) New releases must maintain backward compatibility with previous
   versions, ensuring that users can seamlessly update the application without
@@ -730,7 +730,7 @@ used to indicate the importance of the requirement to the system.
   the risk of introducing bugs when making changes.
 \end{enumerate}
 
-\textbf{Portability Requirements}
+\textbf{Portability Requirements}\label{NFR-PORT}
 \begin{enumerate}[label=NFR-PORT-\arabic*]
   \item (H) The software shall be compatible with Android and iOS mobile devices
   running the latest software.
@@ -744,7 +744,7 @@ used to indicate the importance of the requirement to the system.
   environments, including Wi-Fi, cellular networks, and offline mode.
 \end{enumerate}
 
-\textbf{Reusability Requirements} 
+\textbf{Reusability Requirements}\label{NFR-REUS}
 \begin{enumerate}[label=NFR-REUS-\arabic*]
   \item (M) The application must be developed using reusable components (e.g.,
   UI components, API services) where applicable, to prevent code duplication and
@@ -761,7 +761,7 @@ used to indicate the importance of the requirement to the system.
   multiple projects or platforms.
 \end{enumerate}
 
-\textbf{Understandability Requirements} 
+\textbf{Understandability Requirements}\label{NFR-UND}
 \begin{enumerate}[label=NFR-UND-\arabic*]
   \item (H) All source code must be thoroughly documented using inline comments
   and external documentation (e.g., README files, docstrings) to ensure that
@@ -794,7 +794,7 @@ used to indicate the importance of the requirement to the system.
   non-technical and familiar terms to enhance understanding.
 \end{enumerate}
 
-\textbf{Regulatory Requirements}
+\textbf{Regulatory Requirements}\label{NFR-REG}
 \begin{enumerate}[label=NFR-REG-\arabic*]
   \item (H) The system must comply with the Canada's Privacy Act to ensure the
   privacy and security of user data.
@@ -802,7 +802,7 @@ used to indicate the importance of the requirement to the system.
   ensure the secure handling of financial information.
 \end{enumerate}
 
-\textbf{Data Retention and Deletion Requirements}
+\textbf{Data Retention and Deletion Requirements}\label{NFR-DAT}
 \begin{enumerate}[label=NFR-DAT-\arabic*]
 \item (H) The system must retain user financial data for a maximum of
   \hyperref[Table:AuxConstants]{\textit{MAX\_DATA\_RETENTION}} years, in
@@ -934,33 +934,58 @@ For certain features, typical values have been used to inform design and develop
 	\item\textbf{Addition of New Features:} Based on user feedback, it is likely
 	that new features (e.g., budgeting goal tracking, automatic expense
 	categorization, or financial analytics) will be added to enhance user
-	experience.
+	experience.\\
+  \textbf{Related requirements}: This would add to the list of
+  \hyperref[sec_funcReq]{functional requirements}.
+
 	\item\textbf{User Interface Redesign:} As usability testing is conducted, it's
 	likely that the UI will undergo several iterations to improve the overall user
-	experience and incorporate user feedback.
+	experience and incorporate user feedback.\\
+  \textbf{Related requirements}: No directly related requirements.
+
 	\item \textbf{Integration with New APIs:} The application may need to
 	integrate with new financial data APIs (e.g., bank transaction retrieval
-	services) to enhance functionality, requiring changes to the codebase.
+	services) to enhance functionality, requiring changes to the codebase. \\
+  \textbf{Related requirements}: This would add to the list of
+  \hyperref[sec_funcReq]{functional requirements} and affect
+  \hyperref[NFR-SEC]{Security (NFR-SEC)} requirements.
+
 	\item \textbf{Change in Tech Stack:} If the team encounters difficulties with
 	the current technology stack, such as performance or compatibility issues, a
 	transition to new technologies (e.g., switching from React to Vue.js) is
-	likely.
+	likely.\\
+  \textbf{Related requirements}: No directly related requirements.
+
 	\item \textbf{Performance Optimizations:} As the application scales, there may
 	be a need for performance enhancements, such as optimizing database queries or
-	implementing caching strategies.
+	implementing caching strategies. \\
+  \textbf{Related requirements}: \hyperref[NFR-PERF]{Performance (NFR-PERF)}
+  requirements.
+
 	\item\textbf{Data Privacy Compliance Updates:} Changes in legal requirements
 	may require updates to the application's data handling and privacy policies to
-	ensure compliance.
+	ensure compliance.\\
+  \textbf{Related requirements}: \hyperref[NFR-REG]{Regulatory (NFR-REG)} and
+  \hyperref[NFR-DAT]{Data Retention and Deletion (NFR-DAT)} requirements.
+
 	\item\textbf{Updates to User Authentication Method:} There may be a transition
 	to a more secure authentication method (e.g., implementing two-factor
-	authentication) based on user feedback and security best practices.
+	authentication) based on user feedback and security best practices.\\
+  \textbf{Related requirements}: \hyperref[NFR-SEC]{Security (NFR-SEC)}
+  requirements.
+
 	\item\textbf{Feedback Mechanism for Users:} Adding a feedback mechanism within
 	the application (e.g., surveys or feedback forms) to gather user insights and
 	suggestions for improvements is likely, ensuring continuous enhancement of the
-	application based on user needs.
+	application based on user needs.\\
+  \textbf{Related requirements}: This would add to the list of
+  \hyperref[sec_funcReq]{functional requirements}.
+
   \item \textbf{Change in Database Choice:} During the development phase, the
 	initial database choice may need to change due to performance issues or
-	scalability requirements (e.g., moving from SQLite to PostgreSQL or MongoDB).
+	scalability requirements (e.g., moving from SQLite to PostgreSQL or MongoDB).\\
+  \textbf{Related requirements}: \hyperref[NFR-PERF]{Performance (NFR-PERF)}
+  requirements.
 \end{enumerate}
 
 \newpage
