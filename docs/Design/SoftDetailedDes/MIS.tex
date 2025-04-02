@@ -321,6 +321,15 @@ classify items based on the input data.
   \textit{CATEGORIZATION\_ACCURACY}\%.
 \end{itemize}
 
+\subsection{Exception Handling}
+
+The categorization routine depends on a trained ML model and may misclassify ambiguous or novel items. To mitigate this:
+
+\begin{itemize}
+    \item Users may manually edit the predicted category. These edits are stored for future improvement of the model (model retraining is outside this system scope).
+    \item Items without a confident category are not assigned a class by default, ensuring users fill out all empty categories before being able to save expense items.
+\end{itemize}
+
 \newpage
 
 % end of Categorization Module
