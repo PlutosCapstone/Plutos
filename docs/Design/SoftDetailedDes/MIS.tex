@@ -250,6 +250,22 @@ localTextExtraction():
 \item This function uses an OCR library to extract raw text from the pre-processed image.
 \end{itemize}
 
+\subsection{Exception Handling}
+
+The OCR Processing Module may encounter various exceptions during image processing, such as:
+
+\begin{itemize}
+    \item FileError: Raised when the image file cannot be opened or read.
+      \begin{itemize}
+        \item To mitigate this, the module should check the file path and permissions before attempting to read the file.
+      \end{itemize}
+    \item OCRProcessingError: Raised when the OCR library fails to extract text from the image.
+      \begin{itemize}
+        \item To mitigate this, the module should implement error handling to retry the OCR process or log the error for further analysis.
+        \item The module should also provide feedback to the user if the OCR process fails, allowing them to take corrective action.
+      \end{itemize}
+\end{itemize}
+
 \newpage
 
 
