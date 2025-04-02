@@ -573,7 +573,7 @@ used to indicate the importance of the requirement to the system.
 
 \subsection{Functional Requirements}\label{sec_funcReq}
 
-\textbf{User Account Management Requirements}
+\textbf{User Account Management Requirements}\label{FR-UAM}
 \begin{enumerate}[label=FR-UAM-\arabic*]
   \item (H) Users must be able to create an account using a name, email
   address, and password.
@@ -585,7 +585,7 @@ used to indicate the importance of the requirement to the system.
   \item (L) Users must be able to reset their password if forgotten.
 \end{enumerate}
 
-\textbf{Receipt Scanning Input Requirements}
+\textbf{Receipt Scanning Input Requirements}\label{FR-IP}
 \begin{enumerate}[label=FR-IP-\arabic*]
   \item (H) Users must be able to take a picture using the application.
   \item (M) Users must be able to upload an image from their device to the
@@ -596,7 +596,7 @@ used to indicate the importance of the requirement to the system.
   \item (H) The system shall upload the confirmed image to the server for processing.
 \end{enumerate}
 
-\textbf{Manual Receipt Input Requirements}
+\textbf{Manual Receipt Input Requirements}\label{FR-MIS}
 \begin{enumerate}[label=FR-MIS-\arabic*]
   \item (M) Users must be able to manually input receipt details. This includes
   items, their associated costs, and the date of purchase.
@@ -604,14 +604,14 @@ used to indicate the importance of the requirement to the system.
   completed.
   \end{enumerate}
 
-\textbf{Database Management Requirements}
+\textbf{Database Management Requirements}\label{FR-DM}
 \begin{enumerate}[label=FR-DM-\arabic*]
   \item (H) The system shall store user account information, including usernames,
   email addresses, and passwords, in a secure database.
   \item (H) The system shall store receipt images and extracted data in a secure database.
 \end{enumerate}
 
-\textbf{Item Recognition and Categorization Requirements}
+\textbf{Item Recognition and Categorization Requirements}\label{FR-RS}
 \begin{enumerate}[label=FR-RS-\arabic*]
   \item (H) The system shall identify and display item names and costs from the
   uploaded receipt image.
@@ -621,7 +621,7 @@ used to indicate the importance of the requirement to the system.
   identified items.   
 \end{enumerate}
 
-\textbf{Financial Tracking Requirements}
+\textbf{Financial Tracking Requirements}\label{FR-FT}
 \begin{enumerate}[label=FR-FT-\arabic*]
   \item (M) The system shall generate an overview of the user's spending history,
   including total spending by item category and trends over time.
@@ -995,29 +995,46 @@ For certain features, typical values have been used to inform design and develop
 \begin{enumerate}[label=ULC\arabic*]
 	\item \textbf{Complete Rewrite of the Application:} A complete rewrite of the
 	application's codebase is unlikely unless there are significant fundamental
-	flaws that cannot be addressed through refactoring.
+	flaws that cannot be addressed through refactoring.\\
+  \textbf{Related requirements}: No directly related requirements.
+
 	\item \textbf{Switching Platforms:} Transitioning from a mobile-first approach
 	to a purely desktop application is unlikely if the initial target audience is
-	primarily mobile users.
+	primarily mobile users.\\
+  \textbf{Related requirements}: \hyperref[FR-IP]{Receipt Scanning Input
+  (FR-IP)} requirements.
+
 	\item \textbf{Adopting a New Programming Language:} Changing the programming
 	language for the entire project (e.g., from JavaScript to Ruby) midway through
 	development is unlikely due to the complexity and resource investment
-	required.
+	required.\\
+  \textbf{Related requirements}: No directly related requirements.
+
 	\item \textbf{Elimination of Existing Features:} Removing core features that
 	are central to the application's purpose (e.g., expense tracking) is unlikely,
-	as these are fundamental to user expectations and functionality.
+	as these are fundamental to user expectations and functionality.\\
+  \textbf{Related requirements}: This would involve modifying or deleting
+  existing \hyperref[sec_funcReq]{functional requirements}.
+
 	\item \textbf{Change in Target Audience:} A shift in the target audience
 	(e.g., from personal budgeting to corporate finance management) is unlikely as
 	it would require a fundamental reevaluation of the application's design,
-	features, and use cases.
+	features, and use cases.\\
+  \textbf{Related requirements}: No directly related requirements.
+
 	\item \textbf{Discontinuation of Data Storage:} Completely removing any form
 	of data storage (e.g., opting for a stateless application) is unlikely, as the
-	core functionality relies on data retention for budgeting purposes.
+	core functionality relies on data retention for budgeting purposes.\\
+  \textbf{Related requirements}: \hyperref[FR-UAM]{User Account Management
+  (FR-UAM)}, \hyperref[FR-FT]{Financial Tracking (FR-FT)}, and
+  \hyperref[FR-DM]{Database Management (FR-DM)} requirements.
+
 	\item \textbf{Pivot to a Social Networking Feature Set:} A major pivot to add
 	social networking features (e.g., allowing users to connect with friends or
 	share budgets) is unlikely, as it diverges from the core functionality of
-	personal budgeting and may complicate the application's primary purpose.
-\end{enumerate}
+	personal budgeting and may complicate the application's primary purpose.\\
+  \textbf{Related requirements}: This would add to the list of
+  \hyperref[sec_funcReq]{functional requirements}.\end{enumerate}
 
 \newpage
 
