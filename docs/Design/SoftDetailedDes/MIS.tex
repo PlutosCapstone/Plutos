@@ -250,6 +250,22 @@ localTextExtraction():
 \item This function uses an OCR library to extract raw text from the pre-processed image.
 \end{itemize}
 
+\subsection{Exception Handling}
+
+The OCR Processing Module may encounter various exceptions during image processing, such as:
+
+\begin{itemize}
+    \item FileError: Raised when the image file cannot be opened or read.
+      \begin{itemize}
+        \item To mitigate this, the module should check the file path and permissions before attempting to read the file.
+      \end{itemize}
+    \item OCRProcessingError: Raised when the OCR library fails to extract text from the image.
+      \begin{itemize}
+        \item To mitigate this, the module should implement error handling to retry the OCR process or log the error for further analysis.
+        \item The module should also provide feedback to the user if the OCR process fails, allowing them to take corrective action.
+      \end{itemize}
+\end{itemize}
+
 \newpage
 
 
@@ -319,6 +335,15 @@ classify items based on the input data.
   feature, using a dataset of receipt items and categories to fine-tune the
   model. The expected accuracy of the model is
   \textit{CATEGORIZATION\_ACCURACY}\%.
+\end{itemize}
+
+\subsection{Exception Handling}
+
+The categorization routine depends on a trained ML model and may misclassify ambiguous or novel items. To mitigate this:
+
+\begin{itemize}
+    \item Users may manually edit the predicted category. These edits are stored for future improvement of the model (model retraining is outside this system scope).
+    \item Items without a confident category are not assigned a class by default, ensuring users fill out all empty categories before being able to save expense items.
 \end{itemize}
 
 \newpage
