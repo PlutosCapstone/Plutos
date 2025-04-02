@@ -240,6 +240,7 @@ actually be implemented.
 \begin{description}
   \item[\refstepcounter{submnum} \mthesubmnum \label{mUpload}:] Upload Interface Module
   \item[\refstepcounter{submnum} \mthesubmnum \label{mResults}:] Results Display Module
+  \item[\refstepcounter{submnum} \mthesubmnum \label{mMainUI}:] Main UI Module
 \end{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mAuth}:] Authentication Module
 \item [\refstepcounter{mnum} \mthemnum\label{mData}:] Data Module
@@ -452,6 +453,16 @@ to be implemented.
 \item[Type of Module:] Abstract Object
 \end{description}
 
+\subsubsection{Main UI Module (\mref{mMainUI})}
+
+\begin{description}
+	\item[Secrets:] The state structure and navigation logic between UI pages, including receipt upload, data review, and budget overview.
+	\item[Services:] Transitions between user interface components and acts as the central controller for invoking submodules such as Upload Interface and Results Display. Supports the app's workflow as per the design (Figma).
+	\item[Implemented By:] \progname
+	\item[Type of Module:] Abstract Object
+\end{description}
+
+
 \subsection{Authentication Module (\mref{mAuth})}
 
 \begin{description}
@@ -554,7 +565,7 @@ NFR18 & \mref{mAuth}\\
 \acref{acCategories} & \mref{mML}, \mref{mBudget}\\
 \acref{acCurrencies} & \mref{mUI}\\
 \acref{acModel} & \mref{mOCR}, \mref{mML}\\
-\acref{acInterface} & \mref{mResults}\\
+\acref{acInterface} & \mref{mResults}, \mref{mMainUI} \\
 \acref{acHeuristics} & \mref{mML}, \mref{mBudget}\\
 \acref{acTesting} & \mref{mOCR}, \mref{mML}, \mref{mBudget}\\
 \bottomrule
