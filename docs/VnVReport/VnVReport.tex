@@ -122,6 +122,44 @@ and Validation Plan} document. These tests are all performed manually.
 \end{tabularx}
 \end{table}
 
+The User Account Management tests evaluate the core functionalities related to user 
+account creation, login, logout, updates, authorization access, and password reset. Inputs 
+for these tests typically consist of user-provided data such as names, emails, passwords, 
+and session information. The expected outputs include confirmation messages and access to 
+the user dashboard, with a pass being defined by the successful execution of each function 
+without errors, ensuring a seamless user experience.
+
+The Image Processing tests assess the application's ability to handle image uploads, 
+previews, and file size limitations. Inputs for these tests include various image files, 
+while the outputs are the successful display of uploaded images and adherence to file size 
+constraints. A pass is determined by the system's ability to process the images correctly 
+and provide appropriate feedback to the user.
+
+The Manual Expense Input test assesses the application’s ability to handle manual 
+input of expenses. The input for this test involves user-entered financial data, while the 
+output is the successful recording and display of the entered expenses. A pass is determined 
+by the system's ability to accurately capture and reflect the user's input without any 
+discrepancies.
+
+The Database Management tests evaluate the application's functionality in managing and processing
+user data. Inputs for these tests consist of various data entries related to user expenses 
+and financial records. The expected outputs are the correct storage and retrieval of this 
+data, with a pass being defined by the system's ability to manage data effectively and 
+provide accurate results when queried.
+
+The Item Recognition and Categorization tests focus on the application's capability to generate reports based 
+on user data. Inputs for these tests include user financial data and parameters for report 
+generation. The outputs are the generated reports that summarize spending trends and 
+financial insights. A pass is achieved when the reports are accurately produced and reflect 
+the correct data as per user specifications.
+
+The Financial Tracking tests are designed to evaluate the application's capabilities in 
+tracking spending history, setting budgets, and notifying users when they approach their 
+budget limits. Inputs for these tests consist of user-generated financial data, such as 
+expenses and budget parameters. The outputs include visual representations of spending 
+trends, budget tracking features, and notifications. A pass for these tests is achieved 
+when the application accurately reflects the user's financial data and provides timely 
+alerts, ensuring effective financial management for users.
 
 \section{Nonfunctional Requirements Evaluation}
 
@@ -163,7 +201,7 @@ described in the plan.}
     test-PERF-2 & Pass &  \\
     test-PERF-3 & Fail & Load testing has not yet been performed \\
     \midrule
-    test-USAB-1 & Pass &  \\
+    test-USAB-1 & Pass & Testers successfully carried out tasks related to the app's functionality and account creation while adhering to the established guidelines. Manual errors were introduced to evaluate the system's ability to recover from errors. \\
     test-USAB-2 & Pass &  \\
     test-USAB-3 & Pass &  \\
     test-USAB-4 & Pass &  \\
