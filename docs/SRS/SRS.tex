@@ -173,6 +173,7 @@
 10/11/2024 & 0.07 & Add reflection to SRS\\
 03/08/2025 & 0.08 & Link Requirements Elicitation Report\\
 03/08/2025 & 0.09 & Move constants to Section 10\\
+04/02/2025 & 0.10 & Link rationale and (un)likely changes with requirements\\
 \bottomrule 
 \end{tabularx}
 \end{table}
@@ -571,9 +572,9 @@ The format of each requirement is as follows: `Requirement-ID (Priority Level)
 Requierment`. The priority levels are high (H), medium (M), and low (L), and are
 used to indicate the importance of the requirement to the system.
 
-\subsection{Functional Requirements}
+\subsection{Functional Requirements}\label{sec_funcReq}
 
-\textbf{User Account Management Requirements}
+\textbf{User Account Management Requirements}\label{FR-UAM}
 \begin{enumerate}[label=FR-UAM-\arabic*]
   \item (H) Users must be able to create an account using a name, email
   address, and password.
@@ -585,7 +586,7 @@ used to indicate the importance of the requirement to the system.
   \item (L) Users must be able to reset their password if forgotten.
 \end{enumerate}
 
-\textbf{Receipt Scanning Input Requirements}
+\textbf{Receipt Scanning Input Requirements}\label{FR-IP}
 \begin{enumerate}[label=FR-IP-\arabic*]
   \item (H) Users must be able to take a picture using the application.
   \item (M) Users must be able to upload an image from their device to the
@@ -596,7 +597,7 @@ used to indicate the importance of the requirement to the system.
   \item (H) The system shall upload the confirmed image to the server for processing.
 \end{enumerate}
 
-\textbf{Manual Receipt Input Requirements}
+\textbf{Manual Receipt Input Requirements}\label{FR-MIS}
 \begin{enumerate}[label=FR-MIS-\arabic*]
   \item (M) Users must be able to manually input receipt details. This includes
   items, their associated costs, and the date of purchase.
@@ -604,14 +605,14 @@ used to indicate the importance of the requirement to the system.
   completed.
   \end{enumerate}
 
-\textbf{Database Management Requirements}
+\textbf{Database Management Requirements}\label{FR-DM}
 \begin{enumerate}[label=FR-DM-\arabic*]
   \item (H) The system shall store user account information, including usernames,
   email addresses, and passwords, in a secure database.
   \item (H) The system shall store receipt images and extracted data in a secure database.
 \end{enumerate}
 
-\textbf{Item Recognition and Categorization Requirements}
+\textbf{Item Recognition and Categorization Requirements}\label{FR-RS}
 \begin{enumerate}[label=FR-RS-\arabic*]
   \item (H) The system shall identify and display item names and costs from the
   uploaded receipt image.
@@ -621,7 +622,7 @@ used to indicate the importance of the requirement to the system.
   identified items.   
 \end{enumerate}
 
-\textbf{Financial Tracking Requirements}
+\textbf{Financial Tracking Requirements}\label{FR-FT}
 \begin{enumerate}[label=FR-FT-\arabic*]
   \item (M) The system shall generate an overview of the user's spending history,
   including total spending by item category and trends over time.
@@ -640,7 +641,7 @@ used to indicate the importance of the requirement to the system.
 
 \subsection{Nonfunctional Requirements}
 
-\textbf{Accuracy Requirements}
+\textbf{Accuracy Requirements}\label{NFR-ACC}
 \begin{enumerate}[label=NFR-ACC-\arabic*]
   \item (H) The machine learning model must categorize expenses into predefined
   categories (e.g., groceries, utilities, entertainment) with at least
@@ -663,7 +664,7 @@ used to indicate the importance of the requirement to the system.
   financial data upon syncing across multiple devices and sessions.
 \end{enumerate}
 
-\textbf{Performance Requirements}
+\textbf{Performance Requirements}\label{NFR-PERF}
 \begin{enumerate}[label=NFR-PERF-\arabic*]
   \item (M) The application must load user account information and financial
   metrics within \hyperref[Table:AuxConstants]{\textit{MAX\_DATA\_LOAD\_TIME}} seconds.
@@ -676,7 +677,7 @@ used to indicate the importance of the requirement to the system.
   without significant performance degradation.
 \end{enumerate}
 
-\textbf{Usability Requirements}
+\textbf{Usability Requirements}\label{NFR-USAB}
 \begin{enumerate}[label=NFR-USAB-\arabic*]
   \item (M) The application must have a clean, intuitive, and easy-to-navigate
   interface, allowing users to perform common tasks (e.g., adding expenses,
@@ -709,14 +710,14 @@ used to indicate the importance of the requirement to the system.
 \end{enumerate}
 
 \textbf{Security Requirements}
-\begin{enumerate}[label=NFR-SEC-\arabic*]
+\begin{enumerate}[label=NFR-SEC-\arabic*]\label{NFR-SEC}
   \item (H) The system must implement secure password storage and authentication
   mechanisms.
   \item (H) The system must ensure that all data transmitted between the client and
   server is encrypted.
 \end{enumerate}
 
-\textbf{Maintainability Requirements}
+\textbf{Maintainability Requirements}\label{NFR-MTB}
 \begin{enumerate}[label=NFR-MTB-\arabic*]
   \item (M) New releases must maintain backward compatibility with previous
   versions, ensuring that users can seamlessly update the application without
@@ -730,7 +731,7 @@ used to indicate the importance of the requirement to the system.
   the risk of introducing bugs when making changes.
 \end{enumerate}
 
-\textbf{Portability Requirements}
+\textbf{Portability Requirements}\label{NFR-PORT}
 \begin{enumerate}[label=NFR-PORT-\arabic*]
   \item (H) The software shall be compatible with Android and iOS mobile devices
   running the latest software.
@@ -744,7 +745,7 @@ used to indicate the importance of the requirement to the system.
   environments, including Wi-Fi, cellular networks, and offline mode.
 \end{enumerate}
 
-\textbf{Reusability Requirements} 
+\textbf{Reusability Requirements}\label{NFR-REUS}
 \begin{enumerate}[label=NFR-REUS-\arabic*]
   \item (M) The application must be developed using reusable components (e.g.,
   UI components, API services) where applicable, to prevent code duplication and
@@ -761,7 +762,7 @@ used to indicate the importance of the requirement to the system.
   multiple projects or platforms.
 \end{enumerate}
 
-\textbf{Understandability Requirements} 
+\textbf{Understandability Requirements}\label{NFR-UND}
 \begin{enumerate}[label=NFR-UND-\arabic*]
   \item (H) All source code must be thoroughly documented using inline comments
   and external documentation (e.g., README files, docstrings) to ensure that
@@ -794,7 +795,7 @@ used to indicate the importance of the requirement to the system.
   non-technical and familiar terms to enhance understanding.
 \end{enumerate}
 
-\textbf{Regulatory Requirements}
+\textbf{Regulatory Requirements}\label{NFR-REG}
 \begin{enumerate}[label=NFR-REG-\arabic*]
   \item (H) The system must comply with the Canada's Privacy Act to ensure the
   privacy and security of user data.
@@ -802,7 +803,7 @@ used to indicate the importance of the requirement to the system.
   ensure the secure handling of financial information.
 \end{enumerate}
 
-\textbf{Data Retention and Deletion Requirements}
+\textbf{Data Retention and Deletion Requirements}\label{NFR-DAT}
 \begin{enumerate}[label=NFR-DAT-\arabic*]
 \item (H) The system must retain user financial data for a maximum of
   \hyperref[Table:AuxConstants]{\textit{MAX\_DATA\_RETENTION}} years, in
@@ -837,6 +838,11 @@ within development constraints. The application focuses on personal budgeting
 features, including receipt scanning, expense categorization, budget tracking,
 and financial analysis. \\
 
+\noindent\textbf{Related requirements}: \hyperref[FR-IP]{Receipt Scanning
+Input}, \hyperref[FR-MIS]{Manual Receipt Input}, \hyperref[FR-RS]{Item
+Recognition and Categorization}, and \hyperref[FR-FT]{Financial Tracking}
+requirements.\\
+
 \noindent\textbf{Rationale:}
 \begin{itemize}
     \item \textbf{User-Centered Design}: The scope focuses on features that
@@ -852,7 +858,13 @@ and financial analysis. \\
 \end{itemize}
 
 \subsubsection{Modeling Decisions}
-The application's architecture follows a modular, service-oriented design, with key components (i.e., receipt scanning, expense categorization, and budgeting reports) being developed as independent, reusable modules.\\
+The application's architecture follows a modular, service-oriented design, with
+key components (i.e., receipt scanning, expense categorization, and budgeting
+reports) being developed as independent, reusable modules.\\
+
+\noindent\textbf{Related requirements}: \hyperref[NFR-MTB]{Maintainability},
+\hyperref[NFR-REUS]{Reusability}, and \hyperref[NFR-UND]{Understandability}
+requirements.\\
 
 \noindent\textbf{Rationale:}
 \begin{itemize}
@@ -863,7 +875,14 @@ The application's architecture follows a modular, service-oriented design, with 
 \end{itemize}
 
 \subsubsection{Assumptions}
-Several assumptions were made during the development and design process. These assumptions include the expectation that users will regularly scan receipts, that mobile users are the primary audience, and that financial data privacy is of utmost importance.\\
+Several assumptions were made during the development and design process. These
+assumptions include the expectation that users will regularly scan receipts,
+that mobile users are the primary audience, and that financial data privacy is
+of utmost importance.\\
+
+\noindent\textbf{Related requirements}: \hyperref[FR-IP]{Receipt Scanning
+Input}, \hyperref[FR-MIS]{Manual Receipt Input}, \hyperref[NFR-SEC]{Security},
+and \hyperref[NFR-USAB]{Usability} requirements.\\
 
 \noindent\textbf{Rationale:}
 \begin{itemize}
@@ -894,7 +913,16 @@ Several assumptions were made during the development and design process. These a
 \end{itemize}
 
 \subsubsection{Typical Values}
-For certain features, typical values have been used to inform design and development, such as default budget categories, receipt parsing accuracy thresholds, and system performance benchmarks.\\
+For certain features, typical values have been used to inform design and
+development, such as default budget categories, receipt parsing accuracy
+thresholds, and system performance benchmarks.\\
+
+\noindent\textbf{Related requirements}: \hyperref[FR-IP]{Receipt Scanning
+Input}, \hyperref[FR-MIS]{Manual Receipt Input}, \hyperref[FR-RS]{Item
+Recognition and Categorization}, \hyperref[FR-FT]{Financial Tracking},
+\hyperref[NFR-ACC]{Accuracy}, \hyperref[NFR-PERF]{Performance}, and
+\hyperref[NFR-USAB]{Usability} requirements.\\
+requirements.\\
 
 \noindent\textbf{Rationale:}
 \begin{itemize}
@@ -934,33 +962,58 @@ For certain features, typical values have been used to inform design and develop
 	\item\textbf{Addition of New Features:} Based on user feedback, it is likely
 	that new features (e.g., budgeting goal tracking, automatic expense
 	categorization, or financial analytics) will be added to enhance user
-	experience.
+	experience.\\
+  \textbf{Related requirements}: This would add to the list of
+  \hyperref[sec_funcReq]{functional requirements}.
+
 	\item\textbf{User Interface Redesign:} As usability testing is conducted, it's
 	likely that the UI will undergo several iterations to improve the overall user
-	experience and incorporate user feedback.
+	experience and incorporate user feedback.\\
+  \textbf{Related requirements}: No directly related requirements.
+
 	\item \textbf{Integration with New APIs:} The application may need to
 	integrate with new financial data APIs (e.g., bank transaction retrieval
-	services) to enhance functionality, requiring changes to the codebase.
+	services) to enhance functionality, requiring changes to the codebase. \\
+  \textbf{Related requirements}: This would add to the list of
+  \hyperref[sec_funcReq]{functional requirements} and affect
+  \hyperref[NFR-SEC]{Security (NFR-SEC)} requirements.
+
 	\item \textbf{Change in Tech Stack:} If the team encounters difficulties with
 	the current technology stack, such as performance or compatibility issues, a
 	transition to new technologies (e.g., switching from React to Vue.js) is
-	likely.
+	likely.\\
+  \textbf{Related requirements}: No directly related requirements.
+
 	\item \textbf{Performance Optimizations:} As the application scales, there may
 	be a need for performance enhancements, such as optimizing database queries or
-	implementing caching strategies.
+	implementing caching strategies. \\
+  \textbf{Related requirements}: \hyperref[NFR-PERF]{Performance (NFR-PERF)}
+  requirements.
+
 	\item\textbf{Data Privacy Compliance Updates:} Changes in legal requirements
 	may require updates to the application's data handling and privacy policies to
-	ensure compliance.
+	ensure compliance.\\
+  \textbf{Related requirements}: \hyperref[NFR-REG]{Regulatory (NFR-REG)} and
+  \hyperref[NFR-DAT]{Data Retention and Deletion (NFR-DAT)} requirements.
+
 	\item\textbf{Updates to User Authentication Method:} There may be a transition
 	to a more secure authentication method (e.g., implementing two-factor
-	authentication) based on user feedback and security best practices.
+	authentication) based on user feedback and security best practices.\\
+  \textbf{Related requirements}: \hyperref[NFR-SEC]{Security (NFR-SEC)}
+  requirements.
+
 	\item\textbf{Feedback Mechanism for Users:} Adding a feedback mechanism within
 	the application (e.g., surveys or feedback forms) to gather user insights and
 	suggestions for improvements is likely, ensuring continuous enhancement of the
-	application based on user needs.
+	application based on user needs.\\
+  \textbf{Related requirements}: This would add to the list of
+  \hyperref[sec_funcReq]{functional requirements}.
+
   \item \textbf{Change in Database Choice:} During the development phase, the
 	initial database choice may need to change due to performance issues or
-	scalability requirements (e.g., moving from SQLite to PostgreSQL or MongoDB).
+	scalability requirements (e.g., moving from SQLite to PostgreSQL or MongoDB).\\
+  \textbf{Related requirements}: \hyperref[NFR-PERF]{Performance (NFR-PERF)}
+  requirements.
 \end{enumerate}
 
 \newpage
@@ -970,29 +1023,46 @@ For certain features, typical values have been used to inform design and develop
 \begin{enumerate}[label=ULC\arabic*]
 	\item \textbf{Complete Rewrite of the Application:} A complete rewrite of the
 	application's codebase is unlikely unless there are significant fundamental
-	flaws that cannot be addressed through refactoring.
+	flaws that cannot be addressed through refactoring.\\
+  \textbf{Related requirements}: No directly related requirements.
+
 	\item \textbf{Switching Platforms:} Transitioning from a mobile-first approach
 	to a purely desktop application is unlikely if the initial target audience is
-	primarily mobile users.
+	primarily mobile users.\\
+  \textbf{Related requirements}: \hyperref[FR-IP]{Receipt Scanning Input
+  (FR-IP)} requirements.
+
 	\item \textbf{Adopting a New Programming Language:} Changing the programming
 	language for the entire project (e.g., from JavaScript to Ruby) midway through
 	development is unlikely due to the complexity and resource investment
-	required.
+	required.\\
+  \textbf{Related requirements}: No directly related requirements.
+
 	\item \textbf{Elimination of Existing Features:} Removing core features that
 	are central to the application's purpose (e.g., expense tracking) is unlikely,
-	as these are fundamental to user expectations and functionality.
+	as these are fundamental to user expectations and functionality.\\
+  \textbf{Related requirements}: This would involve modifying or deleting
+  existing \hyperref[sec_funcReq]{functional requirements}.
+
 	\item \textbf{Change in Target Audience:} A shift in the target audience
 	(e.g., from personal budgeting to corporate finance management) is unlikely as
 	it would require a fundamental reevaluation of the application's design,
-	features, and use cases.
+	features, and use cases.\\
+  \textbf{Related requirements}: No directly related requirements.
+
 	\item \textbf{Discontinuation of Data Storage:} Completely removing any form
 	of data storage (e.g., opting for a stateless application) is unlikely, as the
-	core functionality relies on data retention for budgeting purposes.
+	core functionality relies on data retention for budgeting purposes.\\
+  \textbf{Related requirements}: \hyperref[FR-UAM]{User Account Management
+  (FR-UAM)}, \hyperref[FR-FT]{Financial Tracking (FR-FT)}, and
+  \hyperref[FR-DM]{Database Management (FR-DM)} requirements.
+
 	\item \textbf{Pivot to a Social Networking Feature Set:} A major pivot to add
 	social networking features (e.g., allowing users to connect with friends or
 	share budgets) is unlikely, as it diverges from the core functionality of
-	personal budgeting and may complicate the application's primary purpose.
-\end{enumerate}
+	personal budgeting and may complicate the application's primary purpose.\\
+  \textbf{Related requirements}: This would add to the list of
+  \hyperref[sec_funcReq]{functional requirements}.\end{enumerate}
 
 \newpage
 
