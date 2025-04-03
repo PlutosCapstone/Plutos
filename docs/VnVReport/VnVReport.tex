@@ -104,7 +104,7 @@ and Validation Plan} document. These tests are all performed manually.
   \midrule
   test-IP-1 & Pass & \\
   test-IP-2 & Pass & \\
-  test-IP-3 & Fail & Not yet implemented \\
+  test-IP-3 & Pass & \\
   \midrule
   test-MIS-1 & Pass & \\
   \midrule
@@ -115,7 +115,7 @@ and Validation Plan} document. These tests are all performed manually.
   test-RS-2 & Pass & \\
   test-RS-3 & Pass & \\
   \midrule
-  test-FT-1 & Fail & Not yet implemented \\
+  test-FT-1 & Pass & \\
   test-FT-2 & Pass & \\
   test-FT-3 & Fail & Not yet implemented \\
   \bottomrule
@@ -254,10 +254,17 @@ Following the initial development schedule, the categorization model is constant
 allow the users to make changes to these inputs manually to improve overall usability. A few other suggestions revolving around usability were small features such as
 autofilling item entries and providing adaptable user metrics.\\
 
-One small change was made to the requirements regarding accuracy. The accuracy of the categorization model, which was initially targeted to reach around 90\%, 
-will now only require an 80\% level of accuracy. This adjustment was made to enhance the model’s generalization, which in turn reduces ambiguity during data 
-classification. Allowing the model to be less rigid helps it handle real-world, diverse data more effectively. Additionally, the ability for users to modify 
-misclassified entries will further help address any discrepancies and improve the overall accuracy.\\
+One small change was made to the requirements regarding accuracy. The accuracy of the categorization model, 
+which was initially targeted to reach around 90\%, will now only require an 80\% level of accuracy. 
+This adjustment was made to enhance the model’s generalization, which in turn reduces ambiguity during data classification. 
+A lower accuracy threshold encourages a more flexible model that avoids overfitting to the training data and can better adapt 
+to unseen, real-world inputs. This is especially important when dealing with noisy, inconsistent, or highly varied data 
+such as scanned receipts or user-generated content, where exact matches are less common. 
+Furthermore, striving for an extremely high accuracy could lead to longer development times and significantly increased computational complexity 
+without proportionate gains in usability. For the scope of this project, the team decided that by focussing on balancing accuracy and generalization, 
+the model can remain lightweight and responsive while still offering meaningful performance. Additionally, the ability for users to modify 
+misclassified entries will further help address any discrepancies and improve the overall accuracy 
+over time through user feedback and potential retraining mechanisms.
 
 At the moment, the core functional components of the application have been tested by a select group of users, providing feedback on its performance and usability. 
 However, we have yet to conduct larger-scale usability testing to assess the flow of the entire app. Once we finalize the implementation of the smaller 
