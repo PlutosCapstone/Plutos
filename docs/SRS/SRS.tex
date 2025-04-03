@@ -899,6 +899,54 @@ and \hyperref[NFR-USAB]{Usability} requirements.\\
     users will access the application via mobile devices. This assumption is
     driven by the current dominance of mobile platforms for personal finance
     management, offering convenience and accessibility.
+		\begin{itemize}
+			\item Deployment
+			\begin{itemize}
+				\item \textbf{Staged Rollouts}: As Apple's App Store has a stricter and lengthier approval process compared to Google Play, the team might consider launching first on one platform (e.g., Android, due to its faster release cycle) to gather user feedback
+				before finalizing the iOS release. Alternatively, if a simultaneous launch is necessary, parallel development with Apple's review constraints in mind will be key.
+			\end{itemize}
+			\item Cloud Cost Considerations:
+			\begin{enumerate}
+				\item Firebase Authentication:
+				\begin{itemize}
+					\item No cost for MAUs (Monthly active users) less than 50k
+					\item Follows \href{https://cloud.google.com/identity-platform/pricing}{Google pricing} for MAU $>$ 50k (e.g. 50,000-99,999 MAU charges at \$0.0055 per MAU)
+					\item Phone Authentication and MFA Cost: \$0.01 per SMS sent
+					\item Cost assuming 70K MAU and 10K users via SMS login
+					\begin{itemize}
+						\item 70K MAUs using email login: (70K-50K) * \$0.0055 = \$110/month
+						\item 10K users logging in via SMS: 10K * \$0.01 = \$100/month
+						\item Total estimated cost: \$210/month
+					\end{itemize}
+				\end{itemize}
+				\item \href{https://supabase.com/pricing}{Supabase Database} and API Costs
+				\begin{itemize}
+					\item \textbf{Free Tier}:
+					\begin{itemize}
+						\item Unlimited API requests
+						\item 1 GB data transfer
+						\item 500 MB storage
+						\item Purpose: Initial development
+					\end{itemize}
+					\item \textbf{Pro Tier} (Includes everything from free tier):
+					\begin{itemize}
+						\item 8 GB database storage
+						\item 100 GB data transfer
+						\item Purpose: Post-deployment and maintenance (may change depending on MAUs and DB usage)
+					\end{itemize}
+					\item \textbf{Variable cost}
+					\begin{itemize}
+						\item \$0.021 per GB of data transfer above included
+						\item \$0.125 per GB for storage above included
+					\end{itemize}
+					\item \textbf{Cost analysis for additional storage}
+					\begin{itemize}
+						\item 20 GB Storage: (20 GB - 8GB) * \$0.125 = \$1.50/month
+						\item 50GB extra transfer: 50 GB * \$0.021 = \$1.05/month
+					\end{itemize}
+				\end{itemize}
+			\end{enumerate}
+		\end{itemize}
     \item \textbf{Privacy and Security}: The assumption that users expect high
     standards of data privacy and security informs the application's adherence to
     data protection regulations. Users handling sensitive financial data expect
