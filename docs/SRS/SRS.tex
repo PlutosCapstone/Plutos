@@ -582,13 +582,16 @@ used to indicate the importance of the requirement to the system.
 \textbf{User Account Management Requirements}\label{FR-UAM}
 \begin{enumerate}[label=FR-UAM-\arabic*]
   \item (H) Users must be able to create an account using a name, email
-  address, and password.
+  address, and password. \\ \\ \textbf{Fit criterion}: A new user account must be successfully created within \textbf{5 seconds} of submitting valid registration details.
   \item (L) Users must be able to update their account information after account
   creation.
   \item (H) Users must be able to log in using their registered email and password.
+  \\ \\ \textbf{Fit Criterion}: The system must authenticate valid user credentials and grant access within \textbf{2 seconds} 95\% of the time.
   \item (H) Users must log in before accessing the application.
   \item (L) Users must be able to log out of their account.
+  \\ \\ \textbf{Fit Criterion}: The system should successfully log out the user and redirect to Login page within \textbf{3 seconds} if a user presses "Log Out" under the profile page.
   \item (L) Users must be able to reset their password if forgotten.
+  \\ \\ \textbf{Fit Criterion}: A password reset email must be sent within \textbf{30 seconds} of a valid request submission.
 \end{enumerate}
 
 \textbf{Receipt Scanning Input Requirements}\label{FR-IP}
@@ -597,9 +600,12 @@ used to indicate the importance of the requirement to the system.
   \item (M) Users must be able to upload an image from their device to the
   application.
   \item (L) The system shall allow a limit of \hyperref[Table:AuxConstants]{\textit{MAX\_RECEIPT\_FILE\_SIZE}} per receipt.
+  \\ \\ \textbf{Fit Criterion}: The system must reject receipt images larger than \hyperref[Table:AuxConstants]{\textit{MAX\_RECEIPT\_FILE\_SIZE}}.
   \item (H) The system must display a preview of the uploaded image, allowing users
   to confirm or retake the image if necessary. 
+  \\ \\ \textbf{Fit Criterion}: The system must display the preview of the uploaded image within \textbf{3 seconds} of selection.
   \item (H) The system shall upload the confirmed image to the server for processing.
+  \\ \\ \textbf{Fit Criterion}: The system must successfully upload a confirmed receipt image to the server within \textbf{5 seconds} over a standard 4G connection.
 \end{enumerate}
 
 \textbf{Manual Receipt Input Requirements}\label{FR-MIS}
@@ -608,6 +614,7 @@ used to indicate the importance of the requirement to the system.
   items, their associated costs, and the date of purchase.
   \item (M) The system shall validate the input to ensure required fields are
   completed.
+  \\ \\ \textbf{Fit Criterion}: The system must prevent submission if any required fields (e.g., item name, cost, date) are missing and display a descriptive error message.
   \end{enumerate}
 
 \textbf{Database Management Requirements}\label{FR-DM}
@@ -621,8 +628,10 @@ used to indicate the importance of the requirement to the system.
 \begin{enumerate}[label=FR-RS-\arabic*]
   \item (H) The system shall identify and display item names and costs from the
   uploaded receipt image.
+  \\ \\ \textbf{Fit Criterion}: The system must correctly extract \textbf{at least 90\%} of item names and prices from a clear receipt image under standard lighting conditions.
   \item (H) The system shall sort the items into predefined categories, and
   display the category alongside each item.
+  \\ \\ \textbf{Fit Criterion}: At least \textbf{80\% of identified items} must be categorized correctly based on predefined classification rules.
   \item (H) The user must be able to modify the name, price, and category of the
   identified items.   
 \end{enumerate}
@@ -631,7 +640,9 @@ used to indicate the importance of the requirement to the system.
 \begin{enumerate}[label=FR-FT-\arabic*]
   \item (M) The system shall generate an overview of the user's spending history,
   including total spending by item category and trends over time.
+  \\ \\ \textbf{Fit Criterion}: The system must generate a spending summary within \textbf{5 seconds} for a user with up to \textbf{3 months} of transaction history.
   \item (M) Users shall be able to set up budgets for each spending category.
+  \\ \\ \textbf{Fit Criterion}: Fit Criterion: Users must be able to set or modify a budget within \textbf{5 clicks/taps} from the main financial tracking screen.
   \item (M) Users shall be able to view their spending in relation to their set
   budgets.
   \item (L) The system shall notify users when they reach
