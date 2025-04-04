@@ -159,7 +159,7 @@ without errors, ensuring a seamless user experience.
   \textbf{Output:} User cannot use any features without logging in. User remains
   on login page.\\
   \textbf{Pass/Fail:} Pass\\
-\item test-FR-UAM-\arabic{enumi}:\\
+\item test-FR-UAM-\arabic{enumi}: Reset password\\
   \textbf{Input:} email: test@test.com, newPassword: NewPassword123!\\
   \textbf{Output:} User receives an email to reset their password. Upon clicking
   on the link, user is prompted to enter a new password. After confirming the
@@ -174,12 +174,42 @@ while the outputs are the successful display of uploaded images and adherence to
 constraints. A pass is determined by the system's ability to process the images correctly 
 and provide appropriate feedback to the user.
 
+\begin{enumerate}
+  \item test-FR-IP-\arabic{enumi}: Upload image\\
+    \textbf{Input:}
+    \href{https://github.com/PlutosCapstone/Plutos/blob/main/src/server/tests/imageProcessing/data/parsing/input/foodbasics_1.jpg}{Receipt
+    image}\\
+    \textbf{Output:} User sees a preview of the selected image on the screen.\\
+    \textbf{Pass/Fail:} Pass\\
+  \item test-FR-IP-\arabic{enumi}: Preview image\\
+    \textbf{Input:} N/A (image is already on preview screen) \\
+    \textbf{Output:} User can make adjustments to the image selection area and
+    choose to either cancel or confirm the selection.\\
+    \textbf{Pass/Fail:} Pass\\
+  \item test-FR-IP-\arabic{enumi}: File size limit\\
+    \textbf{Input:} A
+    \href{https://sample-videos.com/img/Sample-jpg-image-10mb.jpg}{10 MB image
+    file}\\
+    \textbf{Output:} User sees an error prompt, with a message saying that the
+    image file is too big. The user does not see a preview of the image.\\
+    \textbf{Pass/Fail:} Pass\\
+\end{enumerate}
+
 \subsection{Manual Receipt Input Tests}
 The Manual Expense Input test assesses the application’s ability to handle manual 
 input of expenses. The input for this test involves user-entered financial data, while the 
 output is the successful recording and display of the entered expenses. A pass is determined 
 by the system's ability to accurately capture and reflect the user's input without any 
 discrepancies.
+
+\begin{enumerate}
+  \item test-FR-MIS-\arabic{enumi}: Manually input expenses\\
+    \textbf{Input:} \{store\_name: Food Basics, date: 04-04-2025, items: [\{name:
+    potatoes, cost: 2, category: groceries\}]\}\\
+    \textbf{Output:} User sees the inputs on the screen. After pressing done,
+    the expenses show up on the expenses page..\\
+    \textbf{Pass/Fail:} Pass\\
+\end{enumerate}
 
 \subsection{Database Management Tests}
 The Database Management tests evaluate the application's functionality in managing and processing
