@@ -168,7 +168,7 @@ without errors, ensuring a seamless user experience.
   \textbf{Pass/Fail:} Pass\\
 \end{enumerate}
 
-\subsection{Image Processing Tests}
+\subsection{Image Processing Tests}\label{sec:FR-IP}
 The Image Processing tests assess the application's ability to handle image uploads, 
 previews, and file size limitations. Inputs for these tests include various image files, 
 while the outputs are the successful display of uploaded images and adherence to file size 
@@ -203,7 +203,7 @@ output is the successful recording and display of the entered expenses. A pass i
 by the system's ability to accurately capture and reflect the user's input without any 
 discrepancies.
 
-\begin{enumerate}
+\begin{enumerate}\label{sec:FR-MIS}
   \item test-FR-MIS-\arabic{enumi}: Manually input expenses\\
     \textbf{Input:} \{store\_name: Food Basics, date: 04-04-2025, items: [\{name:
     potatoes, cost: 2, category: groceries\}]\}\\
@@ -317,7 +317,11 @@ described in the plan.}
       \item \textit{costco\_1.jpg}: 18.5/23 = 76.09\%
       \item Overall accuracy: 46/57 = 80.70\%
     \end{itemize}\\
-    test-ACC-3 & Pass &  \\
+    test-ACC-3 & Pass & User adds a new transaction (see
+    \hyperref[sec:FR-IP]{FR-IP tests} and \hyperref[sec:FR-MIS]{FR-MIS tests}),
+    and checks that all budget and expense numbers remain at
+    \href{https://github.com/PlutosCapstone/Plutos/blob/main/docs/SRS/SRS.pdf}{\textit{FINANCIAL\_PRECISION}}
+    decimal points. \\
     test-ACC-4 & Pass &  \\
     test-ACC-5 & Pass &  \\
     \midrule
@@ -325,10 +329,13 @@ described in the plan.}
     test-PERF-2 & Pass &  \\
     test-PERF-3 & Fail & Load testing has not yet been performed \\
     \midrule
-    test-USAB-1 & Pass & Testers successfully carried out tasks related to the app's functionality and account creation while adhering to the established guidelines. Manual errors were introduced to evaluate the system's ability to recover from errors. \\
-    test-USAB-2 & Pass &  \\
-    test-USAB-3 & Pass &  \\
-    test-USAB-4 & Pass &  \\
+    test-USAB-1 & Pass & Testers successfully carried out tasks related to the
+    app's functionality and account creation while adhering to the established
+    guidelines. Manual errors were introduced to evaluate the system's ability
+    to recover from errors. See \hyperref[sec:usability-report]{usability report}. \\
+    test-USAB-2 & Pass & See USAB-1 \\
+    test-USAB-3 & Pass & See USAB-1 \\
+    test-USAB-4 & Pass & See USAB-1 \\
     \midrule
     test-SEC-1 & Pass &  \\
     \midrule
@@ -414,7 +421,7 @@ The Understandability tests focus on the clarity and comprehensibility of the
 application's documentation and user interface. Inputs for these tests consist 
 of user feedback and documentation reviews. The expected outputs are assessments 
 of how easily users can understand and navigate the application. A pass is achieved 
-when users report a clear understanding of the application’s features and 
+when users report a clear understanding of the application's features and 
 functionalities based on the provided documentation and interface design.
 
 The Regulatory tests evaluate the application's compliance with relevant laws 
@@ -425,7 +432,28 @@ status and any identified legal risks. A pass is determined by the system's
 ability to demonstrate adherence to legal standards and the implementation 
 of necessary features to protect user data in accordance with applicable laws.
 
+\subsection{Usability Report (Internal)}\label{sec:usability-report}
 
+This usability report was conducted by testers and not a user group. 
+
+\begin{enumerate}
+\item NFR-USAB-1: Navigation within
+\href{https://github.com/PlutosCapstone/Plutos/blob/main/docs/SRS/SRS.pdf}{\textit{MAX\_COMMON\_TASK\_CLICKS}}
+  \begin{itemize}
+    \item Navigate to add transaction page from home page: 2 clicks
+    \item Navigate to add budget page from home page: 2 clicks
+    \item View spending history from home page: 0-2 clicks, depending on view desired
+    \item Time to navigate to each page: $<$ 1 second
+    \item Time to add a transaction: an average of 10 seconds (sample size of 5
+    varying length receipts)
+  \end{itemize}
+\item NFR-USAB-2: Onboarding within 
+\href{https://github.com/PlutosCapstone/Plutos/blob/main/docs/SRS/SRS.pdf}{\textit{MAX\_ACCOUNT\_ONBOARD\_TIME}}
+  \begin{itemize}
+    \item Time to onboard: an average of 2 minutes (sample size of 5 trials)
+  \end{itemize}
+
+\end{enumerate}
 \section{Comparison to Existing Implementation}	
 
 This section is not applicable.
