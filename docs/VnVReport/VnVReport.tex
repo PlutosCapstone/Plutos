@@ -102,7 +102,7 @@ functional tests, and details of each test are provided below.
   test-UAM-1 & Pass &  \\
   test-UAM-2 & Pass &  \\
   test-UAM-3 & Pass &  \\
-  test-UAM-4 & Fail & Not yet implemented \\
+  test-UAM-4 & Fail & Not yet implemented; see below. \\
   test-UAM-5 & Pass &  \\
   test-UAM-6 & Pass &  \\
   \midrule
@@ -121,7 +121,7 @@ functional tests, and details of each test are provided below.
   \midrule
   test-FT-1 & Pass & \\
   test-FT-2 & Pass & \\
-  test-FT-3 & Fail & Not yet implemented \\
+  test-FT-3 & Fail & Not yet implemented; see below. \\
   \bottomrule
 \end{tabularx}
 \end{table}
@@ -135,7 +135,7 @@ the user dashboard, with a pass being defined by the successful execution of eac
 without errors, ensuring a seamless user experience.
 
 \begin{enumerate}
-\item test-FR-UAM-\arabic{enumi}: Account creation\\
+\item test-FR-UAM-\arabic{enumi}: Account creation\\\label{test-FR-UAM-1}
   \textbf{Input:} name: John Doe, email: test@test.com, password: Password123!\\
   \textbf{Output:} User is redirected to the login page. User entry is created
   in the database.\\
@@ -153,7 +153,8 @@ without errors, ensuring a seamless user experience.
 \item test-FR-UAM-\arabic{enumi}: Update user information\\
   \textbf{Input:} N/A\\
   \textbf{Output:} N/A\\
-  \textbf{Pass/Fail:} This feature is not yet implemented. Explanation here.\\
+  \textbf{Pass/Fail:} This feature is not yet implemented. Explanation
+  \href{https://github.com/PlutosCapstone/Plutos/issues/266#issuecomment-2779557067}{here}.\\
 \item test-FR-UAM-\arabic{enumi}: Check authentication required\\
   \textbf{Input:} N/A\\
   \textbf{Output:} User cannot use any features without logging in. User remains
@@ -175,7 +176,7 @@ constraints. A pass is determined by the system's ability to process the images 
 and provide appropriate feedback to the user.
 
 \begin{enumerate}
-  \item test-FR-IP-\arabic{enumi}: Upload image\\
+  \item test-FR-IP-\arabic{enumi}: Upload image\\\label{test-FR-IP-1}
     \textbf{Input:}
     \href{https://github.com/PlutosCapstone/Plutos/blob/main/src/server/tests/imageProcessing/data/parsing/input/foodbasics_1.jpg}{Receipt
     image}\\
@@ -207,7 +208,7 @@ discrepancies.
     \textbf{Input:} \{store\_name: Food Basics, date: 04-04-2025, items: [\{name:
     potatoes, cost: 2, category: groceries\}]\}\\
     \textbf{Output:} User sees the inputs on the screen. After pressing done,
-    the expenses show up on the expenses page..\\
+    the expenses show up on the expenses page.\\
     \textbf{Pass/Fail:} Pass\\
 \end{enumerate}
 
@@ -218,12 +219,43 @@ and financial records. The expected outputs are the correct storage and retrieva
 data, with a pass being defined by the system's ability to manage data effectively and 
 provide accurate results when queried.
 
+\begin{enumerate}
+  \item test-FR-DM-\arabic{enumi}: User data stored\\
+    \textbf{Input:} See \hyperref[test-FR-UAM-1]{test-FR-UAM-1}\\
+    \textbf{Output:} The user data exists in the database. The password is
+    encrypted. The database can only be accessed with the correct admin
+    credentials.\\
+    \textbf{Pass/Fail:} Pass\\
+  \item test-FR-DM-\arabic{enumi}: Receipt data stored\\
+    \textbf{Input:} See \hyperref[test-FR-IP-1]{test-FR-IP-1}\\
+    \textbf{Output:} The receipt data exists in the database. The database can
+    only be accessed with the correct admin credentials.\\
+    \textbf{Pass/Fail:} Pass\\
+\end{enumerate}
+
 \subsection{Item Recognition and Categorization Tests}
 The Item Recognition and Categorization tests focus on the application's capability to generate reports based 
 on user data. Inputs for these tests include user financial data and parameters for report 
 generation. The outputs are the generated reports that summarize spending trends and 
 financial insights. A pass is achieved when the reports are accurately produced and reflect 
 the correct data as per user specifications.
+
+\begin{enumerate}
+  \item test-FR-RS-\arabic{enumi}: Receipt processed\\
+    \textbf{Input:} Receipt is uploaded. See \hyperref[test-FR-IP-1]{test-FR-IP-1} \\
+    \textbf{Output:} User sees the items from the receipt, the store name, and
+    the date populated on the screen.\\
+    \textbf{Pass/Fail:} Pass\\
+  \item test-FR-RS-\arabic{enumi}: Items categorized\\
+    \textbf{Input:} See \hyperref[test-FR-IP-1]{test-FR-IP-1}\\
+    \textbf{Output:} User sees a category label beside each item.\\
+    \textbf{Pass/Fail:} Pass\\
+  \item test-FR-RS-\arabic{enumi}: Modify receipt data\\
+    \textbf{Input:} The user modifies an existing item's category from `groceries' to `personal'.\\
+    \textbf{Output:} The item's category is changed accordingly and shows the
+    updated data on the screen.\\
+    \textbf{Pass/Fail:} Pass\\
+\end{enumerate}
 
 \subsection{Financial Tracking Tests}
 The Financial Tracking tests are designed to evaluate the application's capabilities in 
@@ -232,6 +264,26 @@ of user-generated financial data, such as expenses and budget parameters. The ou
 include visual representations of spending trends and budget trackers. A pass for these 
 tests is achieved  when the application accurately reflects the user's financial data 
 ensuring effective financial management for users.
+
+\begin{enumerate}
+  \item test-FR-FT-\arabic{enumi}: View history\\
+    \textbf{Input:} N/A - User is on home screen and has previously inputted
+    expenses.\\
+    \textbf{Output:} User sees their previous spending history by category and
+    over time.\\
+    \textbf{Pass/Fail:} Pass\\
+  \item test-FR-FT-\arabic{enumi}: Budget management\\
+    \textbf{Input:} \{category: groceries, budget: 40\}\\
+    \textbf{Output:} User can see their newly inputted budget on the budget
+    screen, as well as previously inputted budgets.\\
+    \textbf{Pass/Fail:} Pass\\
+  \item test-FR-FT-\arabic{enumi}: Notifications\\
+    \textbf{Input:} N/A\\
+    \textbf{Output:} Not yet implemented. See explanation
+    \href{https://github.com/PlutosCapstone/Plutos/issues/266#issuecomment-2779557067}{here}.\\
+    \textbf{Pass/Fail:} Fail\\
+\end{enumerate}
+
 
 \section{Nonfunctional Requirements Evaluation}
 
