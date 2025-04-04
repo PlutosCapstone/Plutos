@@ -245,6 +245,7 @@ actually be implemented.
 \item [\refstepcounter{mnum} \mthemnum \label{mAuth}:] Authentication Module
 \item [\refstepcounter{mnum} \mthemnum\label{mData}:] Data Module
 \begin{description}
+	\item [\refstepcounter{submnum} \mthesubmnum\label{mTransaction}:] Transaction Module
 	\item [\refstepcounter{submnum} \mthesubmnum\label{mExpense}:] Expense Module
 	\item [\refstepcounter{submnum} \mthesubmnum\label{mIncome}:] Income Module
 	\item [\refstepcounter{submnum} \mthesubmnum\label{mBudget}:] Budget Module
@@ -280,7 +281,8 @@ actually be implemented.
 {Authentication Module} & ~ \\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Data Module} & Expense Module \\
+\multirow{4}{0.3\textwidth}{Data Module} & Transaction Module \\
+& Expense Module \\
 & Income Module \\
 & Budget Module \\
 
@@ -478,6 +480,15 @@ to be implemented.
 \item[Secrets:] N/A
 \item[Services:] Serves as a structured format for the data types.
 \item[Implemented By:] --
+\end{description}
+
+\subsubsection{Transaction Module (\mref{mTransaction})}
+
+\begin{description}
+\item[Secrets:] N/A
+\item[Services:] Serves as a structured format for a transaction.
+\item[Implemented By:] \progname
+\item[Type of Module:] Record
 \end{description}
 
 
