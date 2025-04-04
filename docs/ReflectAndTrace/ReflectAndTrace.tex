@@ -43,11 +43,11 @@
         docs(SRS): Add section for "normal operation" &  &
         \href{https://github.com/PlutosCapstone/Plutos/pull/x}{x} &   \\ \hline
         \href{https://github.com/PlutosCapstone/Plutos/issues/107}{107} & TA &
-        docs(SRS): Add section for undesired event handling &  &
-        \href{https://github.com/PlutosCapstone/Plutos/pull/x}{x} &   \\ \hline
+        docs(SRS): Add section for undesired event handling & $\checkmark$ &
+        \href{https://github.com/PlutosCapstone/Plutos/pull/308}{308} & Changes made \\ \hline
         \href{https://github.com/PlutosCapstone/Plutos/issues/108}{108} & TA &
         docs(SRS): Add fit criterions to requirements & $\checkmark$ &
-        \href{https://github.com/PlutosCapstone/Plutos/pull/x}{310} & Changes made  \\ \hline
+        \href{https://github.com/PlutosCapstone/Plutos/pull/310}{310} & Changes made  \\ \hline
         \href{https://github.com/PlutosCapstone/Plutos/issues/109}{109} & TA &
         docs(SRS): Link requirements to rationale section & $\checkmark$ &
         \href{https://github.com/PlutosCapstone/Plutos/pull/303}{303} & Linked
@@ -67,7 +67,7 @@
         This was a question, which was answered as a comment in the issue.  \\ \hline
         \href{https://github.com/PlutosCapstone/Plutos/issues/40}{40} & Peer
         Review & peer-review[team 23]: release platform & $\checkmark$
-        & \href{https://github.com/PlutosCapstone/Plutos/pull/x}{310} & Changes made \\ \hline
+        & \href{https://github.com/PlutosCapstone/Plutos/pull/310}{310} & Changes made \\ \hline
         \href{https://github.com/PlutosCapstone/Plutos/issues/41}{41} & Peer
         Review & peer-review[team23]: Non-Functional Requirements Verifiability
         & $\checkmark$ & \href{https://github.com/PlutosCapstone/Plutos/pull/179}{179} &
@@ -388,26 +388,47 @@ users currently exist?}
 
 \section{Reflection on Project Management (LO24)}
 
-\plt{This question focuses on processes and tools used for project management.}
-
 \subsection{How Does Your Project Management Compare to Your Development Plan}
 
-\plt{Did you follow your Development plan, with respect to the team meeting plan, 
-team communication plan, team member roles and workflow plan.  Did you use the 
-technology you planned on using?}
+Our team followed the development plan as outlined in the SRS Development Plan section.
+We adhered to the planned meetings, communication methods, assigned roles, and workflow structure. 
+The project was structured into phases, and we prioritized high-priority functional requirements as scheduled. 
+While some deadlines were subject to change, we adapted accordingly to ensure steady progress.
+
+At the start of the project, we had a general idea of using an OCR model to extract data from receipts, but we weren’t committed to a specific tool. 
+Throughout the development process, we experimented with a few different OCR models to see which one would work best for our needs.
+After testing and comparing results, we ultimately decided to use Tesseract, which is an open-source OCR engine developed by Google.
+
+Tesseract provided the balance we were looking for in terms of accuracy and ease of integration. While some of the other models we tried had certain strengths, 
+Tesseract performed consistently across a wide range of receipt types, and it was easier to work with in our app’s pipeline.
+Even though we didn’t plan on using it from the beginning, the decision to pivot toward Tesseract ended up being a good one for the project.
+
 
 \subsection{What Went Well?}
 
-\plt{What went well for your project management in terms of processes and 
-technology?}
+Our capstone group worked well together, maintaining strong organization and collaboration throughout the project.
+Meetings and clear communication ensured that everyone stayed on track with their tasks.
+Each team member effectively contributed to their assigned roles, which helped keep development on schedule.
+
+A key success was the OCR model used to parse receipts. It met our expected accuracy, allowing us to extract and categorize receipt data effectively.
+This was essential for the project's goal of creating an innovative expense-tracking budgeting app.
 
 \subsection{What Went Wrong?}
 
-\plt{What went wrong in terms of processes and technology?}
+Like any project, we encountered some challenges along the way. There were occasional difficulties in coordinating 
+schedules, especially when balancing coursework with project deadlines. 
+
+In terms of workflow, there were moments where certain tasks took longer than expected due to debugging and integration challenges.
+However, the team adapted and adjusted the timeline as needed.
+
+In terms of tools, one of the main challenges was our initial unfamiliarity with OCR models. Since most of us had limited prior experience working with OCR technology,
+there was a learning curve when it came to understanding how different models worked, how to train or fine-tune them, and how to handle various types of receipt formats. 
+It took time to experiment with different models and figure out how to integrate them into our pipeline effectively.
 
 \subsection{What Would you Do Differently Next Time?}
 
-\plt{What will you do differently for your next project?}
+For future projects, we would aim to refine our approach to time management by setting aside more buffer time for debugging and testing. 
+While our communication was strong, we could improve further by implementing more structured progress tracking to ensure that any potential delays are addressed earlier.
 
 \section{Reflection on Capstone}
 
