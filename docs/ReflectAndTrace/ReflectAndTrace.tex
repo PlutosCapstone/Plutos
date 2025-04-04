@@ -18,51 +18,9 @@
 
 \maketitle
 
-\plt{Reflection is an important component of getting the full benefits from a
-learning experience.  Besides the intrinsic benefits of reflection, this
-document will be used to help the TAs grade how well your team responded to
-feedback.  Therefore, traceability between Revision 0 and Revision 1 is and
-important part of the reflection exercise.  In addition, several CEAB (Canadian
-Engineering Accreditation Board) Learning Outcomes (LOs) will be assessed based
-on your reflections.}
-
 \section{Changes in Response to Feedback}
 
-\plt{Summarize the changes made over the course of the project in response to
-feedback from TAs, the instructor, teammates, other teams, the project
-supervisor (if present), and from user testers.}
-
-\plt{For those teams with an external supervisor, please highlight how the feedback 
-from the supervisor shaped your project.  In particular, you should highlight the 
-supervisor's response to your Rev 0 demonstration to them.}
-
-\plt{Version control can make the summary relatively easy, if you used issues
-and meaningful commits.  If you feedback is in an issue, and you responded in
-the issue tracker, you can point to the issue as part of explaining your
-changes.  If addressing the issue required changes to code or documentation, you
-can point to the specific commit that made the changes.  Although the links are
-helpful for the details, you should include a label for each item of feedback so
-that the reader has an idea of what each item is about without the need to click
-on everything to find out.}
-
-\plt{If you were not organized with your commits, traceability between feedback
-and commits will not be feasible to capture after the fact.  You will instead
-need to spend time writing down a summary of the changes made in response to
-each item of feedback.}
-
-\plt{You should address EVERY item of feedback.  A table or itemized list is
-recommended.  You should record every item of feedback, along with the source of
-that feedback and the change you made in response to that feedback.  The
-response can be a change to your documentation, code, or development process.
-The response can also be the reason why no changes were made in response to the
-feedback.  To make this information manageable, you will record the feedback and
-response separately for each deliverable in the sections that follow.}
-
-\plt{If the feedback is general or incomplete, the TA (or instructor) will not
-be able to grade your response to feedback.  In that case your grade on this
-document, and likely the Revision 1 versions of the other documents will be
-low.} 
-
+\newpage 
 \subsection{SRS and Hazard Analysis}
 
 \begin{table}[H]
@@ -134,6 +92,7 @@ low.}
     }
 \end{table}
 
+\newpage
 
 \begin{table}[H]
     \caption{Hazard Analysis Issues}
@@ -189,6 +148,7 @@ low.}
     }
 \end{table}
 
+\newpage 
 
 \subsection{Design and Design Documentation}
 
@@ -270,6 +230,8 @@ low.}
     }
 \end{table}
 
+\newpage
+
 \subsection{VnV Plan and Report}
 
 \begin{table}[H]
@@ -344,6 +306,15 @@ low.}
         \textbf{Issue Number} & \textbf{Source} & \textbf{Issue Title} &
         \textbf{Addressed?} & \textbf{PR} & \textbf{Comments} \\ 
         \midrule
+        % TA
+        \href{https://github.com/PlutosCapstone/Plutos/issues/304}{304} & TA &
+        docs(vnv report): add more details to verifiability of tests & & &  \\
+        \hline
+        %  PEER REVIEW
+        \href{https://github.com/PlutosCapstone/Plutos/issues/265}{265} & Peer
+        Review & Peer Review - The lost xlsx file in hyperlink & $\checkmark$ &
+        \href{https://github.com/PlutosCapstone/Plutos/pull/291}{291} &  Fixed
+        \\ \hline
         \href{https://github.com/PlutosCapstone/Plutos/issues/266}{266} & Peer
         Review & Missing Functionality & $\times$ & &  A couple of the FRs weren't implemented
         yet during the initial draft of VnVReport - they have now been implemented. As for account update and
@@ -357,12 +328,21 @@ low.}
         \hline
         \href{https://github.com/PlutosCapstone/Plutos/issues/268}{268} & Peer
         Review & Reduced accuracy & $\times$ & &  Multiple NFRs are tested 
-        (NFR-ACC-1, NFR-ACC-3, NFR-MTB-1) \\ 
+        (NFR-ACC-1, NFR-ACC-3, NFR-MTB-1) \\ \hline
+        \href{https://github.com/PlutosCapstone/Plutos/issues/269}{269} & Peer
+        Review & Lack of Detailed Analysis for Performance Test Omissions &
+         & &  \\ \hline
+        \href{https://github.com/PlutosCapstone/Plutos/issues/270}{270} & Peer
+        Review & Unclear Implications of Security and Legal Compliance Testing &
+        $\checkmark$ &
+        \href{https://github.com/PlutosCapstone/Plutos/pull/309}{309} & Added
+        more details \\        
     \bottomrule
     \end{tabular}%
     }
 \end{table}
 
+\newpage
 
 \section{Challenge Level and Extras}
 
