@@ -1518,6 +1518,34 @@ design aligns with the usability requirements.
     \item The ease of taking corrective actions (e.g., retrying, re-uploading, or receiving alternative guidance)
 \end{itemize}
 
+\item{test-USAB-5\\}
+
+\textbf{Description:} The system must retain user data during unexpected crashes.
+
+\textbf{Type:} Manual, Usability Testing
+					
+\textbf{Initial State:} The application is installed and running with a user session active.
+					
+\textbf{Input/Condition:} A user performs a series of actions that involve data entry 
+or modification, followed by an unexpected application crash. Scenarios may include:
+\begin{itemize}
+    \item Entering data into a form and then simulating a crash
+    \item Modifying settings and causing the application to close unexpectedly
+    \item Uploading a receipt and triggering a crash during the upload process
+\end{itemize}
+
+\textbf{Output/Result:} The user should be able to determine the extent of data retention after 
+the crash, including whether unsaved changes were lost or if the application can recover to a 
+stable state with previously saved data intact.
+
+\textbf{How the Test Will Be Performed:} The user/tester will simulate an unexpected crash during various data entry scenarios and assess:
+\begin{itemize}
+    \item The application's ability to recover data after a crash
+    \item The clarity of any recovery messages or prompts provided to the user
+    \item The user’s understanding of what data was retained or lost
+    \item The ease of re-entering or recovering data after the crash
+\end{itemize}
+
 \end{enumerate}
 
 \subsubsection{Security Tests}
