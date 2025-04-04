@@ -59,6 +59,7 @@ urlcolor=cyan          % color of external links
 01/13/2024 & 0.1 & Sections 2--5 \\
 01/17/2024 & 0.2 & Section 6\\
 03/09/2025 & 0.3 & Updates to Item, Expense, Income, Budget, Categorization modules\\
+04/04/2025 & 0.4 & Updates to Transaction\\
 \ldots & \ldots & \ldots \\
 \bottomrule
 \end{tabularx}
@@ -160,11 +161,11 @@ Guide document}.
 
 ~\newpage
 
-\section{MIS of OCR Processing Module}\label{OCR_Processing_Module}
+\section{MIS of Image Processing Module}\label{OCR_Processing_Module}
 
 \subsection{Module}
 
-OCR Processing Module
+Image Processing Module
 
 \subsection{Uses}
 
@@ -186,7 +187,7 @@ None
 
 \begin{center}
   \begin{table}[H]
-    \caption{OCR Processing Module Access Programs}
+    \caption{Image Processing Module Access Programs}
   \renewcommand{\arraystretch}{1.5} % Adjust row height
   \setlength{\tabcolsep}{8pt} % Adjust column spacing
   \begin{tabular}{|p{6cm}|p{3cm}|p{2cm}|p{5cm}|}
@@ -252,7 +253,7 @@ localTextExtraction():
 
 \subsection{Exception Handling}
 
-The OCR Processing Module may encounter various exceptions during image processing, such as:
+The Image Processing Module may encounter various exceptions during image processing, such as:
 
 \begin{itemize}
     \item FileError: Raised when the image file cannot be opened or read.
@@ -277,7 +278,7 @@ The OCR Processing Module may encounter various exceptions during image processi
 Categorization Module
 
 \subsection{Uses}
-OCR Processing Module (\nameref{OCR_Processing_Module})\\
+Image Processing Module (\nameref{OCR_Processing_Module})\\
 
 \subsection{Syntax}
 
@@ -360,7 +361,7 @@ Budget Calculation Module
 
 \subsection{Uses}
 Categorization Module (\nameref{categorization_module})\\
-Expense Module (\nameref{expense_module})\\
+Transaction Module (\nameref{transaction_module})\\
 Income Module (\nameref{income_module})\\
 Budget Module (\nameref{budget_module})\\
 
@@ -887,26 +888,24 @@ exportFile & ProcessedData, ExportType & ExportFile & ExportError \\
 \newpage
 % end of output generation module
 
-
-% start of expense module
-\section{MIS of Expense}\label{expense_module}
+% start of transaction module
+\section{MIS of Transaction}\label{transaction_module}
 
 \subsection{Module}
 
-Expense module
+Transaction module
 
 \subsection{Uses}
-N/A
+Expense module (\nameref{expense_module})\\
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
 \begin{itemize}
-  \item \textbf{name}: string
-  \item \textbf{cost}: float
-  \item \textbf{category}: string
+  \item \textbf{store}: string
   \item \textbf{transaction\_date}: datetime
   \item \textbf{user\_id}: Uuid
+  \item \textbf{items}: List[Expense]
 \end{itemize}
 
 \subsubsection{Exported Access Programs}
@@ -918,11 +917,10 @@ N/A
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-expense & name: string &  &  \\
-  & cost: float &  &  \\
-  & category: string &  &  \\
+expense & store: string &  &  \\
   & transaction\_date: datetime &  &  \\
   & user\_id: Uuid &  &  \\
+  & items: List[Expense] &  &  \\
 \hline
 \end{tabular}
 \end{table}
@@ -941,8 +939,70 @@ N/A
 
 \subsubsection{Access Routine Semantics}
 
-\noindent expense(name: string, cost: float, category: string,
-transaction\_date: datetime, user\_id: Uuid):
+\noindent transaction(store: string, transaction\_date: datetime, user\_id: Uuid, items: List[Expense]):
+\begin{itemize}
+\item transition: N/A
+\item output: Transaction
+\item exception: InvalidInputError -- thrown if the input is not valid
+\end{itemize}
+
+\subsubsection{Local Functions}
+N/A
+
+\newpage
+% end of transaction module
+
+
+% start of expense module
+\section{MIS of Expense}\label{expense_module}
+
+\subsection{Module}
+
+Expense module
+
+\subsection{Uses}
+N/A
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+\begin{itemize}
+  \item \textbf{name}: string
+  \item \textbf{cost}: float
+  \item \textbf{category}: string
+\end{itemize}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+  \begin{table}[H]
+    \caption{Expense Module Access Programs}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{4cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+expense & name: string &  &  \\
+  & cost: float &  &  \\
+  & category: string &  &  \\
+\hline
+\end{tabular}
+\end{table}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+N/A
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+N/A
+
+\subsubsection{Access Routine Semantics}
+
+\noindent expense(name: string, cost: float, category: string):
 \begin{itemize}
 \item transition: N/A
 \item output: Expense
