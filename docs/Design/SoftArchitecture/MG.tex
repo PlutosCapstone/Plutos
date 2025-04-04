@@ -232,7 +232,7 @@ actually be implemented.
 \end{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mSD}:] Software Decision Module
 \begin{description}
-  \item[\refstepcounter{submnum} \mthesubmnum \label{mOCR}:] OCR Processing Module
+  \item[\refstepcounter{submnum} \mthesubmnum \label{mOCR}:] Image Processing Module
   \item[\refstepcounter{submnum} \mthesubmnum \label{mML}:] Machine Learning Module
   \item[\refstepcounter{submnum} \mthesubmnum \label{mBudgetCalculation}:] Budget Calculation Module
 \end{description}
@@ -268,7 +268,7 @@ actually be implemented.
 & Output Generation Module\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {OCR Processing Module}\\
+\multirow{3}{0.3\textwidth}{Software Decision Module} & {Image Processing Module}\\
 & Machine Learning Module\\
 & Budget Calculation Module\\
 \midrule
@@ -312,7 +312,7 @@ To satisfy the various requirements, several key design decisions have been made
 The system requires secure user account management functionality, including account creation, login, logout, and password reset. To meet these requirements, the User Interaction Module is designed to handle user authentication (R3, R4), while the Hardware-Hiding Module and Behavior-Hiding Module ensure that the user interface can interact seamlessly with the backend system. Modules like the Input Format Module handle user inputs during account creation and login processes (R1, R2). \\
 
 \noindent \textbf{Receipt Scanning Input (FR7 - FR11)}:  
-The system must handle receipt input via camera capture or file upload. The Input Format Module is responsible for processing images taken by the user or uploaded from their device (R7, R8). The OCR Processing Module is designed to extract relevant data from these images to ensure accurate recognition of receipt details (R14, R15). The Output Generation Module is also involved in providing a preview and confirming receipt data (R10). \\
+The system must handle receipt input via camera capture or file upload. The Input Format Module is responsible for processing images taken by the user or uploaded from their device (R7, R8). The Image Processing Module is designed to extract relevant data from these images to ensure accurate recognition of receipt details (R14, R15). The Output Generation Module is also involved in providing a preview and confirming receipt data (R10). \\
 
 \noindent \textbf{Manual Receipt Input (FR12 - FR13)}:  
 The system supports manual entry of receipt details, validated by the system to ensure completeness. The User Interaction Module facilitates the input from the user, while the Input Format Module and Output Generation Module handle the data and interface to ensure accurate input and validation (R12, R13). \\
@@ -321,10 +321,10 @@ The system supports manual entry of receipt details, validated by the system to 
 The system is designed to securely store user data, including account information and receipt images. This is addressed through a combination of modules such as the Hardware-Hiding Module, which separates the database interactions, and the Software Decision Module, which ensures secure data handling (R14, R15). \\
 
 \noindent \textbf{Item Recognition and Categorization (FR16 - FR18)}:  
-For the identification and categorization of items in receipts, the OCR Processing Module and Machine Learning Module are used. These modules work together to extract relevant data from receipt images and categorize the items accordingly (R16, R17, R18). Modifications to item attributes can be handled by the User Interaction Module (R18). \\
+For the identification and categorization of items in receipts, the Image Processing Module and Machine Learning Module are used. These modules work together to extract relevant data from receipt images and categorize the items accordingly (R16, R17, R18). Modifications to item attributes can be handled by the User Interaction Module (R18). \\
 
 \noindent \textbf{Financial Tracking (FR19 - FR24)}:  
-The system is designed to track user spending, generate budgets, and send notifications when certain thresholds are met. Modules like the Budget Calculation Module, Machine Learning Module, and OCR Processing Module are responsible for financial analysis and tracking (R19 - R24). The User Interaction Module plays a significant role in displaying this information in a user-friendly format (R19, R20, R21).
+The system is designed to track user spending, generate budgets, and send notifications when certain thresholds are met. Modules like the Budget Calculation Module, Machine Learning Module, and Image Processing Module are responsible for financial analysis and tracking (R19 - R24). The User Interaction Module plays a significant role in displaying this information in a user-friendly format (R19, R20, R21).
 
 
 \newpage
@@ -402,19 +402,26 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{OCR Processing Module (\mref{mOCR})}
+\subsubsection{Image Processing Module (\mref{mOCR})}
 
 \begin{description}
-\item[Secrets:] The specific OCR algorithms or libraries used for extracting text from images.
+\item[Secrets:] The image will be pre-processed using OpenCV, which includes
+grayscale conversion, thresholding, and noise reduction. The OCR technology
+utilized for text extraction from images is Pytesseract. The fine-tuning dataset
+comprises a collection of receipts gathered via a shared drive, including stores
+such as Food Basics, Fortinos, Walmart, Costco, and Dollarama. The data will
+then be parsed and post-processed to extract relevant information.
 \item[Services:] Processes input image files to extract text and convert it into structured data.
 \item[Implemented By:] \progname
 \item[Type of Module:] Abstract Object
 \end{description}
 
-\subsubsection{Machine Learning Module (\mref{mML})}
+\subsubsection{Categorization Module (\mref{mML})}
 
 \begin{description}
-\item[Secrets:] The model architecture, training datasets, and feature engineering methods used for categorizing expenses.
+\item[Secrets:] The categorization will be done using a custom Cohere fine-tuned
+classification LLM model. The model will be trained and tested on a dataset of
+labeled item names and categories.  
 \item[Services:] Predicts spending categories based on parsed data and predefined labels.
 \item[Implemented By:] \progname
 \item[Type of Module:] Abstract Object
@@ -857,7 +864,7 @@ deadline in March (specific date to be announced). \\
 \begin{itemize}
 	\item Phase 1: POC Demo (due November 26th, 2024)
 	\begin{itemize}
-		\item \mref{mOCR}: OCR Processing Module 
+		\item \mref{mOCR}: Image Processing Module 
 		\begin{itemize}
 			\item Research and testing (Angela)
 			\item Implementation and tweaking (Angela)
@@ -880,7 +887,7 @@ deadline in March (specific date to be announced). \\
 	\end{itemize}
 	\item Phase 2: Revision 0 Demo (due February 3rd, 2025)
 	\begin{itemize}
-		\item \mref{mOCR}: OCR Processing Module
+		\item \mref{mOCR}: Image Processing Module
 		\begin{itemize}
 			\item Refinement (Angela)
 		\end{itemize}
