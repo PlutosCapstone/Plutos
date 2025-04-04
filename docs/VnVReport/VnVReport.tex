@@ -32,7 +32,7 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 03/10/2025 & 0.1 & Rev0\\
-\ldots & \ldots & \ldots\\
+04/04/2025 & 0.2 & Rev1\\
 \bottomrule
 \end{tabularx}
 
@@ -86,11 +86,15 @@ and Validation Plan} document.
 
 The functional system tests can be found in Section 4.1 of the
 \href{https://github.com/PlutosCapstone/Plutos/blob/main/docs/VnVPlan/VnVPlan.pdf}{Verification
-and Validation Plan} document. These tests are all performed manually.
+and Validation Plan} document. These tests are all performed manually. Table
+\ref{tab:functional-requirements-evaluation} summarizes the results of the
+functional tests, and details of each test are provided below.
+
+\newpage
 
 \begin{table}[h!]
 \centering
-\caption{Functional Requirements Evaluation}
+\caption{Functional Requirements Evaluation}\label{tab:functional-requirements-evaluation}
 \begin{tabularx}{\textwidth}{>{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X}
   \toprule
   \textbf{Test ID} & \textbf{Pass/Fail} & \textbf{Comments} \\
@@ -122,6 +126,7 @@ and Validation Plan} document. These tests are all performed manually.
 \end{tabularx}
 \end{table}
 
+\subsection{User Account Management Tests}
 The User Account Management tests evaluate the core functionalities related to user 
 account creation, login, logout, updates, authorization access, and password reset. Inputs 
 for these tests typically consist of user-provided data such as names, emails, passwords, 
@@ -129,30 +134,68 @@ and session information. The expected outputs include confirmation messages and 
 the user dashboard, with a pass being defined by the successful execution of each function 
 without errors, ensuring a seamless user experience.
 
+\begin{enumerate}
+\item test-FR-UAM-\arabic{enumi}: Account creation\\
+  \textbf{Input:} name: John Doe, email: test@test.com, password: Password123!\\
+  \textbf{Output:} User is redirected to the login page. User entry is created
+  in the database.\\
+  \textbf{Pass/Fail:} Pass\\
+\item test-FR-UAM-\arabic{enumi}: Logging in\\
+  \textbf{Input:} email: test@test.com, password: Password123!\\
+  \textbf{Output:} User is redirected to the home page. The user that is logged
+  in corresponds to the user credentials.\\
+  \textbf{Pass/Fail:} Pass\\
+\item test-FR-UAM-\arabic{enumi}: Logging out\\
+  \textbf{Input:} N/A\\
+  \textbf{Output:} User is redirected to the login page. The application state
+  is no longer authenticated.\\
+  \textbf{Pass/Fail:} Pass\\
+\item test-FR-UAM-\arabic{enumi}: Update user information\\
+  \textbf{Input:} N/A\\
+  \textbf{Output:} N/A\\
+  \textbf{Pass/Fail:} This feature is not yet implemented. Explanation here.\\
+\item test-FR-UAM-\arabic{enumi}: Check authentication required\\
+  \textbf{Input:} N/A\\
+  \textbf{Output:} User cannot use any features without logging in. User remains
+  on login page.\\
+  \textbf{Pass/Fail:} Pass\\
+\item test-FR-UAM-\arabic{enumi}:\\
+  \textbf{Input:} email: test@test.com, newPassword: NewPassword123!\\
+  \textbf{Output:} User receives an email to reset their password. Upon clicking
+  on the link, user is prompted to enter a new password. After confirming the
+  new password, user can log in with their new password and not their old one.\\
+  \textbf{Pass/Fail:} Pass\\
+\end{enumerate}
+
+\subsection{Image Processing Tests}
 The Image Processing tests assess the application's ability to handle image uploads, 
 previews, and file size limitations. Inputs for these tests include various image files, 
 while the outputs are the successful display of uploaded images and adherence to file size 
 constraints. A pass is determined by the system's ability to process the images correctly 
 and provide appropriate feedback to the user.
 
+\subsection{Manual Receipt Input Tests}
 The Manual Expense Input test assesses the application’s ability to handle manual 
 input of expenses. The input for this test involves user-entered financial data, while the 
 output is the successful recording and display of the entered expenses. A pass is determined 
 by the system's ability to accurately capture and reflect the user's input without any 
 discrepancies.
 
+\subsection{Database Management Tests}
 The Database Management tests evaluate the application's functionality in managing and processing
 user data. Inputs for these tests consist of various data entries related to user expenses 
 and financial records. The expected outputs are the correct storage and retrieval of this 
 data, with a pass being defined by the system's ability to manage data effectively and 
 provide accurate results when queried.
 
+\subsection{Item Recognition and Categorization Tests}
 The Item Recognition and Categorization tests focus on the application's capability to generate reports based 
 on user data. Inputs for these tests include user financial data and parameters for report 
 generation. The outputs are the generated reports that summarize spending trends and 
 financial insights. A pass is achieved when the reports are accurately produced and reflect 
 the correct data as per user specifications.
 
+\subsection{Financial Tracking Tests}
 The Financial Tracking tests are designed to evaluate the application's capabilities in 
 tracking spending history and creating budgets for users. Inputs for these tests consist 
 of user-generated financial data, such as expenses and budget parameters. The outputs 
