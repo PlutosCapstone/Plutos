@@ -32,7 +32,7 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 03/10/2025 & 0.1 & Rev0\\
-\ldots & \ldots & \ldots\\
+04/04/2025 & 0.2 & Rev1\\
 \bottomrule
 \end{tabularx}
 
@@ -86,11 +86,15 @@ and Validation Plan} document.
 
 The functional system tests can be found in Section 4.1 of the
 \href{https://github.com/PlutosCapstone/Plutos/blob/main/docs/VnVPlan/VnVPlan.pdf}{Verification
-and Validation Plan} document. These tests are all performed manually.
+and Validation Plan} document. These tests are all performed manually. Table
+\ref{tab:functional-requirements-evaluation} summarizes the results of the
+functional tests, and details of each test are provided below.
+
+\newpage
 
 \begin{table}[h!]
 \centering
-\caption{Functional Requirements Evaluation}
+\caption{Functional Requirements Evaluation}\label{tab:functional-requirements-evaluation}
 \begin{tabularx}{\textwidth}{>{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X}
   \toprule
   \textbf{Test ID} & \textbf{Pass/Fail} & \textbf{Comments} \\
@@ -98,7 +102,7 @@ and Validation Plan} document. These tests are all performed manually.
   test-UAM-1 & Pass &  \\
   test-UAM-2 & Pass &  \\
   test-UAM-3 & Pass &  \\
-  test-UAM-4 & Fail & Not yet implemented \\
+  test-UAM-4 & Fail & Not yet implemented; see below. \\
   test-UAM-5 & Pass &  \\
   test-UAM-6 & Pass &  \\
   \midrule
@@ -117,11 +121,12 @@ and Validation Plan} document. These tests are all performed manually.
   \midrule
   test-FT-1 & Pass & \\
   test-FT-2 & Pass & \\
-  test-FT-3 & Fail & Not yet implemented \\
+  test-FT-3 & Fail & Not yet implemented; see below. \\
   \bottomrule
 \end{tabularx}
 \end{table}
 
+\subsection{User Account Management Tests}
 The User Account Management tests evaluate the core functionalities related to user 
 account creation, login, logout, updates, authorization access, and password reset. Inputs 
 for these tests typically consist of user-provided data such as names, emails, passwords, 
@@ -129,36 +134,156 @@ and session information. The expected outputs include confirmation messages and 
 the user dashboard, with a pass being defined by the successful execution of each function 
 without errors, ensuring a seamless user experience.
 
+\begin{enumerate}
+\item test-FR-UAM-\arabic{enumi}: Account creation\\\label{test-FR-UAM-1}
+  \textbf{Input:} name: John Doe, email: test@test.com, password: Password123!\\
+  \textbf{Output:} User is redirected to the login page. User entry is created
+  in the database.\\
+  \textbf{Pass/Fail:} Pass\\
+\item test-FR-UAM-\arabic{enumi}: Logging in\\
+  \textbf{Input:} email: test@test.com, password: Password123!\\
+  \textbf{Output:} User is redirected to the home page. The user that is logged
+  in corresponds to the user credentials.\\
+  \textbf{Pass/Fail:} Pass\\
+\item test-FR-UAM-\arabic{enumi}: Logging out\\
+  \textbf{Input:} N/A\\
+  \textbf{Output:} User is redirected to the login page. The application state
+  is no longer authenticated.\\
+  \textbf{Pass/Fail:} Pass\\
+\item test-FR-UAM-\arabic{enumi}: Update user information\\
+  \textbf{Input:} N/A\\
+  \textbf{Output:} N/A\\
+  \textbf{Pass/Fail:} This feature is not yet implemented. Explanation
+  \href{https://github.com/PlutosCapstone/Plutos/issues/266#issuecomment-2779557067}{here}.\\
+\item test-FR-UAM-\arabic{enumi}: Check authentication required\\
+  \textbf{Input:} N/A\\
+  \textbf{Output:} User cannot use any features without logging in. User remains
+  on login page.\\
+  \textbf{Pass/Fail:} Pass\\
+\item test-FR-UAM-\arabic{enumi}: Reset password\\
+  \textbf{Input:} email: test@test.com, newPassword: NewPassword123!\\
+  \textbf{Output:} User receives an email to reset their password. Upon clicking
+  on the link, user is prompted to enter a new password. After confirming the
+  new password, user can log in with their new password and not their old one.\\
+  \textbf{Pass/Fail:} Pass\\
+\end{enumerate}
+
+\subsection{Image Processing Tests}\label{sec:FR-IP}
 The Image Processing tests assess the application's ability to handle image uploads, 
 previews, and file size limitations. Inputs for these tests include various image files, 
 while the outputs are the successful display of uploaded images and adherence to file size 
 constraints. A pass is determined by the system's ability to process the images correctly 
 and provide appropriate feedback to the user.
 
+\begin{enumerate}
+  \item test-FR-IP-\arabic{enumi}: Upload image\\\label{test-FR-IP-1}
+    \textbf{Input:}
+    \href{https://github.com/PlutosCapstone/Plutos/blob/main/src/server/tests/imageProcessing/data/parsing/input/foodbasics_1.jpg}{Receipt
+    image}\\
+    \textbf{Output:} User sees a preview of the selected image on the screen.\\
+    \textbf{Pass/Fail:} Pass\\
+  \item test-FR-IP-\arabic{enumi}: Preview image\\
+    \textbf{Input:} N/A (image is already on preview screen) \\
+    \textbf{Output:} User can make adjustments to the image selection area and
+    choose to either cancel or confirm the selection.\\
+    \textbf{Pass/Fail:} Pass\\
+  \item test-FR-IP-\arabic{enumi}: File size limit\\
+    \textbf{Input:} A
+    \href{https://sample-videos.com/img/Sample-jpg-image-10mb.jpg}{10 MB image
+    file}\\
+    \textbf{Output:} User sees an error prompt, with a message saying that the
+    image file is too big. The user does not see a preview of the image.\\
+    \textbf{Pass/Fail:} Pass\\
+\end{enumerate}
+
+\subsection{Manual Receipt Input Tests}
 The Manual Expense Input test assesses the application’s ability to handle manual 
 input of expenses. The input for this test involves user-entered financial data, while the 
 output is the successful recording and display of the entered expenses. A pass is determined 
 by the system's ability to accurately capture and reflect the user's input without any 
 discrepancies.
 
+\begin{enumerate}\label{sec:FR-MIS}
+  \item test-FR-MIS-\arabic{enumi}: Manually input expenses\\
+    \textbf{Input:} \{store\_name: Food Basics, date: 04-04-2025, items: [\{name:
+    potatoes, cost: 2, category: groceries\}]\}\\
+    \textbf{Output:} User sees the inputs on the screen. After pressing done,
+    the expenses show up on the expenses page.\\
+    \textbf{Pass/Fail:} Pass\\
+\end{enumerate}
+
+\subsection{Database Management Tests}
 The Database Management tests evaluate the application's functionality in managing and processing
 user data. Inputs for these tests consist of various data entries related to user expenses 
 and financial records. The expected outputs are the correct storage and retrieval of this 
 data, with a pass being defined by the system's ability to manage data effectively and 
 provide accurate results when queried.
 
+\begin{enumerate}
+  \item test-FR-DM-\arabic{enumi}: User data stored\\
+    \textbf{Input:} See \hyperref[test-FR-UAM-1]{test-FR-UAM-1}\\
+    \textbf{Output:} The user data exists in the database. The password is
+    encrypted. The database can only be accessed with the correct admin
+    credentials.\\
+    \textbf{Pass/Fail:} Pass\\
+  \item test-FR-DM-\arabic{enumi}: Receipt data stored\\
+    \textbf{Input:} See \hyperref[test-FR-IP-1]{test-FR-IP-1}\\
+    \textbf{Output:} The receipt data exists in the database. The database can
+    only be accessed with the correct admin credentials.\\
+    \textbf{Pass/Fail:} Pass\\
+\end{enumerate}
+
+\subsection{Item Recognition and Categorization Tests}
 The Item Recognition and Categorization tests focus on the application's capability to generate reports based 
 on user data. Inputs for these tests include user financial data and parameters for report 
 generation. The outputs are the generated reports that summarize spending trends and 
 financial insights. A pass is achieved when the reports are accurately produced and reflect 
 the correct data as per user specifications.
 
+\begin{enumerate}
+  \item test-FR-RS-\arabic{enumi}: Receipt processed\\
+    \textbf{Input:} Receipt is uploaded. See \hyperref[test-FR-IP-1]{test-FR-IP-1} \\
+    \textbf{Output:} User sees the items from the receipt, the store name, and
+    the date populated on the screen.\\
+    \textbf{Pass/Fail:} Pass\\
+  \item test-FR-RS-\arabic{enumi}: Items categorized\\
+    \textbf{Input:} See \hyperref[test-FR-IP-1]{test-FR-IP-1}\\
+    \textbf{Output:} User sees a category label beside each item.\\
+    \textbf{Pass/Fail:} Pass\\
+  \item test-FR-RS-\arabic{enumi}: Modify receipt data\\
+    \textbf{Input:} The user modifies an existing item's category from `groceries' to `personal'.\\
+    \textbf{Output:} The item's category is changed accordingly and shows the
+    updated data on the screen.\\
+    \textbf{Pass/Fail:} Pass\\
+\end{enumerate}
+
+\subsection{Financial Tracking Tests}
 The Financial Tracking tests are designed to evaluate the application's capabilities in 
 tracking spending history and creating budgets for users. Inputs for these tests consist 
 of user-generated financial data, such as expenses and budget parameters. The outputs 
 include visual representations of spending trends and budget trackers. A pass for these 
 tests is achieved  when the application accurately reflects the user's financial data 
 ensuring effective financial management for users.
+
+\begin{enumerate}
+  \item test-FR-FT-\arabic{enumi}: View history\\
+    \textbf{Input:} N/A - User is on home screen and has previously inputted
+    expenses.\\
+    \textbf{Output:} User sees their previous spending history by category and
+    over time.\\
+    \textbf{Pass/Fail:} Pass\\
+  \item test-FR-FT-\arabic{enumi}: Budget management\\
+    \textbf{Input:} \{category: groceries, budget: 40\}\\
+    \textbf{Output:} User can see their newly inputted budget on the budget
+    screen, as well as previously inputted budgets.\\
+    \textbf{Pass/Fail:} Pass\\
+  \item test-FR-FT-\arabic{enumi}: Notifications\\
+    \textbf{Input:} N/A\\
+    \textbf{Output:} Not yet implemented. See explanation
+    \href{https://github.com/PlutosCapstone/Plutos/issues/266#issuecomment-2779557067}{here}.\\
+    \textbf{Pass/Fail:} Fail\\
+\end{enumerate}
+
 
 \section{Nonfunctional Requirements Evaluation}
 
@@ -192,7 +317,11 @@ described in the plan.}
       \item \textit{costco\_1.jpg}: 18.5/23 = 76.09\%
       \item Overall accuracy: 46/57 = 80.70\%
     \end{itemize}\\
-    test-ACC-3 & Pass &  \\
+    test-ACC-3 & Pass & User adds a new transaction (see
+    \hyperref[sec:FR-IP]{FR-IP tests} and \hyperref[sec:FR-MIS]{FR-MIS tests}),
+    and checks that all budget and expense numbers remain at
+    \href{https://github.com/PlutosCapstone/Plutos/blob/main/docs/SRS/SRS.pdf}{\textit{FINANCIAL\_PRECISION}}
+    decimal points. \\
     test-ACC-4 & Pass &  \\
     test-ACC-5 & Pass &  \\
     \midrule
@@ -200,10 +329,13 @@ described in the plan.}
     test-PERF-2 & Pass &  \\
     test-PERF-3 & Fail & Load testing has not yet been performed \\
     \midrule
-    test-USAB-1 & Pass & Testers successfully carried out tasks related to the app's functionality and account creation while adhering to the established guidelines. Manual errors were introduced to evaluate the system's ability to recover from errors. \\
-    test-USAB-2 & Pass &  \\
-    test-USAB-3 & Pass &  \\
-    test-USAB-4 & Pass &  \\
+    test-USAB-1 & Pass & Testers successfully carried out tasks related to the
+    app's functionality and account creation while adhering to the established
+    guidelines. Manual errors were introduced to evaluate the system's ability
+    to recover from errors. See \hyperref[sec:usability-report]{usability report}. \\
+    test-USAB-2 & Pass & See USAB-1 \\
+    test-USAB-3 & Pass & See USAB-1 \\
+    test-USAB-4 & Pass & See USAB-1 \\
     \midrule
     test-SEC-1 & Pass &  \\
     \midrule
@@ -289,7 +421,7 @@ The Understandability tests focus on the clarity and comprehensibility of the
 application's documentation and user interface. Inputs for these tests consist 
 of user feedback and documentation reviews. The expected outputs are assessments 
 of how easily users can understand and navigate the application. A pass is achieved 
-when users report a clear understanding of the application’s features and 
+when users report a clear understanding of the application's features and 
 functionalities based on the provided documentation and interface design.
 
 The Regulatory tests evaluate the application's compliance with relevant laws 
@@ -300,7 +432,28 @@ status and any identified legal risks. A pass is determined by the system's
 ability to demonstrate adherence to legal standards and the implementation 
 of necessary features to protect user data in accordance with applicable laws.
 
+\subsection{Usability Report (Internal)}\label{sec:usability-report}
 
+This usability report was conducted by testers and not a user group. 
+
+\begin{enumerate}
+\item NFR-USAB-1: Navigation within
+\href{https://github.com/PlutosCapstone/Plutos/blob/main/docs/SRS/SRS.pdf}{\textit{MAX\_COMMON\_TASK\_CLICKS}}
+  \begin{itemize}
+    \item Navigate to add transaction page from home page: 2 clicks
+    \item Navigate to add budget page from home page: 2 clicks
+    \item View spending history from home page: 0-2 clicks, depending on view desired
+    \item Time to navigate to each page: $<$ 1 second
+    \item Time to add a transaction: an average of 10 seconds (sample size of 5
+    varying length receipts)
+  \end{itemize}
+\item NFR-USAB-2: Onboarding within 
+\href{https://github.com/PlutosCapstone/Plutos/blob/main/docs/SRS/SRS.pdf}{\textit{MAX\_ACCOUNT\_ONBOARD\_TIME}}
+  \begin{itemize}
+    \item Time to onboard: an average of 2 minutes (sample size of 5 trials)
+  \end{itemize}
+
+\end{enumerate}
 \section{Comparison to Existing Implementation}	
 
 This section is not applicable.
