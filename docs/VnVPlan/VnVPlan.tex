@@ -867,7 +867,7 @@ This subsection covers tests required to verify tests revolving around user acco
 
 \textbf{Description:} The user should be able to create an account with specified name, email address and password
 
-\textbf{Control:} Functional
+\textbf{Control:} Functional, manual
 					
 \textbf{Initial State:} The app is on the account creation screen and there is no existing account with the test email
 					
@@ -883,7 +883,7 @@ This subsection covers tests required to verify tests revolving around user acco
 
 \textbf{Description:} The user should be able to login with valid credentials
 
-\textbf{Control:} Functional
+\textbf{Control:} Functional, manual
 					
 \textbf{Initial State:} The app is on the login page and a registered account
 exists with the corresponding testing credentials.
@@ -904,7 +904,7 @@ redirects them to the home page after successful login
 
 \textbf{Description:} The user should be able to logout of the app
 
-\textbf{Control:} Functional
+\textbf{Control:} Functional, manual
 					
 \textbf{Initial State:} The user is already logged into the app
 					
@@ -920,7 +920,7 @@ redirects them to the home page after successful login
 
 \textbf{Description:} Users should be able to update account information after initial setup
 
-\textbf{Control:} Functional
+\textbf{Control:} Functional, manual
 
 \textbf{Initial State:} User is logged in and on the account settings screen
 
@@ -937,7 +937,7 @@ redirects them to the home page after successful login
 \textbf{Description:} Users should not be able to access the application without
 logging in.
 
-\textbf{Control:} Functional
+\textbf{Control:} Functional, manual
 
 \textbf{Initial State:} The application is open and the user has not logged in.
 
@@ -956,7 +956,7 @@ in.
 
 \textbf{Description:} Users should be able to reset their password.
 
-\textbf{Control:} Functional
+\textbf{Control:} Functional, manual
 
 \textbf{Initial State:} The application is open and the user has not logged in.
 
@@ -983,7 +983,7 @@ This subsection covers tests required to verify tests revolving around receipt s
 
 \textbf{Description:} User should be able to upload an image for processing
 
-\textbf{Control:} Functional
+\textbf{Control:} Functional, manual
 
 \textbf{Initial State:} The application is on the receipt upload screen.
 
@@ -999,7 +999,7 @@ This subsection covers tests required to verify tests revolving around receipt s
 
 \textbf{Description:} Users should be able to preview an uploaded image before processing and confirm/reupload the image based on preference
 
-\textbf{Control:} Functional
+\textbf{Control:} Functional, manual
 
 \textbf{Initial State:} Image is uploaded and displayed as a preview.
 
@@ -1017,7 +1017,7 @@ This subsection covers tests required to verify tests revolving around receipt s
 uploaded
 (\href{https://github.com/PlutosCapstone/Plutos/blob/main/docs/SRS/SRS.pdf}{\textit{MAX\_RECEIPT\_FILE\_SIZE}}).
 
-\textbf{Control:} Functional
+\textbf{Control:} Functional, manual
 
 \textbf{Initial State:} The application is open and the user is on the image
 upload screen.
@@ -1046,7 +1046,7 @@ The manual input system is responsible for outlining fields that the user must f
 
 \textbf{Description:} Users should be able to manually input expenses
 
-\textbf{Control:} Functional
+\textbf{Control:} Functional, manual
 
 \textbf{Initial State:} Image captured or uploaded cannot be processed or the user wants to manually input items from their receipt from the expense tracker view
 
@@ -1070,7 +1070,7 @@ This subsection covers tests required to verify functionality for database manag
 
 \textbf{Description:} Account information should be protected and securely stored in the database
 
-\textbf{Control:} Automatic
+\textbf{Control:} Functional, manual
 
 \textbf{Initial State:} Application database is empty or has only encrypted data.
 
@@ -1086,7 +1086,7 @@ This subsection covers tests required to verify functionality for database manag
 
 \textbf{Description:} Receipt data must be securely stored in database
 
-\textbf{Control:} Automatic
+\textbf{Control:} Functional, manual
 
 \textbf{Initial State:} Application database has no receipt data for the test user.
 
@@ -1110,7 +1110,7 @@ This subsection covers tests required to verify functionality for item recogniti
 \textbf{Description:} Uploaded receipts should be processed and return a list of
 items with their corresponding name, category, and price.
 
-\textbf{Control:} Manual/Dynamic
+\textbf{Control:} Functional, manual
 
 \textbf{Initial State:} User confirms uploaded receipt is ready to be processed
 
@@ -1129,7 +1129,7 @@ recognized details against the original receipt
 
 \textbf{Description:} Uploaded receipts should categorize items on them under common expense categories (i.e. groceries, entertainment, etc..)
 
-\textbf{Control:} Manual/Dynamic
+\textbf{Control:} Functional, manual
 
 \textbf{Initial State:} Receipt has been scanned and items are recognized from the receipt
 
@@ -1146,7 +1146,7 @@ recognized details against the original receipt
 
 \textbf{Description:} Verify that users can modify receipt data.
 
-\textbf{Control:} Automatic/Dynamic
+\textbf{Control:} Functional, manual
 
 \textbf{Initial State:} Receipt has been scanned and items are recognized and
 categorized from the receipt
@@ -1176,7 +1176,7 @@ This subsection verifies the functionality of financial tracking features such h
 
 \textbf{Description:} Users should be able view their spending history by category and trends
 
-\textbf{Control:} Automatic/Dynamic
+\textbf{Control:} Functional, manual
 
 \textbf{Initial State:} Application has recorded user's past expenses and user is on the expense tracking view
 
@@ -1192,7 +1192,7 @@ This subsection verifies the functionality of financial tracking features such h
 
 \textbf{Description:} Users should be able to set and track their budgets
 
-\textbf{Control:} Automatic/Dynamic
+\textbf{Control:} Functional, manual
 
 \textbf{Initial State:} User is on the budgeting window and no current budget is set for the specified category
 
@@ -1209,7 +1209,7 @@ This subsection verifies the functionality of financial tracking features such h
 \textbf{Description:} Verify that users get notified when they are close to
 exceeding their budget or when a goal has been reached.
 
-\textbf{Control:} Manual
+\textbf{Control:} Functional, manual
 
 \textbf{Initial State:} User has set a budget for a specific category and is
 close to exceeding it. OR User is also close to reaching a budgeting goal.
