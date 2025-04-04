@@ -63,3 +63,5 @@ export const TIME_RANGES = [
   { label: "Last month", value: "last_month" },
   { label: "Last 3 months", value: "last_3_months" },
 ];
+
+export const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB

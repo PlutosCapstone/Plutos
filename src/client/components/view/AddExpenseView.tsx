@@ -22,6 +22,7 @@ import ExpensesService from "../../services/expensesService";
 import { NavigationProps } from "../../types";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useUser } from "../../contexts/UserContext";
+import { MAX_FILE_SIZE } from "../../constants";
 
 interface AddExpenseViewProps {
   navigation: NavigationProps;
@@ -209,6 +210,12 @@ const AddExpenseView = ({ navigation, params }: AddExpenseViewProps) => {
           type: fileType,
         });
 
+        if (file.size > MAX_FILE_SIZE) {
+          alert("File size exceeds the limit of 5MB.");
+          setLoading(false);
+          return;
+        }
+
         const formData = new FormData();
         formData.append("receipt", {
           uri: fileUri,
@@ -262,6 +269,13 @@ const AddExpenseView = ({ navigation, params }: AddExpenseViewProps) => {
         const file = new File([blob], fileName, {
           type: fileType,
         });
+
+        if (file.size > MAX_FILE_SIZE) {
+          alert("File size exceeds the limit of 5MB.");
+          setLoading(false);
+          return;
+        }
+
         const formData = new FormData();
         formData.append("receipt", {
           uri: fileUri,
