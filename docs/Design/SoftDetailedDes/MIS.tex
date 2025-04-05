@@ -226,30 +226,43 @@ The input image is in a supported format (e.g., JPEG, PNG). The OCR library or A
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \textbf{processImage}():
+\noindent \textbf{processImage}(image: binary):
 \begin{itemize}
-\item transition: Parses the image and converts it into structured text data.
+\item input: A valid image file in a supported format.
+\item precondition: N/A
+\item transition: Preprocesses the image (see
+\hyperref[imgProc_preprocess]{preprocess()}) and converts it into structured
+text data (see \hyperref[imgProc_extract]{extractText()}).
 \item output: Structured text data extracted from the image.
+\item postcondition: N/A
 \item exception: Throws a FileError if the image cannot be read or an unsupported format is provided.
 \end{itemize}
 
-\noindent \textbf{validateImage}():
+\noindent \textbf{validateImage}(image: binary):
 \begin{itemize}
+\item precondition: N/A
 \item transition: Validates the input image format and dimensions.
 \item output: Returns true if the image is valid; false otherwise.
 \item exception: Throws a FormatError if the image format is invalid.
+\item postcondition: N/A
 \end{itemize}
 
 \subsubsection{Local Functions}
 
-localImageProcessing():
+preprocess(image: binary):\label{imgProc_preprocess}
 \begin{itemize}
-\item This function applies pre-processing steps to the image, such as resizing, noise reduction, or thresholding, before OCR is applied.
+\item input: A valid image file in a supported format.
+\item transition: This function applies pre-processing steps to the image, such
+as resizing, noise reduction, or thresholding, before OCR is applied.
+\item output: An image object.
 \end{itemize}
 
-localTextExtraction():
+\noindent extractText(image: binary):\label{imgProc_extract}
 \begin{itemize}
-\item This function uses an OCR library to extract raw text from the pre-processed image.
+\item input: A valid image object.
+\item transition: This function uses an OCR library to extract raw text from the
+pre-processed image.
+\item output: A string containing the extracted text.
 \end{itemize}
 
 \subsection{Exception Handling}
@@ -280,6 +293,7 @@ Categorization Module
 
 \subsection{Uses}
 Image Processing Module (\nameref{OCR_Processing_Module})\\
+Expense Module (\nameref{expense_module})\\
 
 \subsection{Syntax}
 
@@ -296,7 +310,8 @@ N/A
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
 % \wss{accessProg} & - & - & - \\\
-categorize & item: Item & category: string & InvalidInputError \\
+categorize & item: \hyperref[expense_module]{Expense} & category: string &
+InvalidInputError \\
 \hline
 \end{tabular}
 \end{table}
@@ -316,19 +331,28 @@ classify items based on the input data.
 
 \subsubsection{Access Routine Semantics}
 
-\noindent categorize(item: Item):
+\noindent categorize(items: List[\hyperref[expense_module]{Expense}]):
 \begin{itemize}
-\item transition: N/A 
-\item output: string 
-\item exception: InvalidInputError -- thrown if the input is not an Item object
+\item precondition: The items in the list are valid
+\hyperref[expense_module]{Expense} objects, that do not have a category
+assigned.
+\item transition:
+\[
+\forall \text{item} \in \text{items}, \text{item.category} := \text{category}
+\]
+\item output: List[\hyperref[expense_module]{Expense}] -- a list of items with
+their categories set
+\item postcondition: The items in the list have their categories set.
+\item exception: InvalidInputError -- thrown if the input is not a list of
+\hyperref[expense_module]{Expense} objects
 \end{itemize}
 
 \subsubsection{Local Functions}
 \noindent \_\_train\_model(csv: File):
 \begin{itemize}
-  \item transition: N/A
   \item input: csv -- a CSV file containing labeled data (item\_name, category)
   from parsed receipt item names and manually verified categories.
+  \item transition: N/A
   \item output: three .pkl files (model, vectorizer, encoder) for item
   categorization. These files are opened and loaded during the initialization of
   the Categorization class and are used within categorize(). It is assumed that
@@ -336,7 +360,7 @@ classify items based on the input data.
   \item model: The model will build off of Cohere's categorization classify
   feature, using a dataset of receipt items and categories to fine-tune the
   model. The expected accuracy of the model is
-  \textit{CATEGORIZATION\_ACCURACY}\%.
+  \href{https://github.com/PlutosCapstone/Plutos/blob/main/docs/SRS/SRS.pdf}{\textit{CATEGORIZATION\_ACCURACY}}\%.
 \end{itemize}
 
 \subsection{Exception Handling}
@@ -402,8 +426,9 @@ N/A
 
 \subsubsection{Access Routine Semantics}
 
-\noindent calculate\_budget(history: List[Transaction], savings\_goals: List[Dict[string, float]]):
+\noindent calculate\_budget(history: List[Transaction], income: List[Income], budget: List[Budget]):
 \begin{itemize}
+\item precondition: The input is a list of transactions, a list of income, and a list of budgets.
 \item transition: N/A
 \item output: Dict[string, float] -- a list of remaining budgets for each
 category and unallocated\\
@@ -507,6 +532,7 @@ It is assumed that the Firebase configuration is valid and correctly set up. Net
 
 \noindent \textbf{loginWithEmailPassword}(email: string, password: string):
 \begin{itemize}
+  \item precondition: The user is not logged in.
 \item transition: if $\exists \text{ (email, password)} \text{ such that }
 \text{(email, password)} \in \text{db} \Rightarrow \text{auth} :=
 \text{FirebaseAuth}$
@@ -518,10 +544,12 @@ It is assumed that the Firebase configuration is valid and correctly set up. Net
         \item \textbf{InvalidCredential:} Email or password is incorrect.
         \item \textbf{GeneralError:} A generic error occurred during login.
     \end{itemize}
+\item postcondition: The user is logged in and the session is active.
 \end{itemize}
 
 \noindent \textbf{createUserWithEmailAndPassword}(email: string, password: string):
 \begin{itemize}
+\item precondition: The user does not exist.
 \item transition: $\text{auth} := \text{FirebaseAuth}$
 \item output: Returns a user object containing user details upon successful registration.
 \item exception: 
@@ -530,6 +558,7 @@ It is assumed that the Firebase configuration is valid and correctly set up. Net
         \item \textbf{WeakPassword:} The password provided is too weak.
         \item \textbf{GeneralError:} A generic error occurred during registration.
     \end{itemize}
+\item postcondition: The user now exists in the database.
 \end{itemize}
 
 \subsubsection{Local Functions}
