@@ -405,19 +405,56 @@ component.
 
 \section{Design Iteration (LO11 (PrototypeIterate))}
 
-\plt{Explain how you arrived at your final design and implementation.  How did
-the design evolve from the first version to the final version?} 
+From the get go, Plutos was designed around allowing students to scan receipts using OCR to automatically log their expenses. 
+Our early prototypes validated this concept, but through iterative testing and feedback, we realized that effective receipt 
+scanning was just one part of the budgeting experience. The surrounding user interface and workflow had to evolve to support 
+that feature in a way that felt intuitive, helpful, and student-friendly.
 
-\plt{Don't just say what you changed, say why you changed it.  The needs of the
-client should be part of the explanation.  For example, if you made changes in
-response to usability testing, explain what the testing found and what changes
-it led to.}
+Initially, the app's layout was minimal — receipts were scanned and stored in a chronological list, with categorized expenses displayed.
+However, we found that while the scanning feature worked well, users often felt disconnected from their overall budget. 
+They wanted to immediately understand how a new purchase impacted their spending limits. 
+In response, we redesigned the post-scan experience to include a quick budget summary and
+an intuitive workflow to allow them to see their spending trends, budget accordingly and also view all previous expenses regarding certain
+spending categories.
+
+Visually, we evolved from a generic, grey-toned interface to a more colorful, student-friendly aesthetic. 
+This wasn’t just for looks — feedback suggested that students responded better to a more engaging interface, especially one with positive reinforcement 
+(e.g. green progress bars, colourful graphs, etc.).
+
+A few notable changes we made were decreasing the OCR accuracy constraint, and leaving out push notifications in the initial version of the app.
+The OCR accuracy constraint was decreased to allow for a wider range of receipts to be scanned and after testing, we found that 
+the parsed receipt data was still accurate enough to be useful to users. We also decided to leave out push notifications in the initial version of the app
+because we already implemented in-app alerts once users input expenses that would exceed 80\% of their budget.
+This was a conscious decision to avoid overwhelming users with notifications, and we didn't want to add stress to users who are already managing their finances.
+We communicated this decision with users and through feedback, they expressed that even though they were slightly disappointed, they understood the reasoning behind our design decision
+and also expressed that not having push notifications wasn't a deal breaker for them.
+
+Throughout the design process, we gathered feedback from potential users and the team to iteratively improve
+the design of the app. With each iteration, decisions were made with our target users in mind to identify
+pain points early regrading budget visibility, personalization and overall design.
 
 \section{Design Decisions (LO12)}
 
-\plt{Reflect and justify your design decisions.  How did limitations,
- assumptions, and constraints influence your decisions?  Discuss each of these
- separately.}
+\textbf{Assumptions}\\
+
+Early in the design process, we assumed students would be highly motivated to categorize every expense and analyze their spending in detail. 
+However, user feedback showed that most students wanted to engage with the app quickly and only when necessary. 
+This challenged us to shift our focus away from detailed manual categorization and toward quick, automatic summaries and passive insights.\vspace{10pt}\\ 
+\textbf{Constraints}\\
+
+The OCR accuracy constraint was decreased to enhance the model’s generalization, which in turn reduces ambiguity during data classification. 
+A lower accuracy threshold encourages a more flexible model that avoids overfitting to the training data and can better adapt 
+to unseen, real-world inputs. This is especially important when dealing with noisy, inconsistent, or highly varied data 
+such as scanned receipts or user-generated content, where exact matches are less common. For the scope of this project, the team decided that by focussing on balancing accuracy and generalization, 
+the model can remain lightweight and responsive while still offering meaningful performance. Additionally, the ability for users to modify 
+misclassified entries will further help address any discrepancies and improve the overall accuracy 
+over time through user feedback and potential retraining mechanisms.\vspace{10pt}\\
+\textbf{Limitations}\\ 
+
+We decided to leave out push notifications in the initial version of the app since we alert users once they've inputted an expense that exceeds 80\% of their budget in-app. 
+This decision was made because we wanted to avoid overwhelming users with notifications, especially since they are already receiving in-app alerts. \vspace{10pt}\\
+Striving for an extremely high accuracy and implementing push notifications could lead to longer development times with disproportionate benefits, so we decided to prioritize
+a more streamlined and user-friendly experience over these features for the initial implementation.
 
 \section{Economic Considerations (LO23)}
 
