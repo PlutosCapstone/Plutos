@@ -2,8 +2,8 @@ name: Compile and push LaTeX files
 
 on:
   push:
-    # branches:
-    #     - main
+    branches:
+        - main
     paths:
       - 'docs/**/*.tex'
 
