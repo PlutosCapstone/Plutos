@@ -224,11 +224,11 @@
         \href{https://github.com/PlutosCapstone/Plutos/pull/313}{313} & Added
         module secrets to image processing and categorization modules  \\ \hline
         \href{https://github.com/PlutosCapstone/Plutos/issues/161}{161} & Peer
-        Review & Peer Review - Limited Error Handling Descriptions &  &
-        \href{https://github.com/PlutosCapstone/Plutos/pull/x}{x} &   \\ \hline
+        Review & Peer Review - Limited Error Handling Descriptions & $\times$ &
+        &   \\ \hline
         \href{https://github.com/PlutosCapstone/Plutos/issues/162}{162} & Peer
-        Review & Peer Review - Ambiguity in Access Routine Semantics  &  &
-        \href{https://github.com/PlutosCapstone/Plutos/pull/x}{x} &   \\ \hline
+        Review & Peer Review - Ambiguity in Access Routine Semantics  & $\times$
+        & &   \\ \hline
         \href{https://github.com/PlutosCapstone/Plutos/issues/163}{163} & Peer
         Review & Peer Review - Hyperlink in section 5 & $\checkmark$ &
         \href{https://github.com/PlutosCapstone/Plutos/pull/186}{186} & Fixed
@@ -331,10 +331,12 @@
         \href{https://github.com/PlutosCapstone/Plutos/pull/291}{291} &  Fixed
         \\ \hline
         \href{https://github.com/PlutosCapstone/Plutos/issues/266}{266} & Peer
-        Review & Missing Functionality & $\times$ & &  A couple of the FRs weren't implemented
-        yet during the initial draft of VnVReport - they have now been implemented. As for account update and
-        notifications, we felt that for the scope of the project, these functionalities would be able
-        to be implemented later. \\ 
+        Review & Missing Functionality & $\checkmark$ &
+        \href{https://github.com/PlutosCapstone/Plutos/pull/306}{306}&  A couple
+        of the FRs weren't implemented yet during the initial draft of VnVReport
+        - they have now been implemented. As for account update and
+        notifications, we felt that for the scope of the project, these
+        functionalities would be able to be implemented later. \\ 
         \hline
         \href{https://github.com/PlutosCapstone/Plutos/issues/267}{267} & Peer
         Review & Reduced accuracy & $\checkmark$ & 
@@ -342,11 +344,15 @@
         more reasoning as to why we decreased accuracy threshold. \\ 
         \hline
         \href{https://github.com/PlutosCapstone/Plutos/issues/268}{268} & Peer
-        Review & Reduced accuracy & $\times$ & &  Multiple NFRs are tested 
-        (NFR-ACC-1, NFR-ACC-3, NFR-MTB-1) \\ \hline
+        Review & Reduced accuracy & $\checkmark$
+        &\href{https://github.com/PlutosCapstone/Plutos/pull/316}{316} &
+        Multiple NFRs have already been tested (NFR-ACC-1, NFR-ACC-3, NFR-MTB-1)
+        before this issue. Added details to some more NFRs in new PR.\\ \hline
         \href{https://github.com/PlutosCapstone/Plutos/issues/269}{269} & Peer
         Review & Lack of Detailed Analysis for Performance Test Omissions &
-         & &  \\ \hline
+        $\checkmark$ &
+        \href{https://github.com/PlutosCapstone/Plutos/pull/318}{318} & Added
+        rationale to test case omission \\ \hline
         \href{https://github.com/PlutosCapstone/Plutos/issues/270}{270} & Peer
         Review & Unclear Implications of Security and Legal Compliance Testing &
         $\checkmark$ &
@@ -363,14 +369,33 @@
 
 \subsection{Challenge Level}
 
-\plt{State the challenge level (advanced, general, basic) for your project.  Your challenge level should exactly match what is included in your problem statement.  This should be the challenge level agreed on between you and the course instructor.}
+
+The expected challenge level is \textbf{general}. The primary challenge of the
+project is developing a machine learning model that can accurately parse items
+from a picture of a receipt, and to categorize them into appropriate spending
+categories. This requires a strong understanding of training and tuning models
+on image data to achieve high accuracy. Additionally, different items across
+various stores may have similar names or be difficult to recognize, which adds
+to the complexity of the task. The other part of the project is to develop a
+user-friendly mobile application, which is a more general software engineering
+component.
+
 
 \subsection{Extras}
 
-\plt{Summarize the extras (if any) that were tackled by this project.  Extras
-can include usability testing, code walkthroughs, user documentation, formal
-proof, GenderMag personas, Design Thinking, etc.  Extras should have already
-been approved by the course instructor as included in your problem statement.}
+\begin{enumerate}
+    \item \textbf{Requirements elicitation report}: We have conducted interviews
+    and a survey to gather requirements from potential users to determine user
+    needs and preferences, and document the findings in a report. See
+    \href{https://github.com/PlutosCapstone/Plutos/tree/main/docs/Extras/RequirementsElicitationReport.pdf}{Requirements
+    Elicitation Report}.
+    \item \textbf{User manual}: We have created a user manual to help users
+    understand how to use the application and its features. See
+    \href{https://github.com/PlutosCapstone/Plutos/blob/main/docs/Extras/UserManual.pdf}{User
+    Manual}.
+
+\end{enumerate}
+
 
 \section{Design Iteration (LO11 (PrototypeIterate))}
 
