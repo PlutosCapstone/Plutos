@@ -8,6 +8,7 @@
 
 The folders and files for this project are as follows:
 
+- [Demo][https://www.youtube.com/shorts/h9Q8hjCmhrg] - Live demo of the app!
 - [docs](https://github.com/PlutosCapstone/Plutos/tree/main/docs) - Documentation for the project
 - [refs](https://github.com/PlutosCapstone/Plutos/tree/main/refs) - Reference material used for the project, including papers
 - [src](https://github.com/PlutosCapstone/Plutos/tree/main/src) - Source code
